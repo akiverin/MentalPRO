@@ -1,7 +1,7 @@
 @use "@/styles/variables" as v;
 // @use "./src/styles/mixins" as m;
 
-.button {
+.link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -13,18 +13,21 @@
   transition: v.$transition;
 
   height: 52px;
+  padding: 0 1.125rem;
   font-size: v.$button-large;
 
   &--primary {
     background-color: v.$primary;
     color: v.$white;
 
-    &:hover:not(.button--disabled) {
+    &:hover:not(.link--disabled) {
       background-color: v.$primary-hover;
+      color: v.$white;
     }
 
-    &:active:not(.button--disabled) {
+    &:active:not(.link--disabled) {
       background-color: v.$primary-active;
+      color: v.$white;
     }
   }
 
@@ -32,12 +35,14 @@
     background-color: v.$secondary;
     color: v.$black;
 
-    &:hover:not(.button--disabled) {
+    &:hover:not(.link--disabled) {
       background-color: v.$secondary-hover;
+      color: v.$black;
     }
 
-    &:active:not(.button--disabled) {
+    &:active:not(.link--disabled) {
       background-color: v.$secondary-active;
+      color: v.$black;
     }
   }
 
@@ -45,12 +50,14 @@
     background-color: v.$light;
     color: v.$primary;
 
-    &:hover:not(.button--disabled) {
+    &:hover:not(.link--disabled) {
       background-color: v.$light-hover;
+      color: v.$primary;
     }
 
-    &:active:not(.button--disabled) {
+    &:active:not(.link--disabled) {
       background-color: v.$light-active;
+      color: v.$primary;
     }
   }
 
@@ -59,22 +66,7 @@
   }
 
   &--small {
-    padding: 6px 12px;
-    font-size: 0.875rem;
-  }
-
-  &--medium {
-    padding: 8px 16px;
-    font-size: 1rem;
-  }
-
-  &--large {
-    padding: 12px 24px;
-    font-size: 1.125rem;
-  }
-
-  &--full-width {
-    width: 100%;
+    height: 50px;
   }
 
   &--disabled {
