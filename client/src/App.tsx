@@ -1,13 +1,9 @@
 import "./App.css";
+import Button from "./components/ui/Button/Button";
 import "./styles/main.scss";
 
 function App() {
-  return (
-    <>
-      <h1>Привет GGG</h1>
-      <a href="#">123</a>
-    </>
-  );
+  return <></>;
 }
 
 export default App;

@@ -7,8 +7,8 @@ $light-hover: #eef0fb;
 $light-active: #f6f7ff;
 
 // Второстепенные цвета
-$active-secondary: #e1e1e1;
-$hover-secondary: #ededed;
+$secondary-active: #e1e1e1;
+$secondary-hover: #ededed;
 $secondary: #f3f3f3;
 $surface: #fafafa;
 $black: #000000;
@@ -55,3 +55,7 @@ $large-desktop: 1200px;
 
 // Тени
 $box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
+
+// Прочее
+$transition: all 0.2s ease-in-out;
+$border-radius: 8px;
