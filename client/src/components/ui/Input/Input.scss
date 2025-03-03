@@ -1,0 +1,35 @@
+@use "@/styles/variables" as v;
+// @use "./src/styles/mixins" as m;
+
+.input {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: v.$border-input-radius;
+  outline: none;
+  border: 1px solid transparent;
+  background-color: v.$secondary;
+  transition: v.$transition;
+
+  height: 4rem;
+  padding-left: 1.5rem;
+  font-size: v.$h6-size;
+  font-weight: v.$font-regular;
+
+  &:hover:not(.button--disabled) {
+    border-color: v.$primary;
+  }
+
+  &:active:not(.button--disabled) {
+    border-color: v.$primary-active;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--full-width {
+    width: calc(100% - 1.5rem - 4px);
+  }
+}
