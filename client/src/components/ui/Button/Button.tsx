@@ -4,10 +4,11 @@ import "./Button.scss";
 
 export type ButtonBackground = "primary" | "secondary" | "light";
 export type ButtonVariant = "default" | "rounded";
-// export type ButtonSize = "small" | "medium" | "large";
+export type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
+  size?: ButtonSize;
   background?: ButtonBackground;
   fullWidth?: boolean;
   className?: string;
@@ -20,12 +21,14 @@ const Button: FC<ButtonProps> = ({
   fullWidth = false,
   className = "",
   disabled = false,
+  size = "medium",
   ...rest
 }) => {
   const buttonClasses = classNames(
     "button",
     `button--${variant}`,
     `button--${background}`,
+    `button--${size}`,
     {
       "button--full-width": fullWidth,
       "button--disabled": disabled,

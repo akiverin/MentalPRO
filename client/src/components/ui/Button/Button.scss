@@ -11,8 +11,8 @@
   border: none;
   outline: none;
   transition: v.$transition;
-
-  height: 52px;
+  padding: 0 0.85rem;
+  height: 3.25rem;
   font-size: v.$button-large;
 
   &--primary {
@@ -65,12 +65,12 @@
 
   &--medium {
     padding: 8px 16px;
-    font-size: 1rem;
+    font-size: v.$button-medium;
   }
 
   &--large {
-    padding: 12px 24px;
-    font-size: 1.125rem;
+    height: 4rem;
+    font-size: v.$button-large;
   }
 
   &--full-width {
