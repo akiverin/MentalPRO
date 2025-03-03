@@ -1,4 +1,4 @@
-@use "@/styles/variables" as v;
+@use "@styles/variables" as v;
 // @use "./src/styles/mixins" as m;
 
 .link {
@@ -61,12 +61,32 @@
     }
   }
 
-  &--rounded {
-    border-radius: 10000px;
+  &--transparent {
+    background-color: transparent;
+    color: v.$dark;
+
+    &:hover:not(.link--disabled) {
+      opacity: 0.95;
+      color: v.$dark-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      opacity: 0.9;
+      color: v.$dark-active;
+    }
   }
 
   &--small {
     height: 50px;
+  }
+
+  &--rounded {
+    border-radius: 10000px;
+  }
+
+  &--icon {
+    height: auto;
+    padding: 0.875rem;
   }
 
   &--disabled {

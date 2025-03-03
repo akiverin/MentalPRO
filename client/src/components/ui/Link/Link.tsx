@@ -3,11 +3,12 @@ import { Link, LinkProps } from "react-router-dom";
 import classNames from "classnames";
 import "./Link.scss";
 
-export type LinkBackground = "primary" | "secondary" | "light";
+export type LinkBackground = "primary" | "secondary" | "light" | "transparent";
 export type LinkVariant = "default" | "rounded";
 
 interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: LinkVariant;
+  icon?: boolean;
   background?: LinkBackground;
   fullWidth?: boolean;
   small?: boolean;
@@ -24,6 +25,7 @@ const TheLink: FC<TheLinkProps> = ({
   className = "",
   small = false,
   disabled = false,
+  icon = false,
   to = "#",
   ...rest
 }) => {
@@ -39,6 +41,9 @@ const TheLink: FC<TheLinkProps> = ({
     },
     {
       "link--small": small,
+    },
+    {
+      "link--icon": icon,
     },
     className
   );

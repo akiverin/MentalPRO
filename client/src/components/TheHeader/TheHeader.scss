@@ -1,0 +1,26 @@
+@use "@/styles/variables" as v;
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: v.$header-height;
+}
+
+.header__start {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+}
+
+.header__end {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+}
