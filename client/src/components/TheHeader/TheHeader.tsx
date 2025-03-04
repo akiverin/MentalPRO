@@ -1,20 +1,30 @@
 import "./TheHeader.scss";
+import { useLocation } from "react-router-dom";
 import TheLink from "../ui/Link/Link";
 import Logo from "../ui/Logo/Logo";
 import iconLogin from "@assets/iconLogin.svg";
 
 function TheHeader() {
+  const location = useLocation();
+  const getLinkBackground = (path: string) =>
+    location.pathname === path ? "light" : "transparent";
+
   return (
     <header className="header">
       <div className="header__wrapper">
         <div className="header__start">
-          <TheLink className="header__link" background="transparent" href="/">
+          <TheLink className="header__link" background="transparent" to="/">
             <Logo withIcon className="header__logo" />
           </TheLink>
           <nav className="header__navigation">
             <ul className="header__nav-list">
               <li className="header__nav-item">
-                <TheLink small variant="rounded" background="light" to="/">
+                <TheLink
+                  small
+                  variant="rounded"
+                  background={getLinkBackground("/")}
+                  to="/"
+                >
                   Главная
                 </TheLink>
               </li>
@@ -22,7 +32,7 @@ function TheHeader() {
                 <TheLink
                   small
                   variant="rounded"
-                  background="transparent"
+                  background={getLinkBackground("/surveys")}
                   to="/surveys"
                 >
                   Опросы
@@ -32,7 +42,7 @@ function TheHeader() {
                 <TheLink
                   small
                   variant="rounded"
-                  background="transparent"
+                  background={getLinkBackground("/cases")}
                   to="/cases"
                 >
                   Практики
