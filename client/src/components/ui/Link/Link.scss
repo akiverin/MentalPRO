@@ -1,0 +1,145 @@
+@use "@styles/variables" as v;
+// @use "./src/styles/mixins" as m;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: v.$transition;
+
+  &--primary {
+    font-size: v.$button-large;
+    font-weight: v.$font-medium;
+    border-radius: v.$border-radius;
+    background-color: v.$primary;
+    color: v.$white;
+    height: 3.25rem;
+    padding: 0 1.125rem;
+
+    &:hover:not(.link--disabled) {
+      background-color: v.$primary-hover;
+      color: v.$white;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: v.$primary-active;
+      color: v.$white;
+    }
+  }
+
+  &--secondary {
+    background-color: v.$secondary;
+    color: v.$black;
+
+    &:hover:not(.link--disabled) {
+      background-color: v.$secondary-hover;
+      color: v.$black;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: v.$secondary-active;
+      color: v.$black;
+    }
+  }
+
+  &--light {
+    background-color: v.$light;
+    color: v.$primary;
+
+    &:hover:not(.link--disabled) {
+      background-color: v.$light-hover;
+      color: v.$primary;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: v.$light-active;
+      color: v.$primary;
+    }
+  }
+
+  &--transparent {
+    background-color: transparent;
+    color: v.$dark;
+
+    &:hover:not(.link--disabled) {
+      opacity: 0.95;
+      color: v.$dark-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      opacity: 0.9;
+      color: v.$dark-active;
+    }
+  }
+
+  &--text {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    font-size: inherit;
+    text-decoration: underline;
+    font-weight: inherit;
+    color: v.$primary;
+
+    &:hover:not(.link--disabled) {
+      background-color: transparent;
+
+      opacity: 0.95;
+      color: v.$primary-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: transparent;
+
+      opacity: 0.9;
+      color: v.$primary-active;
+    }
+  }
+
+  &--navigation {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    font-size: v.$h6-size;
+    text-decoration: underline;
+    font-weight: inherit;
+    color: v.$dark;
+    text-decoration: none;
+
+    &:hover:not(.link--disabled) {
+      background-color: transparent;
+      color: v.$dark-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: transparent;
+      color: v.$dark-active;
+    }
+  }
+
+  &--rounded {
+    border-radius: 10000px;
+    height: 3.25rem;
+    padding: 0 1.125rem;
+    font-size: v.$button-large;
+    font-weight: v.$font-regular;
+  }
+
+  &--small {
+    height: 3.125rem;
+  }
+
+  &--icon {
+    height: auto;
+    padding: 0.875rem;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

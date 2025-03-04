@@ -1,0 +1,84 @@
+@use "@/styles/variables" as v;
+
+.footer__wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 40px;
+}
+
+.footer__base {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.footer__contact {
+  max-width: 520px;
+}
+
+.footer__title {
+  margin: 0 0 40px;
+}
+
+.footer__desc {
+  margin: 0 0 40px;
+  line-height: 1.5;
+}
+
+.footer__comment {
+  margin: 10px 0 0;
+  font-size: v.$body-small;
+}
+
+.footer__form {
+  display: flex;
+  gap: 20px;
+}
+
+.footer__map {
+  display: flex;
+  gap: clamp(50px, 10vw, 190px);
+}
+
+.footer__nav-title {
+  margin: 0 0 40px;
+}
+
+.footer__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.footer__link {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.footer__extra {
+  margin-top: 56px;
+  padding: 45px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 0.6px solid v.$dark;
+}
+
+.footer__social {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  align-items: center;
+}
+
+.footer__docs {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 6px;
+  flex: 1;
+  text-align: right;
+}
