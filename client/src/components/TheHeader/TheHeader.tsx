@@ -42,7 +42,7 @@ function TheHeader() {
           </nav>
         </div>
         <div className="header__end">
-          <TheLink variant="rounded" to="/organizations">
+          <TheLink variant="rounded" background="primary" to="/organizations">
             Организации
           </TheLink>
           <TheLink icon variant="rounded" background="light" to="/login">

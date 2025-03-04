@@ -3,8 +3,13 @@ import { Link, LinkProps } from "react-router-dom";
 import classNames from "classnames";
 import "./Link.scss";
 
-export type LinkBackground = "primary" | "secondary" | "light" | "transparent";
-export type LinkVariant = "default" | "rounded";
+export type LinkBackground =
+  | "bg-none"
+  | "primary"
+  | "secondary"
+  | "light"
+  | "transparent";
+export type LinkVariant = "default" | "rounded" | "text" | "navigation";
 
 interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: LinkVariant;
@@ -20,7 +25,7 @@ interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 const TheLink: FC<TheLinkProps> = ({
   children,
   variant = "default",
-  background = "primary",
+  background = "bg-none",
   fullWidth = false,
   className = "",
   small = false,
@@ -53,6 +58,14 @@ const TheLink: FC<TheLinkProps> = ({
       <Link className={linkClasses} to={to} {...rest}>
         {children}
       </Link>
+    );
+  }
+
+  if (disabled) {
+    return (
+      <span className={linkClasses} aria-disabled="true">
+        {children}
+      </span>
     );
   }
 

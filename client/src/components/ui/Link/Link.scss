@@ -5,20 +5,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: v.$font-medium;
-  border-radius: v.$border-radius;
   cursor: pointer;
   border: none;
   outline: none;
   transition: v.$transition;
 
-  height: 3.25rem;
-  padding: 0 1.125rem;
-  font-size: v.$button-large;
-
   &--primary {
+    font-size: v.$button-large;
+    font-weight: v.$font-medium;
+    border-radius: v.$border-radius;
     background-color: v.$primary;
     color: v.$white;
+    height: 3.25rem;
+    padding: 0 1.125rem;
 
     &:hover:not(.link--disabled) {
       background-color: v.$primary-hover;
@@ -76,12 +75,63 @@
     }
   }
 
-  &--small {
-    height: 3.125rem;
+  &--text {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    font-size: inherit;
+    text-decoration: underline;
+    font-weight: inherit;
+    color: v.$primary;
+
+    &:hover:not(.link--disabled) {
+      background-color: transparent;
+
+      opacity: 0.95;
+      color: v.$primary-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: transparent;
+
+      opacity: 0.9;
+      color: v.$primary-active;
+    }
+  }
+
+  &--navigation {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    font-size: v.$h6-size;
+    text-decoration: underline;
+    font-weight: inherit;
+    color: v.$dark;
+    text-decoration: none;
+
+    &:hover:not(.link--disabled) {
+      background-color: transparent;
+      color: v.$dark-hover;
+    }
+
+    &:active:not(.link--disabled) {
+      background-color: transparent;
+      color: v.$dark-active;
+    }
   }
 
   &--rounded {
     border-radius: 10000px;
+    height: 3.25rem;
+    padding: 0 1.125rem;
+    font-size: v.$button-large;
+    font-weight: v.$font-regular;
+  }
+
+  &--small {
+    height: 3.125rem;
   }
 
   &--icon {
