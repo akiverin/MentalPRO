@@ -14,7 +14,7 @@ function TheHeader() {
           <nav className="header__navigation">
             <ul className="header__nav-list">
               <li className="header__nav-item">
-                <TheLink small variant="rounded" background="light" to="/home">
+                <TheLink small variant="rounded" background="light" to="/">
                   Главная
                 </TheLink>
               </li>
