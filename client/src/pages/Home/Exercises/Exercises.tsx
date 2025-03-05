@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { enableDragScroll } from "@utils/dragScroll";
+import { enableDragScroll } from "../../../utils/dragScroll";
 import ExerciseCard from "./ExerciseCard/ExerciseCard";
-import exerciseCard01 from "@assets/images/exerciseCard01.png";
-import exerciseCard02 from "@assets/images/exerciseCard02.png";
-import exerciseCard03 from "@assets/images/exerciseCard03.png";
-import exerciseCard04 from "@assets/images/exerciseCard04.png";
+import exerciseCard01 from "@assets/images/exerciseCard01.webp";
+import exerciseCard02 from "@assets/images/exerciseCard02.webp";
+import exerciseCard03 from "@assets/images/exerciseCard03.webp";
+import exerciseCard04 from "@assets/images/exerciseCard04.webp";
 
 import "./Exercises.scss";
 

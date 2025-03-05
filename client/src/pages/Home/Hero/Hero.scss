@@ -11,12 +11,12 @@
   border-radius: 40px 40px 0 0;
   background: radial-gradient(
     118.4% 471.54% at 0% 100%,
-    #eaf2ff 0%,
-    #c9dcf6 22%,
-    #cbd5f8 34%,
-    #b7dbff 56%,
-    #b6c1ed 72%,
-    #95b7f3 100%
+    #e8f2ff 0%,
+    #c5dcf9 21%,
+    #c9d5fb 34%,
+    #addcff 57%,
+    #b3c1f1 72%,
+    #8cb8f8 100%
   );
 }
 
@@ -53,6 +53,10 @@
   position: absolute;
   bottom: 0;
   right: 0;
+
   z-index: 1;
-  max-width: 60vw;
+  width: 100%;
+  max-width: 55vw;
+  object-fit: cover;
+  max-height: 100%;
 }

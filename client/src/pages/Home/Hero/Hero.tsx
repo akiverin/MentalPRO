@@ -1,5 +1,5 @@
 import TheLink from "../../../components/ui/Link/Link";
-import heroImage from "@assets/images/heroImage.png";
+import heroImage from "@assets/images/heroImage.webp";
 import "./Hero.scss";
 
 const Hero = () => {
