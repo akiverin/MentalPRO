@@ -1,7 +1,9 @@
+import Hero from "./Hero/Hero";
+import "./Home.scss";
 const Home = () => {
   return (
     <>
-      <section>Home</section>
+      <Hero />
     </>
   );
 };
