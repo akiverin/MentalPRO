@@ -1,0 +1,72 @@
+@use "@styles/variables" as v;
+
+.accordion {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: v.$surface;
+  margin-bottom: 16px;
+
+  &:hover {
+  }
+
+  &.open {
+    background-color: v.$light-hover;
+  }
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    font-size: v.$h5-size;
+    line-height: 1.5;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    transition: background 0.2s ease-in-out;
+
+    &:hover {
+      background: v.$light-hover;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    background-color: v.$primary;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 100px;
+    color: v.$white;
+    &:hover {
+      background-color: v.$primary-hover;
+    }
+    &:active {
+      background-color: v.$primary-active;
+    }
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__container {
+    overflow: hidden;
+    transition: height 0.4s ease-in-out;
+    padding: 0 24px;
+    background-color: v.$light;
+  }
+
+  &__content {
+    padding: 0 16px 18px;
+    font-size: v.$h6-size;
+    line-height: 1.5;
+    color: v.$dark;
+  }
+}

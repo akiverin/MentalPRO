@@ -39,7 +39,7 @@ function TheFooter() {
           </Form>
           <div className="footer__map">
             <div className="footer__navigation">
-              <h5 className="footer__nav-title">Навигация</h5>
+              <h4 className="footer__nav-title">Навигация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
                   <TheLink variant="navigation" to="/">
@@ -69,7 +69,7 @@ function TheFooter() {
               </ul>
             </div>
             <div className="footer__navigation">
-              <h5 className="footer__nav-title">Аутентификация</h5>
+              <h4 className="footer__nav-title">Аутентификация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
                   <TheLink variant="navigation" to="/registration">

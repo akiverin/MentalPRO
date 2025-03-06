@@ -1,8 +1,8 @@
 // Основные цвета
 $primary-active: #0745a0;
 $primary-hover: #074db5;
-$primary: #0756ca;
-$light: #e7e9f7;
+$primary: #0460d9;
+$light: #f6f7ff;
 $light-hover: #eef0fb;
 $light-active: #f6f7ff;
 
@@ -24,6 +24,31 @@ $info: #ba5cc8;
 $dark: rgba(0, 0, 0, 0.6);
 $dark-hover: rgba(0, 0, 0, 0.5);
 $dark-active: rgba(0, 0, 0, 0.7);
+
+@supports (color: color(display-p3 0.9237 0.3588 0.164)) {
+  :root {
+    --primary: color(display-p3 0.0756 0.3452 0.7926);
+    --primary-hover: color(display-p3 0.0745 0.3647 0.8235);
+    --primary-active: color(display-p3 0.0741 0.3019 0.6901);
+
+    --light: color(display-p3 0.9058 0.9176 0.9686);
+    --light-hover: color(display-p3 0.9294 0.9411 0.9803);
+    --light-active: color(display-p3 0.9647 0.9686 1);
+
+    --secondary: color(display-p3 0.9529 0.9529 0.9529);
+    --secondary-hover: color(display-p3 0.9294 0.9294 0.9294);
+    --secondary-active: color(display-p3 0.8862 0.8862 0.8862);
+
+    --dark: color(display-p3 0.1723 0.1723 0.1823);
+    --dark-hover: color(display-p3 0.1 0.1 0.1);
+    --dark-active: color(display-p3 0.2 0.2 0.2);
+
+    --success: color(display-p3 0.3686 0.7843 0.4156);
+    --danger: color(display-p3 0.8509 0.3294 0.3294);
+    --warning: color(display-p3 0.8941 0.7647 0.3529);
+    --info: color(display-p3 0.7294 0.3686 0.7843);
+  }
+}
 
 // Типографика
 $font-family: "Inter", sans-serif;
@@ -65,3 +90,4 @@ $box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
 $transition: all 0.2s ease-in-out;
 $border-radius: 8px;
 $border-input-radius: 12px;
+$wrapper: 1920px;

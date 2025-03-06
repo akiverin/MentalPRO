@@ -1,0 +1,68 @@
+@use "@styles/variables" as v;
+
+.hero {
+  position: relative;
+  border-radius: 40px 40px 0 0;
+  background: radial-gradient(
+    118.4% 471.54% at 0% 100%,
+    #e8f2ff 0%,
+    #c5dcf9 21%,
+    #c9d5fb 34%,
+    #addcff 57%,
+    #b3c1f1 72%,
+    #8cb8f8 100%
+  );
+}
+
+.hero__wrapper {
+  max-width: v.$wrapper;
+  min-height: calc(100vh - v.$header-height);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.hero__decorate-title {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 10%;
+  color: v.$white;
+  font-size: 17.7vw;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.hero__info {
+  display: flex;
+  flex-direction: column;
+
+  align-items: start;
+  max-width: 972px;
+  margin-left: 80px;
+  margin-bottom: 100px;
+}
+
+.hero__desc {
+  font-size: 320%;
+  color: v.$primary;
+  z-index: 2;
+}
+
+.hero__image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  z-index: 1;
+  width: 100%;
+  max-width: 55vw;
+  object-fit: cover;
+  max-height: 100%;
+}

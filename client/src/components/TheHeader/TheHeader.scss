@@ -6,6 +6,8 @@
   justify-content: space-between;
   padding: 0 40px;
   height: v.$header-height;
+  max-width: v.$wrapper;
+  margin: 0 auto;
 }
 
 .header__start {

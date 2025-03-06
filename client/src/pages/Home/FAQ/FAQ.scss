@@ -1,0 +1,35 @@
+@use "@styles/variables" as v;
+
+.faq__wrapper {
+  display: flex;
+  gap: min(10vw, 60px);
+  margin: 100px auto 40px;
+  padding: 0 40px;
+  line-height: 1.5;
+  max-width: v.$wrapper;
+}
+
+.faq__info {
+  max-width: 40%;
+}
+
+.faq__title {
+  margin: 0 0 60px;
+}
+
+.faq__category {
+  font-size: v.$h4-size;
+  color: v.$dark;
+  margin: 0 0 20px;
+}
+
+.faq__desc {
+  font-size: v.$h5-size;
+}
+
+.faq__list {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

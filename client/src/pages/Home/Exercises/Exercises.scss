@@ -1,0 +1,32 @@
+@use "@styles/variables" as v;
+
+.exercises {
+  position: relative;
+  border-radius: 40px 40px 0 0;
+  margin-top: -40px;
+  background-color: v.$white;
+  z-index: 1;
+  padding: 40px;
+  margin: 0 auto;
+  max-width: v.$wrapper;
+}
+
+.exercises__wrapper {
+  overflow: hidden;
+}
+
+.exercises__category {
+  font-size: v.$h4-size;
+  color: v.$dark;
+}
+
+.exercises__title {
+  margin: 10px 0 40px;
+}
+
+.exercises__list {
+  overflow-x: auto;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+}

@@ -1,0 +1,53 @@
+@use "@styles/variables" as v;
+
+.exercise-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 20px;
+  height: 490px;
+  width: 410px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.exercise-card__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.exercise-card__title {
+  color: v.$white;
+  margin: 0;
+  max-height: 130px;
+  letter-spacing: -0.02em;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; //Многоточие в конце 3 строки
+}
+
+.exercise-card__link {
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: all;
+
+  & .exercise-card__icon rect {
+    transition: all 0.12s ease-in-out;
+  }
+  &:hover .exercise-card__icon rect {
+    fill: v.$light-hover;
+  }
+
+  *:active .exercise-card__icon rect {
+    fill: v.$light-active;
+  }
+}
