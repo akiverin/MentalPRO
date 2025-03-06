@@ -7,10 +7,21 @@
   background-color: v.$white;
   z-index: 1;
   padding: 40px;
+  margin: 0 auto;
+  max-width: v.$wrapper;
 }
 
 .exercises__wrapper {
   overflow: hidden;
+}
+
+.exercises__category {
+  font-size: v.$h4-size;
+  color: v.$dark;
+}
+
+.exercises__title {
+  margin: 10px 0 40px;
 }
 
 .exercises__list {

@@ -1,13 +1,7 @@
 @use "@styles/variables" as v;
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
   position: relative;
-  max-width: 1920px;
-  margin: 0 auto;
-  min-height: calc(100vh - v.$header-height);
   border-radius: 40px 40px 0 0;
   background: radial-gradient(
     118.4% 471.54% at 0% 100%,
@@ -20,6 +14,17 @@
   );
 }
 
+.hero__wrapper {
+  max-width: v.$wrapper;
+  min-height: calc(100vh - v.$header-height);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  margin: 0 auto;
+}
+
 .hero__decorate-title {
   -ms-user-select: none;
   -moz-user-select: none;
@@ -29,6 +34,7 @@
   top: 10%;
   color: v.$white;
   font-size: 17.7vw;
+  left: 0;
   width: 100%;
   text-align: center;
 }

@@ -43,6 +43,10 @@ const Exercises = () => {
   return (
     <section className="exercises">
       <div className="exercises__wrapper">
+        <p className="exercises__category">
+          практики <sup>[01]</sup>
+        </p>
+        <h2 className="exercises__title">Самый популярные практики</h2>
         <ul ref={containerRef} className="exercises__list">
           {exercises.map((exercise, index) => (
             <li className="exercises__item" key={index}>
