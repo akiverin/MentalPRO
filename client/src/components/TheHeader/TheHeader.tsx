@@ -14,6 +14,7 @@ function TheHeader() {
       <div className="header__wrapper">
         <div className="header__start">
           <TheLink className="header__link" background="transparent" to="/">
+            <p className="visually-hidden">Логотип MentalPRO</p>
             <Logo withIcon className="header__logo" />
           </TheLink>
           <nav className="header__navigation">

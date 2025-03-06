@@ -99,3 +99,11 @@
   height: 16px;
   width: 20px;
 }
+
+.instruments__nav-button {
+  border: 0.1rem solid transparent;
+
+  &--active {
+    border-color: v.$primary;
+  }
+}

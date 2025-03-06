@@ -11,8 +11,13 @@ interface ExerciseCardProps {
 const ExerciseCard: FC<ExerciseCardProps> = ({ image, name, link }) => {
   return (
     <div className="exercise-card">
-      <img src={image} alt={name} className="exercise-card__image" />
+      <img
+        src={image}
+        alt="Card image for exercise"
+        className="exercise-card__image"
+      />
       <TheLink className="exercise-card__link" to={link}>
+        <p className="visually-hidden">Открыть практику {name}</p>
         <svg
           className="exercise-card__icon"
           width="58"
