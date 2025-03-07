@@ -2,6 +2,7 @@
 // @use "./src/styles/mixins" as m;
 
 .input {
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -10,6 +11,7 @@
   border: 1px solid transparent;
   background-color: v.$secondary;
   transition: v.$transition;
+  height: 64px;
 
   max-height: 4rem;
   padding: 1.25rem 1.5rem;
@@ -30,6 +32,6 @@
   }
 
   &--full-width {
-    width: calc(100% - 1.5rem - 4px);
+    width: 100%;
   }
 }

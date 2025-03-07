@@ -9,7 +9,12 @@ export type LinkBackground =
   | "secondary"
   | "light"
   | "transparent";
-export type LinkVariant = "default" | "rounded" | "text" | "navigation";
+export type LinkVariant =
+  | "default"
+  | "button"
+  | "rounded"
+  | "text"
+  | "navigation";
 
 interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: LinkVariant;

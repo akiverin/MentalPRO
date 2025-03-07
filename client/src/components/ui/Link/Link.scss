@@ -9,14 +9,17 @@
   border: none;
   transition: v.$transition;
 
-  &--primary {
+  &--button {
     font-size: v.$button-large;
     font-weight: v.$font-medium;
     border-radius: v.$border-radius;
-    background-color: v.$primary;
-    color: v.$white;
     height: 3.25rem;
     padding: 0 1.125rem;
+  }
+
+  &--primary {
+    background-color: v.$primary;
+    color: v.$white;
 
     &:hover:not(.link--disabled) {
       background-color: v.$primary-hover;
@@ -119,6 +122,10 @@
       background-color: transparent;
       color: v.$dark-active;
     }
+  }
+
+  &--full-width {
+    width: 100%;
   }
 
   &--rounded {

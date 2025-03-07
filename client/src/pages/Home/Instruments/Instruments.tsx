@@ -96,13 +96,6 @@ const instruments = [
   },
 ];
 
-// const preloadImages = () => {
-//   instruments.forEach((instrument) => {
-//     const img = new Image();
-//     img.src = instrument.image;
-//   });
-// };
-
 const Instruments = () => {
   const [selectedInstrument, setSelectedInstrument] = useState(0);
 
