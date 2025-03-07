@@ -19,11 +19,12 @@
   font-weight: v.$font-regular;
 
   &:hover:not(.button--disabled) {
-    border-color: v.$primary;
+    background-color: v.$secondary-hover;
   }
 
-  &:active:not(.button--disabled) {
-    border-color: v.$primary-active;
+  &:active:not(.button--disabled),
+  &:focus:not(.button--disabled) {
+    border-color: v.$primary;
   }
 
   &--disabled {
