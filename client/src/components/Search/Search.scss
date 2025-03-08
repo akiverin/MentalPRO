@@ -3,8 +3,11 @@
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  max-width: 400px;
   position: relative;
+
+  & input {
+    max-width: 480px;
+  }
 
   &__clear {
     aspect-ratio: 1 / 1;

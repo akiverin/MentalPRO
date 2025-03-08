@@ -1,0 +1,62 @@
+@use "@styles/variables" as v;
+
+.survey {
+  max-width: v.$wrapper;
+  margin: 0 auto;
+  border-radius: 40px;
+  min-height: calc(100vh - v.$header-height);
+
+  background: linear-gradient(
+    249deg,
+    #e6d0ff 0%,
+    #ffc2bc 26.5%,
+    #dcd5ff 64.5%,
+    #e5f2ff 100%
+  );
+
+  &__wrapper {
+    height: 100%;
+    padding: 60px;
+    display: flex;
+    gap: 200px;
+  }
+
+  &__info {
+    height: 100%;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0 0 40px;
+  }
+
+  &__full-desc {
+    margin-left: 30px;
+    margin-top: 60px;
+    font-size: v.$h6-size;
+  }
+
+  &__details {
+    background-color: v.$white;
+    padding: 30px;
+    border-radius: 16px;
+    margin-top: 20px;
+    font-size: v.$h6-size;
+  }
+
+  &__time {
+    margin: 0;
+  }
+
+  &__result {
+    margin: 24px 0 0;
+  }
+
+  &__image {
+    flex: 1;
+  }
+}

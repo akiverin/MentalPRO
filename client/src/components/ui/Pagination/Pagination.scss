@@ -14,23 +14,50 @@
     &--next {
       margin-left: auto;
     }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__pages {
+    display: flex;
+    gap: 4px;
+    list-style: none;
   }
 
   &__info {
     font-size: v.$h6-size;
   }
+
+  &__page-button {
+    width: 52px;
+    height: 52px;
+
+    &--active {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
 }
 
 .select {
-  padding: 0.8rem 1.2rem;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 1rem;
   border: none;
   background-color: v.$secondary;
   font-size: v.$h6-size;
-  border-radius: 8px;
+  border-radius: 1000px;
   cursor: pointer;
   display: flex;
-  outline: 2px;
+  outline-width: 0.4px;
   margin: 10px auto 0;
+
   &:hover {
     background-color: v.$secondary-hover;
   }

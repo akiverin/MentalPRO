@@ -43,7 +43,7 @@ const CardSurvey: FC<CardSurveyProps> = ({
           <TheLink
             variant="rounded"
             background="primary"
-            to={link}
+            to={"/surveys/" + link + "/"}
             className="survey-card__button"
           >
             Пройти опросник
