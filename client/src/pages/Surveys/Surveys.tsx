@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
-
+import { searchFilter } from "@utils/search";
 import CardSurvey from "@/components/CardSurvey/CardSurvey";
 import "./Surveys.scss";
 import Pagination from "@/components/ui/Pagination/Pagination";
+import Search from "@/components/Search/Search";
 
 const surveysData = [
   {
@@ -57,17 +58,23 @@ const surveysData = [
 
 const Surveys = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  const [pageSize, setPageSize] = useState(4);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredSurveys = useMemo(
+    () => searchFilter(surveysData, searchQuery, ["name", "description"]),
+    [searchQuery]
+  );
 
   const totalPages = useMemo(
-    () => Math.ceil(surveysData.length / pageSize),
-    [pageSize]
+    () => Math.ceil(filteredSurveys.length / pageSize),
+    [filteredSurveys, pageSize]
   );
 
   const paginatedSurveys = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
-    return surveysData.slice(start, start + pageSize);
-  }, [currentPage, pageSize]);
+    return filteredSurveys.slice(start, start + pageSize);
+  }, [currentPage, pageSize, filteredSurveys]);
 
   return (
     <>
@@ -79,11 +86,17 @@ const Surveys = () => {
               Узнай свой уровень тревожности на данный момент.
             </p>
           </div>
-          <p className="surveys-info__desc">
-            Пройдите тесты на тревожность (<b>шкалы тревоги</b>) — это анкеты и
-            опросники, которые помогают понять, какой у человека уровень тревоги
-            и нужно ли обращаться за консультацией специалиста.
-          </p>
+          <div className="surveys-info__search">
+            <p className="surveys-info__desc">
+              Пройдите тесты на тревожность (<b>шкалы тревоги</b>) — это анкеты
+              и опросники, которые помогают понять, какой у человека уровень
+              тревоги и нужно ли обращаться за консультацией специалиста.
+            </p>
+            <Search
+              onSearch={setSearchQuery}
+              className="surveys-info__search"
+            />
+          </div>
         </div>
       </section>
 

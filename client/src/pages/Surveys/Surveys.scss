@@ -27,9 +27,12 @@
     color: v.$dark;
   }
 
+  &__search {
+    flex: 1;
+  }
+
   &__desc {
     font-size: v.$h6-size;
-    flex: 1;
     color: v.$dark-active;
     line-height: 1.5;
   }
