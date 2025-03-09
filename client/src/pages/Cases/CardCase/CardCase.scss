@@ -1,0 +1,51 @@
+@use "@styles/variables" as v;
+
+.case-card {
+  box-sizing: border-box;
+  position: relative;
+  height: 600px;
+  aspect-ratio: 1 / 1;
+  border-radius: 36px;
+  overflow: hidden;
+  color: v.$white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &__extra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px;
+  }
+
+  &__info {
+    padding: 26px;
+  }
+
+  &__title {
+    font-size: v.$h3-size;
+    margin: 0 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__description {
+    font-size: v.$h6-size;
+    margin: 0;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
