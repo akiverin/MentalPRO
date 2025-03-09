@@ -9,6 +9,7 @@ export type CardSurveySize = "big" | "middle" | "default";
 interface CardSurveyProps {
   name: string;
   description: string;
+  details?: string;
   time: string;
   image?: string;
   link: string;
@@ -18,6 +19,7 @@ interface CardSurveyProps {
 const CardSurvey: FC<CardSurveyProps> = ({
   name,
   description,
+  details,
   time,
   image,
   link,
@@ -27,11 +29,16 @@ const CardSurvey: FC<CardSurveyProps> = ({
 
   return (
     <div className={cardClasses}>
-      {image && <img src={image} alt={name} className="survey-card__image" />}
       <div className="survey-card__content">
         <div className="survey-card__info">
           <h3 className="survey-card__title">{name}</h3>
           <p className="survey-card__description">{description}</p>
+          {image && size == "big" && (
+            <div className="survey-card__extra">
+              <img src={image} alt={name} className="survey-card__image" />
+              <p className="survey-card__details">{details}</p>
+            </div>
+          )}
         </div>
         <div className="survey-card__actions">
           <Badge

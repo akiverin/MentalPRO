@@ -45,18 +45,35 @@
 
   &__actions {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
   }
 
   &__info {
-    position: relative;
     display: flex;
     height: 100%;
-    overflow: hidden;
     flex-direction: column;
     text-overflow: ellipsis;
+    position: relative;
+  }
+
+  &__extra {
+    z-index: 3;
+    position: absolute;
+    bottom: -40px;
+    height: 40%;
+    display: flex;
+    gap: 16px;
+  }
+
+  &__image {
+    bottom: 0;
+    height: 100%;
+  }
+
+  &__details {
+    font-size: v.$body-medium;
+    color: v.$primary;
   }
 
   &--big {
@@ -120,5 +137,15 @@
       width: 100%;
       min-width: 200px;
     }
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .survey-card {
+    padding: 24px;
+  }
+
+  .survey-card__extra {
+    bottom: -24px;
   }
 }
