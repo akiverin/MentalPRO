@@ -7,7 +7,6 @@ import CardSurvey from "@/components/CardSurvey/CardSurvey";
 
 const TheSurvey = () => {
   const { link } = useParams<{ link: string }>();
-  console.log(1, link);
   const survey = useSelector((state: RootState) =>
     state.surveys.surveys.find((s) => s.link === link)
   );
