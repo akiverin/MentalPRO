@@ -1,14 +1,17 @@
-export const searchFilter = <T extends Record<string, unknown>>(
+export function searchFilter<T extends object>(
   items: T[],
   query: string,
-  fields: (keyof T)[]
-): T[] => {
-  if (!query.trim()) return items;
+  keys: (keyof T & string)[]
+): T[] {
+  if (!query) return items;
 
-  const lowerQuery = query.toLowerCase();
   return items.filter((item) =>
-    fields.some((field) =>
-      String(item[field]).toLowerCase().includes(lowerQuery)
-    )
+    keys.some((key) => {
+      const value = item[key];
+      return (
+        typeof value === "string" &&
+        value.toLowerCase().includes(query.toLowerCase())
+      );
+    })
   );
-};
+}

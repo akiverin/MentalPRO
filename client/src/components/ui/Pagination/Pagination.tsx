@@ -28,6 +28,32 @@ const Pagination: FC<PaginationProps> = ({
     [currentPage, totalPages]
   );
 
+  const pageNumbers = useMemo(() => {
+    const pages: (number | "...")[] = [];
+    const maxVisible = 5; // Максимальное кол-во отображаемых кнопок
+
+    if (totalPages <= maxVisible) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage <= 3) {
+      pages.push(1, 2, 3, "...", totalPages);
+    } else if (currentPage >= totalPages - 2) {
+      pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
+    } else {
+      pages.push(
+        1,
+        "...",
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        "...",
+        totalPages
+      );
+    }
+
+    return pages;
+  }, [currentPage, totalPages]);
   return (
     <>
       <div className={classNames("pagination", className)}>
@@ -53,9 +79,33 @@ const Pagination: FC<PaginationProps> = ({
           </svg>
         </Button>
 
-        <span className="pagination__info">
+        <ul className="pagination__pages">
+          {pageNumbers.map((page, index) =>
+            page === "..." ? (
+              <li key={`ellipsis-${index}`} className="pagination__ellipsis">
+                …
+              </li>
+            ) : (
+              <li key={page} className="pagination__page">
+                <Button
+                  variant="rounded"
+                  fullWidth
+                  background={currentPage === page ? "light" : "secondary"}
+                  className={classNames("pagination__page-button", {
+                    "pagination__page-button--active": currentPage === page,
+                  })}
+                  onClick={() => onPageChange(page)}
+                >
+                  {page}
+                </Button>
+              </li>
+            )
+          )}
+        </ul>
+
+        {/* <span className="pagination__info">
           {currentPage} из {totalPages}
-        </span>
+        </span> */}
 
         <Button
           className="pagination__button pagination__button--next"

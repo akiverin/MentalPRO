@@ -1,0 +1,120 @@
+@use "@styles/variables" as v;
+
+.quest {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    min-height: calc(100vh - v.$header-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__control {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  &__survey-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__nums {
+    font-weight: 600;
+    flex: 1;
+    margin: 0;
+  }
+
+  &__title {
+    display: inline-flex;
+    font-size: v.$h6-size;
+    color: v.$dark;
+  }
+
+  &__save {
+    flex: 1;
+    text-align: right;
+    font-size: v.$body-small;
+    line-height: 1;
+    color: v.$dark;
+    margin: 0;
+  }
+
+  &__question-lines {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__question-line {
+    height: 8px;
+    border-radius: 1000px;
+    width: 100%;
+    background-color: v.$secondary;
+    &--complete {
+      background-color: v.$success;
+    }
+    &--active {
+      background-color: v.$primary;
+    }
+  }
+
+  &__content {
+    padding: 0 230px;
+    margin-bottom: 100px;
+  }
+
+  &__answers {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__question-num {
+    font-size: v.$h6-size;
+    margin: 0 0 20px;
+    color: v.$dark;
+  }
+
+  &__question-title {
+    font-size: v.$h3-size;
+    margin-bottom: 60px;
+  }
+
+  &__answer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6.5rem;
+    min-width: 3rem;
+    width: 100%;
+    font-size: v.$h5-size;
+    font-weight: 500;
+    background: none;
+    border: 2px solid transparent;
+    padding: 0 4rem;
+    border-radius: 1.125rem;
+    cursor: pointer;
+    background-color: v.$secondary;
+    transition: background 0.15s ease-in-out;
+    &--selected {
+      border: 2px solid v.$primary;
+      color: v.$primary;
+    }
+    &:hover {
+      background-color: v.$secondary-hover;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 0 230px;
+  }
+}

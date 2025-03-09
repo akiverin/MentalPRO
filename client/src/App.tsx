@@ -35,9 +35,9 @@ function App() {
           <Route path="/organizations/:id" element={<TheOrganization />} />
 
           <Route path="/surveys" element={<Surveys />} />
-          <Route path="/surveys/:id" element={<TheSurvey />} />
+          <Route path="/surveys/:link/" element={<TheSurvey />} />
 
-          <Route path="/surveys/:id/quest" element={<Quest />} />
+          <Route path="/surveys/:link/quest" element={<Quest />} />
 
           <Route path="*" element={<NotFound />} />
           <Route path="/privacy" element={<Privacy />} />
