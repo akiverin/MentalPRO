@@ -1,0 +1,58 @@
+@use "@styles/variables" as v;
+
+.cases-info {
+  &__wrapper {
+    max-width: v.$wrapper;
+    margin: 60px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    gap: 20px;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+    flex: 4;
+  }
+
+  &__title {
+    margin: 0 0 40px;
+  }
+
+  &__subtitle {
+    font-size: v.$h6-size;
+    margin: 0;
+    color: v.$dark;
+  }
+
+  &__search {
+    flex: 3;
+  }
+
+  &__desc {
+    font-size: v.$h6-size;
+    color: v.$dark-active;
+    line-height: 1.5;
+  }
+}
+
+.cases-content {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__item {
+    height: 100%;
+  }
+}
