@@ -4,13 +4,13 @@ import { useMemo, useState } from "react";
 import Pagination from "@/components/ui/Pagination/Pagination";
 import { useAppSelector } from "@/store/hooks";
 import { searchFilter } from "@/utils/search";
-import CardCase from "./CardCase/CardCase";
+import CardCase from "./CaseCard/CardCase";
 
 interface Case {
   id: number;
   name: string;
   description: string;
-  text?: string;
+  text?: string[];
   image?: string;
   category: string;
   link: string;
@@ -20,7 +20,7 @@ const Cases = () => {
   const cases = useAppSelector((state) => state.cases.cases);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(6);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredCases = useMemo(

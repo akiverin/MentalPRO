@@ -43,7 +43,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
 
             <Route path="/cases" element={<Cases />} />
-            <Route path="/cases/:id" element={<TheCase />} />
+            <Route path="/cases/:link" element={<TheCase />} />
 
             <Route path="/organizations" element={<Organizations />} />
             <Route path="/organizations/:id" element={<TheOrganization />} />
