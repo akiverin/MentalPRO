@@ -1,0 +1,48 @@
+@use "@styles/variables" as v;
+
+.organization-card {
+  box-sizing: border-box;
+  padding: 32px;
+  background-color: v.$surface;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  gap: 22px;
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  &__image {
+    height: 100px;
+    width: 100px;
+    border-radius: 1000px;
+    object-fit: cover;
+  }
+
+  &__title {
+    font-size: v.$h4-size;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: v.$body-large;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

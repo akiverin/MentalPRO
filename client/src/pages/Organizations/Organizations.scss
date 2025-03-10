@@ -1,0 +1,69 @@
+@use "@styles/variables" as v;
+
+.organizations-info {
+  &__wrapper {
+    max-width: v.$wrapper;
+    margin: 60px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    gap: 20vw;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+    max-width: 650px;
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0 0 40px;
+  }
+
+  &__subtitle {
+    font-size: v.$h6-size;
+    margin: 0;
+    color: v.$dark;
+    line-height: 1.5;
+  }
+
+  &__extra {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 30px;
+    flex: 1;
+  }
+
+  &__search {
+    right: 0;
+    max-width: 460px;
+  }
+
+  &__desc {
+    font-size: v.$h6-size;
+    color: v.$dark-active;
+    line-height: 1.5;
+  }
+}
+
+.organizations-content {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__item {
+    height: 100%;
+  }
+}

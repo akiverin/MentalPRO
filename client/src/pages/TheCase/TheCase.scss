@@ -2,7 +2,7 @@
 
 .case {
   &__wrapper {
-    max-width: 680px;
+    max-width: 920px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
@@ -46,5 +46,18 @@
         font-family: Georgia, "Times New Roman", Times, serif;
       }
     }
+  }
+}
+
+.other-cases {
+  &__wrapper {
+    max-width: v.$wrapper;
+    padding: 0 40px;
+    margin: 0 auto;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 16px;
   }
 }
