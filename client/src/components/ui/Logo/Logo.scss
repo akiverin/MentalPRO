@@ -1,5 +1,19 @@
+@use "@styles/variables" as v;
+
 .logo {
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+@media screen and (max-width: v.$tablet) {
+  .logo {
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .logo {
+    transform: scale(0.8);
+  }
 }
