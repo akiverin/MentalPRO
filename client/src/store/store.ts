@@ -3,6 +3,7 @@ import surveysReducer from "./slices/surveysSlice";
 import questionsReducer from "./slices/questionsSlice";
 import casesReducer from "./slices/casesSlice";
 import organizationsReducer from "./slices/organizationsSlice";
+import userReducer from "./slices/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     questions: questionsReducer,
     cases: casesReducer,
     organizations: organizationsReducer,
+    user: userReducer,
   },
 });
 
