@@ -24,6 +24,7 @@ interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   small?: boolean;
   className?: string;
   disabled?: boolean;
+  href?: string;
   to?: LinkProps["to"]; // This allows support for react-router's Link component
 }
 
@@ -36,7 +37,8 @@ const TheLink: FC<TheLinkProps> = ({
   small = false,
   disabled = false,
   icon = false,
-  to = "#",
+  to = "",
+  href = "",
   ...rest
 }) => {
   const linkClasses = classNames(
@@ -75,7 +77,7 @@ const TheLink: FC<TheLinkProps> = ({
   }
 
   return (
-    <a className={linkClasses} {...rest}>
+    <a className={linkClasses} href={href} {...rest}>
       {children}
     </a>
   );

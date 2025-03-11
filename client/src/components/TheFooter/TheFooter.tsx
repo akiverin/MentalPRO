@@ -31,7 +31,7 @@ function TheFooter() {
             </div>
             <p className="footer__comment">
               Я даю{" "}
-              <TheLink variant="text" to="/personal-data">
+              <TheLink variant="text" to="/privacy">
                 согласие
               </TheLink>{" "}
               на обработку моих персональных данных.{" "}
@@ -104,7 +104,11 @@ function TheFooter() {
           </TheLink>
           <ul className="footer__docs">
             <li className="footer__docs-item">
-              <TheLink variant="navigation" className="footer__docs-link">
+              <TheLink
+                to="/privacy"
+                variant="navigation"
+                className="footer__docs-link"
+              >
                 Политика обработки персональных данных
               </TheLink>
             </li>

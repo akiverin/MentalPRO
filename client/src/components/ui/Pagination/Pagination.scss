@@ -44,21 +44,3 @@
     }
   }
 }
-
-.select {
-  position: relative;
-  display: inline-block;
-  padding: 1rem 1rem;
-  border: none;
-  background-color: v.$secondary;
-  font-size: v.$h6-size;
-  border-radius: 1000px;
-  cursor: pointer;
-  display: flex;
-  outline-width: 0.4px;
-  margin: 10px auto 0;
-
-  &:hover {
-    background-color: v.$secondary-hover;
-  }
-}

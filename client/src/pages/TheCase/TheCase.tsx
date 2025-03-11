@@ -25,8 +25,9 @@ const TheCase = () => {
     <>
       <section className="case">
         <div className="case__wrapper">
-          <h1 className="case__title">{article.name}</h1>
           <Badge variant="small">{article.category}</Badge>
+
+          <h1 className="case__title">{article.name}</h1>
           <img src={article.image} alt={article.name} className="case__image" />
           <div className="case__text">
             {article.text.map((paragraph) => {
