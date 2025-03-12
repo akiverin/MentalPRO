@@ -151,3 +151,21 @@
     cursor: not-allowed;
   }
 }
+
+@media screen and (max-width: v.$tablet) {
+  .link {
+    font-size: 1rem;
+
+    &--rounded {
+      padding: 0 1rem;
+    }
+
+    &--text {
+      font-size: inherit;
+    }
+
+    &--icon {
+      padding: 0.75rem;
+    }
+  }
+}

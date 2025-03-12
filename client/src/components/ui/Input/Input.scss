@@ -12,7 +12,6 @@
   background-color: v.$secondary;
   transition: v.$transition;
   height: 64px;
-
   max-height: 4rem;
   padding: 1.25rem 1.5rem;
   font-size: v.$h6-size;
@@ -34,5 +33,20 @@
 
   &--full-width {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .input {
+    height: 3.5rem;
+    max-height: 4rem;
+    padding: 1.125rem 1.25rem;
+    font-size: 1rem;
+
+    &--large {
+      height: 3.5rem;
+      font-size: 1rem;
+      max-width: 130px;
+    }
   }
 }

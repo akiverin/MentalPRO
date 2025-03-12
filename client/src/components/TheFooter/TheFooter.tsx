@@ -42,27 +42,47 @@ function TheFooter() {
               <h4 className="footer__nav-title">Навигация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/"
+                  >
                     Главная
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/surveys">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/surveys"
+                  >
                     Опросы
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/cases">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/cases"
+                  >
                     Практики
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/organizations">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/organizations"
+                  >
                     Организации
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/profile">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/profile"
+                  >
                     Мой профиль
                   </TheLink>
                 </li>
@@ -72,12 +92,20 @@ function TheFooter() {
               <h4 className="footer__nav-title">Аутентификация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/registration">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/registration"
+                  >
                     Регистрация
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink variant="navigation" to="/login">
+                  <TheLink
+                    className="footer__nav-link"
+                    variant="navigation"
+                    to="/login"
+                  >
                     Вход в аккаунт
                   </TheLink>
                 </li>
