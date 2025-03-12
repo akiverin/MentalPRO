@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Pagination from "@/components/ui/Pagination/Pagination";
 import { useAppSelector } from "@/store/hooks";
 import { searchFilter } from "@/utils/search";
-import CardCase from "./CaseCard/CardCase";
+import CardCase from "@components/CaseCard/CardCase";
 
 interface Case {
   id: number;

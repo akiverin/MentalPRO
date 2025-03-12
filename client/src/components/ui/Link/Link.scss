@@ -78,6 +78,7 @@
   }
 
   &--text {
+    display: inline;
     background-color: transparent;
     padding: 0;
     margin: 0;
@@ -148,5 +149,42 @@
   &--disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .link {
+    font-size: 1rem;
+
+    &--rounded {
+      padding: 0 1rem;
+    }
+
+    &--text {
+      font-size: inherit;
+    }
+
+    &--icon {
+      padding: 0.75rem;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .link {
+    font-size: 0.85rem;
+
+    &--rounded {
+      padding: 0 0.85rem;
+      height: 2.75rem;
+    }
+
+    &--text {
+      font-size: inherit;
+    }
+
+    &--icon {
+      padding: 0.65rem;
+    }
   }
 }

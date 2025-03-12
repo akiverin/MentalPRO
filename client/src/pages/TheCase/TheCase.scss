@@ -2,7 +2,7 @@
 
 .case {
   &__wrapper {
-    max-width: 680px;
+    max-width: 920px;
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
@@ -11,17 +11,17 @@
   }
 
   &__title {
-    margin: 40px 0 24px;
+    margin: 20px 0 20px;
     text-align: center;
     font-size: 2.625rem;
     letter-spacing: -0.01rem;
   }
 
   &__image {
-    margin: 40px 0 20px;
+    margin: 16px 0 16px;
     width: 100%;
     object-fit: cover;
-    max-height: 400px;
+    max-height: 600px;
     object-position: top;
   }
 
@@ -46,5 +46,18 @@
         font-family: Georgia, "Times New Roman", Times, serif;
       }
     }
+  }
+}
+
+.other-cases {
+  &__wrapper {
+    max-width: v.$wrapper;
+    padding: 0 40px;
+    margin: 0 auto;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 16px;
   }
 }

@@ -4,6 +4,7 @@ import { RootState } from "@/store/store";
 
 import "./TheCase.scss";
 import Badge from "@/components/ui/Badge/Badge";
+import CardCase from "@/components/CaseCard/CardCase";
 
 const TheCase = () => {
   const { link } = useParams<{ link: string }>();
@@ -24,8 +25,8 @@ const TheCase = () => {
     <>
       <section className="case">
         <div className="case__wrapper">
-          <h1 className="case__title">{article.name}</h1>
           <Badge variant="small">{article.category}</Badge>
+          <h1 className="case__title">{article.name}</h1>
           <img src={article.image} alt={article.name} className="case__image" />
           <div className="case__text">
             {article.text.map((paragraph) => {
@@ -36,11 +37,11 @@ const TheCase = () => {
       </section>
       <section className="other-cases">
         <div className="other-cases__wrapper">
-          <h2 className="other-cases__title">Другие опросы</h2>
+          <h2 className="other-cases__title">Другие практики</h2>
           <ul className="other-cases__list">
-            {cases.map((cs) => (
+            {cases.slice(0, 4).map((cs) => (
               <li key={`case-${cs.id}`} className="other-cases_item">
-                {/* <CardSurvey {...cs} /> */}
+                <CardCase {...cs} />
               </li>
             ))}
           </ul>

@@ -9,6 +9,7 @@ export type LinkBackground =
   | "secondary"
   | "light"
   | "transparent";
+
 export type LinkVariant =
   | "default"
   | "button"
@@ -24,7 +25,8 @@ interface TheLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   small?: boolean;
   className?: string;
   disabled?: boolean;
-  to?: LinkProps["to"]; // This allows support for react-router's Link component
+  href?: string;
+  to?: LinkProps["to"];
 }
 
 const TheLink: FC<TheLinkProps> = ({
@@ -36,7 +38,8 @@ const TheLink: FC<TheLinkProps> = ({
   small = false,
   disabled = false,
   icon = false,
-  to = "#",
+  to = "",
+  href = "",
   ...rest
 }) => {
   const linkClasses = classNames(
@@ -45,14 +48,8 @@ const TheLink: FC<TheLinkProps> = ({
     `link--${background}`,
     {
       "link--full-width": fullWidth,
-    },
-    {
       "link--disabled": disabled,
-    },
-    {
       "link--small": small,
-    },
-    {
       "link--icon": icon,
     },
     className
@@ -75,7 +72,7 @@ const TheLink: FC<TheLinkProps> = ({
   }
 
   return (
-    <a className={linkClasses} {...rest}>
+    <a className={linkClasses} href={href} {...rest}>
       {children}
     </a>
   );

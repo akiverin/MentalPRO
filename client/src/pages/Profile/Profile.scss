@@ -1,0 +1,110 @@
+@use "@styles/variables" as v;
+.profile-head {
+  &__wrapper {
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    padding: 20px 270px 0;
+    position: relative;
+  }
+
+  &__images {
+    position: relative;
+  }
+
+  &__cover {
+    border-radius: 40px 40px 60px 60px;
+    height: 280px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__avatar {
+    position: absolute;
+    height: 240px;
+    width: 240px;
+    bottom: -120px;
+    left: 70px;
+    border-radius: 1000px;
+    border: 8px solid v.$white;
+  }
+
+  &__content {
+    padding: 0 70px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+    margin-top: 26px;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 78px;
+  }
+
+  &__titles {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  &__name {
+    font-size: v.$h3-size;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &__email {
+    font-size: v.$h6-size;
+    color: v.$dark;
+    margin: 16px 0 0;
+  }
+
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__details-item {
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid v.$secondary-hover;
+    align-items: center;
+    width: 218px;
+    font-size: v.$h6-size;
+    gap: 20px;
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  &__detail-name {
+    color: v.$dark;
+    margin: 0;
+  }
+  &__detail-content {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 1800px) {
+  .profile-head {
+    &__wrapper {
+      padding: 20px 120px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .profile-head {
+    &__wrapper {
+      padding: 20px 40px 0;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import classNames from "classnames";
 import "./Pagination.scss";
 import Button from "../Button/Button";
+import Select from "../Select/Select";
 
 interface PaginationProps {
   currentPage: number;
@@ -11,6 +12,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   onPageSizeChange?: (size: number) => void;
   className?: string;
+  labels?: {
+    prevPage?: string;
+    nextPage?: string;
+    perPage?: string;
+  };
 }
 
 const Pagination: FC<PaginationProps> = ({
@@ -21,72 +27,103 @@ const Pagination: FC<PaginationProps> = ({
   onPageChange,
   onPageSizeChange,
   className = "",
+  labels = {
+    prevPage: "Предыдущая страница",
+    nextPage: "Следующая страница",
+    perPage: "на странице",
+  },
 }) => {
-  const isPrevDisabled = useMemo(() => currentPage === 1, [currentPage]);
+  const isPrevDisabled = useMemo(() => currentPage <= 1, [currentPage]);
   const isNextDisabled = useMemo(
-    () => currentPage === totalPages,
+    () => currentPage >= totalPages || totalPages === 0,
     [currentPage, totalPages]
   );
 
   const pageNumbers = useMemo(() => {
+    if (totalPages <= 0) return [];
     const pages: (number | "...")[] = [];
-    const maxVisible = 5; // Максимальное кол-во отображаемых кнопок
+    const maxVisible = 5;
 
     if (totalPages <= maxVisible) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
-
     if (currentPage <= 3) {
-      pages.push(1, 2, 3, "...", totalPages);
+      for (let i = 1; i <= 3; i++) {
+        pages.push(i);
+      }
+      pages.push("...");
+      pages.push(totalPages);
     } else if (currentPage >= totalPages - 2) {
-      pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
+      pages.push(1);
+      pages.push("...");
+      for (let i = totalPages - 2; i <= totalPages; i++) {
+        pages.push(i);
+      }
     } else {
-      pages.push(
-        1,
-        "...",
-        currentPage - 1,
-        currentPage,
-        currentPage + 1,
-        "...",
-        totalPages
-      );
+      pages.push(1);
+      pages.push("...");
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        pages.push(i);
+      }
+      pages.push("...");
+      pages.push(totalPages);
     }
 
     return pages;
   }, [currentPage, totalPages]);
+
+  const handlePageSizeChange = (selectedOption: {
+    label: string;
+    value: number | string;
+  }) => {
+    if (onPageSizeChange) {
+      const newSize = Number(selectedOption.value);
+      onPageSizeChange(newSize);
+      const newTotalPages = Math.ceil((totalPages * pageSize) / newSize);
+      if (currentPage > newTotalPages) {
+        onPageChange(1);
+      }
+    }
+  };
+
+  if (totalPages <= 0) {
+    return null;
+  }
+
   return (
-    <>
-      <div className={classNames("pagination", className)}>
+    <div className={classNames("pagination-container", className)}>
+      <div className="pagination">
         <Button
           className="pagination__button pagination__button--prev"
           variant="rounded"
           background="secondary"
           disabled={isPrevDisabled}
           onClick={() => onPageChange(currentPage - 1)}
-          aria-disabled={isPrevDisabled}
+          aria-label={labels.prevPage}
         >
-          <p className="visually-hidden">Предыдущая страница</p>
+          <span className="visually-hidden">{labels.prevPage}</span>
           <svg
             className="pagination__arrow"
             width="15"
             height="14"
             viewBox="0 0 15 14"
+            aria-hidden="true"
           >
             <path
               d="M6.58381 13.5065L0.123047 7.04572L6.58381 0.584961L7.83026 1.81756L3.50231 6.14551H14.3741V7.94593H3.50231L7.83026 12.267L6.58381 13.5065Z"
-              fill="black"
+              fill="currentColor"
             />
           </svg>
         </Button>
 
-        <ul className="pagination__pages">
+        <ul className="pagination__pages" role="list">
           {pageNumbers.map((page, index) =>
             page === "..." ? (
               <li key={`ellipsis-${index}`} className="pagination__ellipsis">
-                …
+                <span aria-hidden="true">…</span>
               </li>
             ) : (
-              <li key={page} className="pagination__page">
+              <li key={`page-${page}`} className="pagination__page">
                 <Button
                   variant="rounded"
                   fullWidth
@@ -94,7 +131,9 @@ const Pagination: FC<PaginationProps> = ({
                   className={classNames("pagination__page-button", {
                     "pagination__page-button--active": currentPage === page,
                   })}
-                  onClick={() => onPageChange(page)}
+                  onClick={() => onPageChange(page as number)}
+                  aria-current={currentPage === page ? "page" : undefined}
+                  aria-label={`Страница ${page}`}
                 >
                   {page}
                 </Button>
@@ -103,50 +142,45 @@ const Pagination: FC<PaginationProps> = ({
           )}
         </ul>
 
-        {/* <span className="pagination__info">
-          {currentPage} из {totalPages}
-        </span> */}
-
         <Button
           className="pagination__button pagination__button--next"
           variant="rounded"
           background="secondary"
           disabled={isNextDisabled}
           onClick={() => onPageChange(currentPage + 1)}
-          aria-disabled={isNextDisabled}
+          aria-label={labels.nextPage}
         >
-          <p className="visually-hidden">Следующая страница</p>
+          <span className="visually-hidden">{labels.nextPage}</span>
           <svg
             className="pagination__arrow"
             width="16"
             height="15"
             viewBox="0 0 16 15"
+            aria-hidden="true"
           >
             <path
               d="M8.65626 14.6023L7.2911 13.2523L12.0312 8.51221H0.124023V6.54032H12.0312L7.2911 1.80777L8.65626 0.450195L15.7323 7.52627L8.65626 14.6023Z"
-              fill="black"
+              fill="currentColor"
             />
           </svg>
         </Button>
       </div>
 
       {onPageSizeChange && (
-        <select
-          className="select"
-          value={pageSize}
-          onChange={(e) => {
-            onPageSizeChange(Number(e.target.value));
-            if (currentPage >= totalPages) onPageChange(1);
-          }}
-        >
-          {pageSizeOptions.map((size) => (
-            <option key={size} value={size}>
-              {size} на странице
-            </option>
-          ))}
-        </select>
+        <div className="pagination__size-selector">
+          <Select
+            defaultValue={pageSize}
+            options={pageSizeOptions.map((item) => ({
+              label: `${item} ${labels.perPage}`,
+              value: item,
+            }))}
+            onChange={handlePageSizeChange}
+            className="pagination__select"
+            aria-label="Выбор количества элементов на странице"
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

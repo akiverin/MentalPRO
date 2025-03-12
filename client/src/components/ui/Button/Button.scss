@@ -82,3 +82,16 @@
     cursor: not-allowed;
   }
 }
+
+@media screen and (max-width: v.$tablet) {
+  .button {
+    padding: 0 0.85rem;
+    height: 2.25rem;
+
+    &--large {
+      height: 3.5rem;
+      font-size: 1rem;
+      max-width: 130px;
+    }
+  }
+}
