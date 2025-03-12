@@ -169,3 +169,22 @@
     }
   }
 }
+
+@media screen and (max-width: v.$mobile) {
+  .link {
+    font-size: 0.85rem;
+
+    &--rounded {
+      padding: 0 0.85rem;
+      height: 2.75rem;
+    }
+
+    &--text {
+      font-size: inherit;
+    }
+
+    &--icon {
+      padding: 0.65rem;
+    }
+  }
+}

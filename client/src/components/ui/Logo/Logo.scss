@@ -4,6 +4,14 @@
   display: flex;
   gap: 12px;
   align-items: center;
+
+  &__icon {
+    height: 22px;
+    & svg {
+      height: 22px;
+      width: 22px;
+    }
+  }
 }
 
 @media screen and (max-width: v.$tablet) {
@@ -14,6 +22,6 @@
 
 @media screen and (max-width: v.$mobile) {
   .logo {
-    transform: scale(0.8);
+    transform: scale(0.8) translateX(-19px);
   }
 }
