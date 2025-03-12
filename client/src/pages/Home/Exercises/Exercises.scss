@@ -26,6 +26,46 @@
 .exercises__list {
   overflow-x: auto;
   margin: 0;
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 480px);
+  gap: 20px;
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .exercises {
+    border-radius: 32px 32px 0 0;
+    padding: 24px 40px;
+  }
+  .exercises__category {
+    font-size: v.$h5-size;
+  }
+
+  .exercises__title {
+    font-size: 3rem;
+  }
+
+  .exercises__list {
+    grid-template-columns: repeat(5, 480px);
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .exercises {
+    border-radius: 24px 24px 0 0;
+    padding: 24px 15px;
+  }
+  .exercises__category {
+    font-size: v.$h6-size;
+  }
+
+  .exercises__title {
+    margin: 10px 0 30px;
+    font-size: v.$h3-size;
+  }
+
+  .exercises__list {
+    grid-template-columns: repeat(5, 360px);
+    gap: 16px;
+  }
 }

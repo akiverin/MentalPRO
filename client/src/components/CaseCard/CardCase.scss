@@ -13,6 +13,7 @@
     height: 500px;
     object-fit: cover;
     border-radius: 36px;
+    z-index: -1;
   }
 
   &__info {
@@ -39,5 +40,30 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .case-card {
+    &__image {
+      height: 340px;
+      object-fit: cover;
+      border-radius: 24px;
+      z-index: -1;
+    }
+
+    &__info {
+      padding: 12px 0 16px;
+    }
+
+    &__title {
+      font-size: v.$h5-size;
+      margin: 16px 0;
+    }
+
+    &__description {
+      font-size: v.$body-medium;
+      margin: 0 0 16px;
+    }
   }
 }

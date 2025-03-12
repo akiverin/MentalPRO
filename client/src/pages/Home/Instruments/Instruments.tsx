@@ -36,6 +36,7 @@ import iconCases from "@assets/iconCases.svg";
 import iconSurveys from "@assets/iconSurveys.svg";
 import iconOrganizations from "@assets/iconOrganizations.svg";
 import iconProfile from "@assets/iconProfile.svg";
+import classNames from "classnames";
 
 const instruments = [
   {
@@ -45,7 +46,7 @@ const instruments = [
       webp: [imageInstrument01Webp1x, imageInstrument01Webp2x],
       png: [imageInstrument01Png1x, imageInstrument01Png2x],
     },
-    bg: "linear-gradient(147deg, #81a3c2 0%, #c2d9e7 67.91%, #dbe4e9 100%)",
+    bg: "linear-gradient(147deg,#648aac 0%,#9ac8e4 67.91%,#bbcad2 100%) ",
     name: "Практики",
     path: "/cases",
     icon: iconCases,
@@ -108,7 +109,12 @@ const Instruments = () => {
   }, []);
 
   return (
-    <section className="instruments">
+    <section
+      className={classNames(
+        "instruments",
+        `instruments--${instruments[selectedInstrument].path.slice(1)}`
+      )}
+    >
       <motion.div
         className="instruments__cover"
         key={selectedInstrument}

@@ -96,7 +96,7 @@
 
   &__close-button {
     border: none;
-    aspect-ratio: 1 / 1;
+    width: 2.25rem;
     cursor: pointer;
   }
 
@@ -113,7 +113,7 @@
     a {
       box-sizing: border-box;
       align-items: center;
-
+      font-size: 1rem;
       justify-content: flex-start;
     }
 
@@ -130,7 +130,7 @@
 @media screen and (max-width: v.$desktop) {
   .header {
     &__wrapper {
-      padding: 0 20px;
+      padding: 0 40px;
     }
 
     &__start {
@@ -142,7 +142,7 @@
 @media screen and (max-width: v.$tablet) {
   .header {
     &__wrapper {
-      padding: 0 15px;
+      padding: 0 40px;
       height: 72px;
     }
 
@@ -163,16 +163,25 @@
   }
 
   .header {
-    &__wrapper {
-      padding: 0 15px;
-    }
-
     &__menu-button {
       display: block;
     }
 
     &__mobile-menu {
       display: block;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .header {
+    &__wrapper {
+      padding: 0 15px;
+      height: 72px;
+    }
+
+    &__start {
+      gap: 20px;
     }
   }
 }

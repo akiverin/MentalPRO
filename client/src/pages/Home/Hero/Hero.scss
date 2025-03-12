@@ -5,19 +5,18 @@
   border-radius: 40px 40px 0 0;
   background: radial-gradient(
     118.4% 471.54% at 0% 100%,
-    #e8f2ff 0%,
-    #c5dcf9 21%,
-    #c9d5fb 34%,
+    #e1eeff 0%,
+    #afd2ff 21%,
+    #bbccff 34%,
     #addcff 57%,
     #b3c1f1 72%,
-    #8cb8f8 100%
+    #76a7ef 100%
   );
 }
 
 .hero__wrapper {
   max-width: v.$wrapper;
   min-height: calc(100vh - v.$header-height);
-
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -42,7 +41,6 @@
 .hero__info {
   display: flex;
   flex-direction: column;
-
   align-items: start;
   max-width: 972px;
   margin-left: 80px;
@@ -59,10 +57,121 @@
   position: absolute;
   bottom: 0;
   right: 0;
-
   z-index: 1;
   width: 100%;
   max-width: 55vw;
   object-fit: cover;
   max-height: 100%;
+}
+
+@media screen and (max-width: 1600px) {
+  .hero__desc {
+    font-size: 3vw;
+  }
+  .hero__info {
+    margin-bottom: calc(520px - 24vw);
+    margin-left: 60px;
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .hero__wrapper {
+    min-height: calc(50vh - v.$header-height + 40px);
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15rem 0 0;
+  }
+
+  .hero__decorate-title {
+    top: 4%;
+    font-size: 15vw;
+  }
+
+  .hero__info {
+    box-sizing: border-box;
+    align-items: center;
+    gap: 36px;
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .hero__desc {
+    text-align: center;
+    font-size: 2.4rem;
+    color: v.$primary;
+    z-index: 2;
+    margin: 0 auto;
+  }
+
+  picture {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__image {
+    position: static;
+    margin: 0 auto;
+    z-index: 1;
+    width: 80%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .hero__wrapper {
+    min-height: calc(50vh - v.$header-height + 40px);
+    justify-content: flex-start;
+    align-items: center;
+    padding: 160px 0 0;
+  }
+
+  .hero__decorate-title {
+    top: 4%;
+    font-size: 15.7vw;
+  }
+
+  .hero__info {
+    box-sizing: border-box;
+    align-items: center;
+    gap: 20px;
+    margin: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .hero__desc {
+    text-align: center;
+    font-size: 1.6rem;
+    color: v.$primary;
+    z-index: 2;
+    margin: 0 auto;
+  }
+
+  picture {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__image {
+    position: static;
+    margin: 0 auto;
+    z-index: 1;
+    width: 80%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .hero__wrapper {
+    min-height: calc(50vh - v.$header-height + 40px);
+    justify-content: flex-start;
+    align-items: center;
+    padding: 160px 0 0;
+  }
+
+  .hero__decorate-title {
+    top: 40px;
+    font-size: 17.7vw;
+  }
 }

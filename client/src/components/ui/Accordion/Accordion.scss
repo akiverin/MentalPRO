@@ -22,7 +22,7 @@
     padding: 24px 32px;
     font-size: v.$h5-size;
     line-height: 1.5;
-
+    color: v.$black;
     background: none;
     border: none;
     cursor: pointer;
@@ -31,7 +31,7 @@
     transition: background 0.2s ease-in-out;
 
     &:hover {
-      background: v.$light-hover;
+      background: v.$secondary;
     }
   }
 
@@ -68,5 +68,34 @@
     font-size: v.$h6-size;
     line-height: 1.5;
     color: v.$dark;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .accordion {
+    margin-bottom: 10px;
+
+    &.open {
+      background-color: v.$light;
+    }
+
+    &__header {
+      padding: 18px 24px;
+      font-size: v.$h6-size;
+    }
+
+    &__container {
+      overflow: hidden;
+      transition: height 0.4s ease-in-out;
+      padding: 0 16px;
+      background-color: v.$light;
+    }
+
+    &__content {
+      padding: 0 10px 14px;
+      font-size: v.$body-large;
+      line-height: 1.5;
+      color: v.$dark;
+    }
   }
 }

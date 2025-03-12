@@ -1,38 +1,12 @@
 import { useEffect, useRef } from "react";
 import { enableDragScroll } from "../../../utils/dragScroll";
-import ExerciseCard from "./ExerciseCard/ExerciseCard";
-import exerciseCard01 from "@assets/images/exerciseCard01.webp";
-import exerciseCard02 from "@assets/images/exerciseCard02.webp";
-import exerciseCard03 from "@assets/images/exerciseCard03.webp";
-import exerciseCard04 from "@assets/images/exerciseCard04.webp";
-
 import "./Exercises.scss";
-
-const exercises = [
-  {
-    name: "Фитотерапия – советы и наставления",
-    image: exerciseCard01,
-    link: "/cases/1",
-  },
-  {
-    name: "Дыхательная техника вашего умиротворения",
-    image: exerciseCard02,
-    link: "/cases/2",
-  },
-  {
-    name: "Майндфулнес или как концентрировать себя на моменте присутствия в настоящем",
-    image: exerciseCard03,
-    link: "/cases/3",
-  },
-  {
-    name: "Путь исследования сознания и разума в медитации",
-    image: exerciseCard04,
-    link: "/cases/4",
-  },
-];
+import { useAppSelector } from "@/store/hooks";
+import CardCase from "@/components/CaseCard/CardCase";
 
 const Exercises = () => {
   const containerRef = useRef<HTMLUListElement | null>(null);
+  const cases = useAppSelector((state) => state.cases.cases);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -46,13 +20,16 @@ const Exercises = () => {
         <p className="exercises__category">
           практики <sup>[01]</sup>
         </p>
-        <h2 className="exercises__title">Самый популярные практики</h2>
+        <h2 className="exercises__title">Популярные практики</h2>
         <ul ref={containerRef} className="exercises__list">
-          {exercises.map((exercise, index) => (
-            <li className="exercises__item" key={index}>
-              <ExerciseCard {...exercise} />
-            </li>
-          ))}
+          {[...cases]
+            .sort((a, b) => b.views - a.views)
+            .slice(0, 5)
+            .map((exercise, index) => (
+              <li className="exercises__item" key={index}>
+                <CardCase {...exercise} />
+              </li>
+            ))}
         </ul>
       </div>
     </section>
