@@ -56,8 +56,8 @@ const FAQ: React.FC = () => {
           <p className="faq__category">
             faq <sup>[04]</sup>
           </p>
-          <h2 className="faq__title">Часто задаваемые вопросы</h2>
-          <p className="faq__desc">
+          <h2 className="faq__title home-title">Часто задаваемые вопросы</h2>
+          <p className="faq__desc home-desc">
             Еще больше информации и деталей об особенностях и функциях
             веб-приложении MentalPRO.
           </p>

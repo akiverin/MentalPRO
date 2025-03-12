@@ -87,7 +87,7 @@
 
 .instruments__desc {
   font-size: v.$h3-size;
-  padding: 0 5.5rem;
+  padding: 0 2.5rem;
   text-align: center;
   margin: 40px 0 60px;
 }
@@ -137,8 +137,12 @@
 }
 
 @media screen and (max-width: v.$mobile) {
+  .instruments {
+    padding: 0 8px;
+  }
   .instruments__cover {
     height: 800px;
+    border-radius: 32px;
   }
 
   .instruments__info {

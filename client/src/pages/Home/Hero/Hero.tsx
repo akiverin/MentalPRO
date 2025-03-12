@@ -17,7 +17,7 @@ const Hero = () => {
           <h2 className="hero__desc">
             Побори свою тревожность <br /> и обрети спокойствие
           </h2>
-          <TheLink background="primary" variant="rounded">
+          <TheLink background="primary" variant="rounded" to="/cases">
             Пройти практику
           </TheLink>
         </div>

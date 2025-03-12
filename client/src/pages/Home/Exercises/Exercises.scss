@@ -27,7 +27,7 @@
   overflow-x: auto;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(5, 480px);
+  grid-template-columns: repeat(5, 360px);
   gap: 20px;
 }
 
@@ -45,7 +45,6 @@
   }
 
   .exercises__list {
-    grid-template-columns: repeat(5, 480px);
     gap: 20px;
   }
 }
@@ -65,7 +64,7 @@
   }
 
   .exercises__list {
-    grid-template-columns: repeat(5, 360px);
+    grid-template-columns: repeat(5, 340px);
     gap: 16px;
   }
 }

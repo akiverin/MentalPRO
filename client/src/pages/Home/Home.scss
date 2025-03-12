@@ -1,0 +1,56 @@
+@use "@styles/variables" as v;
+
+.home-title {
+  font-size: v.$h2-size;
+}
+
+.home-desc {
+  font-size: v.$h5-size;
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .home-title {
+    font-size: 3rem;
+  }
+
+  .home-desc {
+    font-size: v.$h5-size;
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .home-title {
+    font-size: v.$h3-size;
+  }
+  .home-desc {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .home-title {
+    font-size: 2rem;
+  }
+  .home-desc {
+    font-size: v.$h6-size;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .home-title {
+    font-size: v.$h4-size;
+  }
+  .home-desc {
+    font-size: v.$body-large;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .home-title {
+    font-size: v.$h5-size;
+  }
+
+  .home-desc {
+    font-size: v.$body-medium;
+  }
+}

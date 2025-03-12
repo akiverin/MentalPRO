@@ -186,7 +186,7 @@ const Instruments = () => {
               className="instruments__icon"
             />
           </div>
-          <p className="instruments__desc">
+          <p className="instruments__desc home-desc">
             {instruments[selectedInstrument].desc}
           </p>
           <TheLink

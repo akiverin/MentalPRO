@@ -84,10 +84,10 @@ const About = () => {
         <p className="about__category">
           о нас <sup className="about__number">[02]</sup>
         </p>
-        <h2 className="about__title">
+        <h2 className="about__title home-title">
           Осознанность и контроль — ключи к внутреннему равновесию
         </h2>
-        <p className="about__desc">
+        <p className="about__desc home-desc">
           Используйте наш сервис для ежедневного отслеживания настроения,
           обучения навыкам эмоциональной регуляции и улучшения качества жизни.
         </p>
@@ -97,7 +97,7 @@ const About = () => {
           background="primary"
           to="/serveys"
         >
-          Начать путь к спокойствию →
+          Измерить уровень тревожности
         </TheLink>
         <div className="about__gallery">
           {imageGallery.map(({ avif, webp, png, className, delay }, index) => (

@@ -20,7 +20,7 @@ const Exercises = () => {
         <p className="exercises__category">
           практики <sup>[01]</sup>
         </p>
-        <h2 className="exercises__title">Популярные практики</h2>
+        <h2 className="exercises__title home-title">Популярные практики</h2>
         <ul ref={containerRef} className="exercises__list">
           {[...cases]
             .sort((a, b) => b.views - a.views)

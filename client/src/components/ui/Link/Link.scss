@@ -64,16 +64,16 @@
 
   &--transparent {
     background-color: transparent;
-    color: v.$dark;
+    color: v.$dark-active;
 
     &:hover:not(.link--disabled) {
       opacity: 0.95;
-      color: v.$dark-hover;
+      color: v.$black;
     }
 
     &:active:not(.link--disabled) {
       opacity: 0.9;
-      color: v.$dark-active;
+      color: v.$black;
     }
   }
 
@@ -138,7 +138,7 @@
   }
 
   &--small {
-    height: 3.125rem;
+    height: 3rem;
   }
 
   &--icon {
@@ -176,7 +176,7 @@
 
     &--rounded {
       padding: 0 0.85rem;
-      height: 2.75rem;
+      height: 2.5rem;
     }
 
     &--text {

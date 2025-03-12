@@ -166,4 +166,22 @@
       display: none;
     }
   }
+
+  .about__gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .about__title {
+    font-size: v.$h5-size;
+  }
+
+  .about__desc {
+    font-size: v.$body-medium;
+  }
+
+  .about__gallery {
+    gap: 4px;
+  }
 }
