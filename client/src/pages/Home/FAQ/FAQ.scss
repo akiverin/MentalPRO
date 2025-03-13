@@ -33,3 +33,52 @@
   flex-direction: column;
   gap: 4px;
 }
+
+@media screen and (max-width: v.$desktop) {
+  .faq__info {
+    max-width: 100%;
+  }
+
+  .faq__category {
+    font-size: v.$h5-size;
+  }
+
+  .faq__title {
+    font-size: 3rem;
+    margin: 0 0 30px;
+  }
+
+  .faq__wrapper {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faq__list {
+    margin: 20px 0 0;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .faq__wrapper {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 15px;
+  }
+
+  .faq__category {
+    font-size: v.$h6-size;
+  }
+
+  .faq__title {
+    font-size: v.$h3-size;
+    margin: 0 0 30px;
+  }
+
+  .faq__desc {
+    font-size: v.$h6-size;
+  }
+
+  .faq__list {
+    margin: 20px 0 0;
+  }
+}

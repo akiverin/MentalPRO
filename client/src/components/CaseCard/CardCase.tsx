@@ -26,6 +26,7 @@ const CardCase: FC<Case> = ({ name, description, category, image, link }) => {
         <TheLink
           variant="rounded"
           background="primary"
+          small
           className="exercise-card__link"
           to={"/cases/" + link + "/"}
         >

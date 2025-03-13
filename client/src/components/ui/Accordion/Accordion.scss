@@ -11,7 +11,7 @@
   }
 
   &.open {
-    background-color: v.$light-hover;
+    background-color: v.$secondary;
   }
 
   &__header {
@@ -22,7 +22,7 @@
     padding: 24px 32px;
     font-size: v.$h5-size;
     line-height: 1.5;
-
+    color: v.$black;
     background: none;
     border: none;
     cursor: pointer;
@@ -31,7 +31,7 @@
     transition: background 0.2s ease-in-out;
 
     &:hover {
-      background: v.$light-hover;
+      background: v.$secondary;
     }
   }
 
@@ -40,16 +40,16 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
-    background-color: v.$primary;
+    background-color: v.$secondary-hover;
     padding: 10px;
     margin-left: 10px;
     border-radius: 100px;
-    color: v.$white;
+    color: v.$dark;
     &:hover {
-      background-color: v.$primary-hover;
+      background-color: v.$secondary-active;
     }
     &:active {
-      background-color: v.$primary-active;
+      background-color: v.$secondary;
     }
     &.open {
       transform: rotate(180deg);
@@ -60,7 +60,7 @@
     overflow: hidden;
     transition: height 0.4s ease-in-out;
     padding: 0 24px;
-    background-color: v.$light;
+    background-color: v.$secondary-hover;
   }
 
   &__content {
@@ -68,5 +68,53 @@
     font-size: v.$h6-size;
     line-height: 1.5;
     color: v.$dark;
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .accordion {
+    margin-bottom: 10px;
+
+    &__header {
+      padding: 18px 24px;
+      font-size: v.$h6-size;
+    }
+
+    &__container {
+      overflow: hidden;
+      transition: height 0.4s ease-in-out;
+      padding: 0 16px;
+    }
+
+    &__content {
+      padding: 0 10px 14px;
+      font-size: v.$body-large;
+      line-height: 1.5;
+      color: v.$dark;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .accordion {
+    margin-bottom: 4px;
+
+    &__header {
+      padding: 16px 18px;
+      font-size: v.$body-large;
+    }
+
+    &__container {
+      overflow: hidden;
+      transition: height 0.4s ease-in-out;
+      padding: 0 16px;
+    }
+
+    &__content {
+      padding: 0 10px 14px;
+      font-size: v.$body-medium;
+      line-height: 1.5;
+      color: v.$dark;
+    }
   }
 }

@@ -16,7 +16,7 @@
   margin: 0 auto;
 
   &:hover {
-    border-color: darken(v.$secondary-hover, 10%);
+    border-color: v.$secondary-active;
   }
 
   &:focus-within {

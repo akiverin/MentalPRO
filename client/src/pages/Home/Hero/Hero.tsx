@@ -12,6 +12,15 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero__wrapper">
+        <h1 className="hero__decorate-title">MentalPRO</h1>
+        <div className="hero__info">
+          <h2 className="hero__desc">
+            Побори свою тревожность <br /> и обрети спокойствие
+          </h2>
+          <TheLink background="primary" variant="rounded" to="/cases">
+            Пройти практику
+          </TheLink>
+        </div>
         <picture>
           <source srcSet={heroImage1280} media="(min-width: 2000px)" />
           <source srcSet={heroImage1040} media="(min-width: 1880px)" />
@@ -26,15 +35,6 @@ const Hero = () => {
             loading="lazy"
           />
         </picture>
-        <h1 className="hero__decorate-title">MentalPRO</h1>
-        <div className="hero__info">
-          <h2 className="hero__desc">
-            Побори свою тревожность <br /> и обрети спокойствие
-          </h2>
-          <TheLink background="primary" variant="rounded">
-            Пройти практику
-          </TheLink>
-        </div>
       </div>
     </section>
   );

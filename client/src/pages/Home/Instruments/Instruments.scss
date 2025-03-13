@@ -1,6 +1,7 @@
 @use "@styles/variables" as v;
 
 .instruments {
+  position: relative;
   display: flex;
   gap: 20px;
   margin: 100px auto 0;
@@ -55,6 +56,7 @@
 
 .instruments__list {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   align-items: center;
   justify-content: center;
@@ -85,7 +87,7 @@
 
 .instruments__desc {
   font-size: v.$h3-size;
-  padding: 0 5.5rem;
+  padding: 0 2.5rem;
   text-align: center;
   margin: 40px 0 60px;
 }
@@ -95,15 +97,149 @@
   gap: 20px;
 }
 
+.instruments__button {
+  height: 52px;
+  width: 52px;
+}
+
 .instruments__arrow {
-  height: 16px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
 }
 
 .instruments__nav-button {
-  border: 0.1rem solid transparent;
+  border: 0.05rem solid transparent;
 
   &--active {
-    border-color: v.$primary;
+    border: 0.05rem solid v.$secondary;
+    &:hover {
+      background-color: v.$light;
+    }
+  }
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .instruments__category {
+    font-size: v.$h5-size;
+  }
+
+  .instruments__cover {
+    height: 1000px;
+  }
+
+  .instruments__frame {
+    display: none;
+  }
+
+  .instruments__info {
+    position: absolute;
+    height: 80%;
+    color: v.$white;
+    margin-top: 60px;
+  }
+
+  .instruments__nav-button {
+    padding: 1.25rem 1.25rem;
+    background-color: v.$white;
+  }
+
+  .instruments__circle {
+    width: 140px;
+    height: 140px;
+    background-color: v.$white;
+  }
+
+  .instruments__icon {
+    height: 56px;
+  }
+
+  .instruments__arrow {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .instruments {
+    padding: 0 8px;
+  }
+  .instruments__cover {
+    height: 800px;
+    border-radius: 32px;
+  }
+
+  .instruments__info {
+    padding: 15px;
+  }
+  .instruments__category {
+    left: 15px;
+    font-size: v.$h6-size;
+  }
+
+  .instruments__list {
+    gap: 6px;
+  }
+
+  .instruments__content {
+    gap: 40px;
+  }
+
+  .instruments__desc {
+    font-size: v.$h5-size;
+    margin: 0;
+    padding: 0 20px;
+  }
+
+  .instruments__nav-button {
+    padding: 1rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .instruments__actions {
+    margin-top: 20px;
+  }
+
+  .instruments__button {
+    height: auto;
+    width: auto;
+    padding: 1rem;
+  }
+
+  .instruments__arrow {
+    height: 14px;
+    width: 14px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .instruments {
+    margin-top: 40px;
+    padding: 0;
+  }
+  .instruments__cover {
+    height: 640px;
+  }
+  .instruments__desc {
+    font-size: v.$body-large;
+    padding: 0 10px;
+  }
+
+  .instruments__circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .instruments__icon {
+    height: 36px;
+  }
+
+  .instruments__nav-button {
+    padding: 0.9rem 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .instruments__arrow {
+    height: 12px;
+    width: 12px;
   }
 }

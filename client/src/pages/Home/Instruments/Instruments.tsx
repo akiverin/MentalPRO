@@ -36,6 +36,7 @@ import iconCases from "@assets/iconCases.svg";
 import iconSurveys from "@assets/iconSurveys.svg";
 import iconOrganizations from "@assets/iconOrganizations.svg";
 import iconProfile from "@assets/iconProfile.svg";
+import classNames from "classnames";
 
 const instruments = [
   {
@@ -45,7 +46,7 @@ const instruments = [
       webp: [imageInstrument01Webp1x, imageInstrument01Webp2x],
       png: [imageInstrument01Png1x, imageInstrument01Png2x],
     },
-    bg: "linear-gradient(147deg, #81a3c2 0%, #c2d9e7 67.91%, #dbe4e9 100%)",
+    bg: "linear-gradient(147deg,#648aac 0%,#9ac8e4 67.91%,#bbcad2 100%) ",
     name: "Практики",
     path: "/cases",
     icon: iconCases,
@@ -77,7 +78,7 @@ const instruments = [
     name: "Организации",
     path: "/organizations",
     icon: iconOrganizations,
-    desc: "Программы для сотрудников компаний, мониторинг психологического состояния и рекомендации по снижению стресса.",
+    desc: "Мониторинг психологического состояния сотрудников и рекомендации по снижению стресса.",
     link: "Все организации",
   },
   {
@@ -108,7 +109,12 @@ const Instruments = () => {
   }, []);
 
   return (
-    <section className="instruments">
+    <section
+      className={classNames(
+        "instruments",
+        `instruments--${instruments[selectedInstrument].path.slice(1)}`
+      )}
+    >
       <motion.div
         className="instruments__cover"
         key={selectedInstrument}
@@ -180,7 +186,7 @@ const Instruments = () => {
               className="instruments__icon"
             />
           </div>
-          <p className="instruments__desc">
+          <p className="instruments__desc home-desc">
             {instruments[selectedInstrument].desc}
           </p>
           <TheLink
