@@ -41,10 +41,7 @@ const CardSurvey: FC<CardSurveyProps> = ({
           )}
         </div>
         <div className="survey-card__actions">
-          <Badge
-            variant={size === "default" ? "small" : "default"}
-            className="survey-card__time"
-          >
+          <Badge variant="small" className="survey-card__time">
             {time}
           </Badge>
           <TheLink
