@@ -97,16 +97,24 @@
   gap: 20px;
 }
 
+.instruments__button {
+  height: 52px;
+  width: 52px;
+}
+
 .instruments__arrow {
-  height: 16px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
 }
 
 .instruments__nav-button {
-  border: 0.1rem solid transparent;
+  border: 0.05rem solid transparent;
 
   &--active {
-    border-color: v.$primary;
+    border: 0.05rem solid v.$secondary;
+    &:hover {
+      background-color: v.$light;
+    }
   }
 }
 
@@ -131,8 +139,23 @@
   }
 
   .instruments__nav-button {
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.25rem;
     background-color: v.$white;
+  }
+
+  .instruments__circle {
+    width: 140px;
+    height: 140px;
+    background-color: v.$white;
+  }
+
+  .instruments__icon {
+    height: 56px;
+  }
+
+  .instruments__arrow {
+    height: 16px;
+    width: 16px;
   }
 }
 
@@ -154,7 +177,7 @@
   }
 
   .instruments__list {
-    gap: 8px;
+    gap: 6px;
   }
 
   .instruments__content {
@@ -162,14 +185,14 @@
   }
 
   .instruments__desc {
-    font-size: v.$h4-size;
+    font-size: v.$h5-size;
     margin: 0;
-    padding: 0;
+    padding: 0 20px;
   }
 
   .instruments__nav-button {
-    padding: 1.2rem 1.1rem;
-    font-size: 0.9rem;
+    padding: 1rem 1rem;
+    font-size: 0.8rem;
   }
 
   .instruments__actions {
@@ -178,6 +201,45 @@
 
   .instruments__button {
     height: auto;
+    width: auto;
     padding: 1rem;
+  }
+
+  .instruments__arrow {
+    height: 14px;
+    width: 14px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .instruments {
+    margin-top: 40px;
+    padding: 0;
+  }
+  .instruments__cover {
+    height: 640px;
+  }
+  .instruments__desc {
+    font-size: v.$body-large;
+    padding: 0 10px;
+  }
+
+  .instruments__circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .instruments__icon {
+    height: 36px;
+  }
+
+  .instruments__nav-button {
+    padding: 0.9rem 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .instruments__arrow {
+    height: 12px;
+    width: 12px;
   }
 }

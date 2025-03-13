@@ -187,3 +187,42 @@
     padding: 0;
   }
 }
+
+@media screen and (max-width: v.$mobile) {
+  .footer__wrapper {
+    padding: 60px 15px 0;
+  }
+
+  .footer__nav-title {
+    margin: 0 0 16px;
+    font-size: 1.4rem;
+  }
+
+  .footer__nav-list {
+    gap: 8px;
+  }
+
+  .footer__base {
+    gap: 36px;
+  }
+
+  .footer__extra {
+    margin-top: 24px;
+    gap: 24px;
+    & .link .logo {
+      transform: scale(0.8);
+    }
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .footer__map {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer__form {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
