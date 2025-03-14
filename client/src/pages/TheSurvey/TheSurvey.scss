@@ -54,7 +54,7 @@
   &__extra {
     background-color: v.$white;
     padding: 30px;
-    border-radius: 16px;
+    border-radius: 32px;
     margin-top: 20px;
     font-size: v.$h6-size;
   }
@@ -81,5 +81,167 @@
     padding: 0 40px;
     max-width: v.$wrapper;
     margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .survey__info {
+    max-width: 50%;
+  }
+  .survey__image {
+    right: -60px;
+    height: 80%;
+    bottom: 0;
+  }
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .survey {
+    &__wrapper {
+      padding: 20px 40px;
+    }
+
+    &__info {
+      z-index: 1;
+      padding: 20px 20px 0px 20px;
+      max-width: 50%;
+    }
+
+    &__title {
+      font-size: v.$h2-size;
+      margin: 0 0 40px;
+    }
+
+    &__desc {
+      margin-left: 20px;
+      margin-top: 40px;
+      font-size: v.$body-large;
+    }
+
+    &__details {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: v.$body-large;
+    }
+
+    &__extra {
+      padding: 20px;
+      font-size: v.$body-large;
+    }
+
+    &__time {
+      margin: 0;
+    }
+
+    &__result {
+      margin: 24px 0 0;
+    }
+
+    &__image {
+      height: 70%;
+      bottom: 0;
+      right: -20px;
+    }
+  }
+
+  .other-surveys {
+    &__wrapper {
+      padding: 0 40px;
+    }
+    &__title {
+      font-size: v.$h3-size;
+      margin: 32px 0 4px;
+    }
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .survey {
+    &__info {
+      max-width: 100%;
+      padding: 20px 0;
+    }
+    &__image {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: v.$tablet) {
+  .survey {
+    &__image {
+      display: none;
+    }
+    &__info {
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .survey {
+    &__wrapper {
+      padding: 20px 15px;
+    }
+
+    &__info {
+      z-index: 1;
+      padding: 20px 20px 0px 20px;
+    }
+
+    &__title {
+      font-size: v.$h3-size;
+      margin: 0 0 40px;
+    }
+
+    &__desc {
+      margin-left: 20px;
+      margin-top: 40px;
+      font-size: v.$body-large;
+    }
+
+    &__details {
+      margin-left: 20px;
+      margin-top: 10px;
+      font-size: v.$body-large;
+    }
+
+    &__extra {
+      padding: 20px;
+      font-size: v.$body-large;
+    }
+
+    &__time {
+      margin: 0;
+    }
+
+    &__result {
+      margin: 24px 0 0;
+    }
+
+    &__image {
+      display: none;
+    }
+  }
+
+  .other-surveys {
+    &__wrapper {
+      padding: 0 15px;
+    }
+    &__title {
+      font-size: v.$h3-size;
+      margin: 32px 0 4px;
+    }
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .survey__title,
+  .other-surveys__title {
+    font-size: v.$h4-size;
+  }
+  .survey__extra,
+  .survey__desc,
+  .survey__details {
+    font-size: v.$body-medium;
+    margin: 20px 0 0;
   }
 }

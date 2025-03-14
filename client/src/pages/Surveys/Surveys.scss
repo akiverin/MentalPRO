@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
-    gap: 20vw;
+    gap: clamp(10px, 10vw, 360px);
   }
 
   &__titles {
@@ -65,6 +65,128 @@
     &:has(.survey-card--middle) {
       grid-column: span 2;
       grid-row: span 1;
+    }
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .surveys-info {
+    &__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+    }
+
+    &__title {
+      font-size: v.$h2-size;
+      margin-bottom: 24px;
+    }
+
+    &__extra {
+      align-items: flex-start;
+      max-width: 100%;
+      width: 100%;
+      gap: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .surveys-content {
+    &__list {
+      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+
+      &:has(.survey-card--big) {
+        grid-template-columns: 0.7fr 0.7fr 1fr 1fr;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .surveys-content {
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+
+      &:has(.survey-card--big) {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+      }
+    }
+    &__item {
+      &:has(.survey-card--big) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      &:has(.survey-card--middle) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .surveys-info {
+    &__wrapper {
+      margin: 30px auto;
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__title {
+      margin-bottom: 20px;
+      font-size: v.$h3-size;
+    }
+
+    &__subtitle {
+      font-size: v.$body-large;
+    }
+
+    &__desc {
+      font-size: v.$body-medium;
+    }
+
+    &__extra {
+      max-width: 100%;
+      gap: 20px;
+    }
+  }
+
+  .surveys-content {
+    &__wrapper {
+      padding: 0 15px;
+    }
+
+    &__list {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      gap: 10px;
+    }
+
+    &__list:has(.survey-card--big) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      gap: 10px;
+    }
+
+    &__item {
+      &:has(.survey-card--big) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      &:has(.survey-card--middle) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
     }
   }
 }

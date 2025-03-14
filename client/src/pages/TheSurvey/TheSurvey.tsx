@@ -44,7 +44,13 @@ const TheSurvey = () => {
               </p>
             </div>
           </div>
-          <img src={survey.image} alt={survey.name} className="survey__image" />
+          {survey.image && (
+            <img
+              src={survey.image}
+              alt={survey.name}
+              className="survey__image"
+            />
+          )}
         </div>
       </section>
       <section className="other-surveys">

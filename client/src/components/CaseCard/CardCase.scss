@@ -3,11 +3,11 @@
 .case-card {
   box-sizing: border-box;
   position: relative;
-  // max-width: 600px;
   color: v.$black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 500px;
 
   &__image {
     height: 360px;
@@ -64,6 +64,31 @@
     &__description {
       font-size: v.$body-medium;
       margin: 0 0 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .case-card {
+    &__image {
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    &__info {
+      padding: 10px 0;
+    }
+
+    &__title {
+      font-size: v.$h6-size;
+      margin: 10px 0;
+    }
+
+    &__description {
+      font-size: v.$body-small;
+      margin: 0 0 10px;
     }
   }
 }
