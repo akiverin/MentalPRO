@@ -89,12 +89,6 @@
       gap: 24px;
     }
   }
-  .cases-content {
-    &__list {
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
-    }
-  }
 }
 
 @media screen and (max-width: 1580px) {

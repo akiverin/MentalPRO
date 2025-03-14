@@ -31,10 +31,6 @@
     font-size: v.$h6-size;
   }
 
-  &__book {
-    font-size: 54px;
-  }
-
   &__paragraph {
     &:first-child {
       &::first-letter {
@@ -57,7 +53,98 @@
   }
   &__list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     gap: 16px;
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .case {
+    &__wrapper {
+      padding: 0 15px;
+    }
+
+    &__title {
+      margin: 20px 0 20px;
+      text-align: center;
+      font-size: v.$h5-size;
+      letter-spacing: -0.02rem;
+    }
+
+    &__image {
+      margin: 10px 0;
+      width: 100%;
+      object-fit: cover;
+      max-height: 400px;
+      object-position: top;
+    }
+
+    &__text {
+      margin: 0 0 10px;
+      line-height: 1.5;
+      font-size: v.$body-large;
+    }
+
+    &__paragraph {
+      &:first-child {
+        &::first-letter {
+          font-size: 2.5rem;
+          margin-right: 0.5rem;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+
+  .other-cases {
+    &__title {
+      font-size: v.$h4-size;
+    }
+    &__wrapper {
+      padding: 0 15px;
+    }
+    &__list {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .case {
+    &__wrapper {
+      padding: 0 15px;
+    }
+
+    &__title {
+      margin: 8px 0 8px;
+      text-align: center;
+      font-size: v.$h5-size;
+    }
+
+    &__image {
+      margin: 8px 0 4px;
+      max-height: 360px;
+    }
+
+    &__text {
+      margin: 0 0 8px;
+      font-size: v.$body-medium;
+    }
+
+    &__paragraph {
+      &:first-child {
+        &::first-letter {
+          font-size: 2.125rem;
+          margin-right: 0.4rem;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+  .other-cases {
+    &__title {
+      font-size: v.$h5-size;
+    }
   }
 }
