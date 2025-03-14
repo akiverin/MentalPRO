@@ -234,8 +234,9 @@
 }
 
 @media screen and (max-width: 440px) {
-  .survey__title {
-    font-size: v.$h5-size;
+  .survey__title,
+  .other-surveys__title {
+    font-size: v.$h4-size;
   }
   .survey__extra,
   .survey__desc,

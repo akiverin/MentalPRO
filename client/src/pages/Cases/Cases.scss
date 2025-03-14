@@ -132,3 +132,12 @@
     }
   }
 }
+
+@media screen and (max-width: 360px) {
+  .cases-content {
+    &__list {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+}

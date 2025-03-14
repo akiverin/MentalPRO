@@ -126,31 +126,34 @@ const Quest = () => {
           >
             Предыдущий вопрос
           </Button>
-          <Button
-            onClick={() => {
-              localStorage.removeItem(`survey-${survey?.id}-answers`);
-              localStorage.removeItem(`survey-${survey?.id}-last-question`);
-              alert("Ваши ответы отправлены!");
-            }}
-            variant="rounded"
-            background="primary"
-            disabled={Object.keys(answers).length !== questions.length}
-          >
-            Завершить опрос
-          </Button>
-          <Button
-            onClick={() =>
-              setNumQuestion((prev) => Math.min(questions.length, prev + 1))
-            }
-            variant="rounded"
-            background="primary"
-            disabled={
-              numQuestion === questions[questions.length - 1].num ||
-              selectedAnswer === -1
-            }
-          >
-            Следующий вопрос
-          </Button>
+          {numQuestion === questions.length ? (
+            <Button
+              onClick={() => {
+                localStorage.removeItem(`survey-${survey?.id}-answers`);
+                localStorage.removeItem(`survey-${survey?.id}-last-question`);
+                alert("Ваши ответы отправлены!");
+              }}
+              variant="rounded"
+              background="primary"
+              disabled={Object.keys(answers).length !== questions.length}
+            >
+              Завершить опрос
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                setNumQuestion((prev) => Math.min(questions.length, prev + 1))
+              }
+              variant="rounded"
+              background="primary"
+              disabled={
+                numQuestion === questions[questions.length - 1].num ||
+                selectedAnswer === -1
+              }
+            >
+              Следующий вопрос
+            </Button>
+          )}
         </div>
       </div>
     </section>
