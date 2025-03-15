@@ -63,93 +63,95 @@ const slides = [
 const Registration = () => {
   return (
     <div className="registration">
-      <Slider slides={slides} slideDuration={10} />
-      <div className="registration__content">
-        <div className="registration__info">
-          <h1 className="registration__title">Регистрация</h1>
-          <p className="registration__desc">
-            У вас уже есть аккаунт?{" "}
-            <TheLink to="/login" variant="text">
-              Войти
-            </TheLink>
-          </p>
-          <Form className="registration__form" onSubmit={() => {}}>
-            <div className="registration__name-inputs">
+      <div className="registration__wrapper">
+        <Slider slides={slides} slideDuration={10} />
+        <div className="registration__content">
+          <div className="registration__info">
+            <h1 className="registration__title">Регистрация</h1>
+            <p className="registration__desc">
+              У вас уже есть аккаунт?{" "}
+              <TheLink to="/login" variant="text">
+                Войти
+              </TheLink>
+            </p>
+            <Form className="registration__form" onSubmit={() => {}}>
+              <div className="registration__name-inputs">
+                <Input
+                  fullWidth
+                  placeholder="Имя"
+                  type="text"
+                  name="firstNameInput"
+                  required
+                />
+                <Input
+                  fullWidth
+                  placeholder="Фамилия"
+                  type="text"
+                  name="secondNameInput"
+                  required
+                />
+              </div>
               <Input
                 fullWidth
-                placeholder="Имя"
-                type="text"
-                name="firstNameInput"
+                placeholder="Email"
+                type="email"
+                name="emailInput"
                 required
               />
               <Input
+                placeholder="Пароль"
+                type="password"
+                name="passwordInput"
                 fullWidth
-                placeholder="Фамилия"
-                type="text"
-                name="secondNameInput"
                 required
               />
+              <Checkbox>
+                Даю{" "}
+                <TheLink variant="text" to="/presonal-data">
+                  согласие
+                </TheLink>{" "}
+                на обработку персональных данных
+              </Checkbox>
+              <div className="registration__actions">
+                <Button
+                  size="large"
+                  className="registration__button"
+                  fullWidth
+                  type="submit"
+                >
+                  Создать аккаунт
+                </Button>
+              </div>
+            </Form>
+            <div className="registration__extra">
+              <h2 className="registration__extra-title">Регистрация через</h2>
             </div>
-            <Input
-              fullWidth
-              placeholder="Email"
-              type="email"
-              name="emailInput"
-              required
-            />
-            <Input
-              placeholder="Пароль"
-              type="password"
-              name="passwordInput"
-              fullWidth
-              required
-            />
-            <Checkbox>
-              Даю{" "}
-              <TheLink variant="text" to="/presonal-data">
-                согласие
-              </TheLink>{" "}
-              на обработку персональных данных
-            </Checkbox>
-            <div className="registration__actions">
-              <Button
-                size="large"
+            <div className="registration__oauth">
+              <TheLink
+                variant="button"
+                background="secondary"
                 className="registration__button"
-                fullWidth
-                type="submit"
               >
-                Создать аккаунт
-              </Button>
+                <img
+                  src={iconVKID}
+                  alt="VK ID icon"
+                  className="registration__icon"
+                />
+                <p className="visually-hidden">Использовать VK ID</p>
+              </TheLink>
+              <TheLink
+                variant="button"
+                background="secondary"
+                className="registration__button"
+              >
+                <img
+                  src={iconYandexID}
+                  alt="Яндекс ID icon"
+                  className="registration__icon"
+                />
+                <p className="visually-hidden">Использовать Яндекс ID</p>
+              </TheLink>
             </div>
-          </Form>
-          <div className="registration__extra">
-            <h2 className="registration__extra-title">Регистрация через</h2>
-          </div>
-          <div className="registration__oauth">
-            <TheLink
-              variant="button"
-              background="secondary"
-              className="registration__button"
-            >
-              <img
-                src={iconVKID}
-                alt="VK ID icon"
-                className="registration__icon"
-              />
-              <p className="visually-hidden">Использовать VK ID</p>
-            </TheLink>
-            <TheLink
-              variant="button"
-              background="secondary"
-              className="registration__button"
-            >
-              <img
-                src={iconYandexID}
-                alt="Яндекс ID icon"
-                className="registration__icon"
-              />
-              <p className="visually-hidden">Использовать Яндекс ID</p>
-            </TheLink>
           </div>
         </div>
       </div>

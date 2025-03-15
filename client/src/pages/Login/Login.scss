@@ -1,12 +1,14 @@
 @use "@styles/variables" as v;
 
 .login {
-  display: flex;
-  height: calc(100vh - v.$header-height);
-  max-width: v.$wrapper;
-  margin: 0 auto;
-  padding: 0 40px;
-  gap: 20px;
+  &__wrapper {
+    display: flex;
+    height: calc(100vh - v.$header-height);
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    padding: 0 40px;
+    gap: 20px;
+  }
 
   &__content {
     flex: 1;
@@ -90,4 +92,132 @@
   padding: 10px 20px;
   background: #fff;
   z-index: 9;
+}
+
+@media screen and (max-width: 1400px) {
+  .login {
+    &__info {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h2-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .login {
+    &__wrapper {
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__info {
+      gap: 10px;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h3-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      font-size: v.$body-large;
+      line-height: 1.5;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__actions {
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: 1rem;
+    }
+
+    &__oauth {
+      gap: 16px;
+    }
+  }
+
+  .login__extra {
+    margin-top: 10px;
+  }
+
+  .login__extra h2 {
+    font-size: v.$body-large;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login {
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      font-size: v.$h4-size;
+    }
+
+    &__desc {
+      margin: 0 0 16px;
+      font-size: v.$body-medium;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__actions {
+      margin-top: 6px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: v.$body-medium;
+    }
+
+    &__oauth {
+      gap: 10px;
+    }
+  }
+
+  .login__extra {
+    margin-top: 8px;
+  }
+
+  .login__extra h2 {
+    font-size: v.$body-medium;
+  }
 }
