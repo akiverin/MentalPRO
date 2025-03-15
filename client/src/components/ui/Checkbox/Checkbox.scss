@@ -29,12 +29,45 @@
   }
 
   &__label {
-    font-size: v.$font-regular;
+    font-size: v.$h6-size;
     color: v.$black;
+    max-width: calc(100% - 40px - 20px);
   }
 
   &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .checkbox {
+    &__label {
+      font-size: v.$body-large;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .checkbox {
+    &__box {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+    &__label {
+      font-size: v.$body-medium;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .checkbox {
+    &__box {
+      margin-right: 8px;
+    }
+    &__label {
+      font-size: v.$body-small;
+    }
   }
 }
