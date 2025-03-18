@@ -151,7 +151,7 @@
   }
 }
 
-@media screen and (max-width: calc(v.$tablet + 50px)) {
+@media screen and (max-width: calc(v.$tablet + 150px)) {
   .mobile-only {
     display: block;
   }
@@ -161,7 +161,17 @@
     display: none;
   }
 
+  .header__mobile-menu-header {
+    & .logo {
+      transform: scale(0.8);
+    }
+  }
+
   .header {
+    &__close-button {
+      height: 2.25rem;
+      padding: 0.85rem;
+    }
     &__menu-button {
       display: block;
     }
