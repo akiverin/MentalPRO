@@ -5,9 +5,6 @@ import TheLink from "@components/ui/Link/Link";
 import Button from "@/components/ui/Button/Button";
 import Slider from "@components/ui/Slider/Slider";
 
-import iconVKID from "@assets/iconVKID.svg";
-import iconYandexID from "@assets/iconYandexID.svg";
-
 import imageLogin01Avif1x from "@assets/images/login/imageLogin01.avif";
 import imageLogin01Avif2x from "@assets/images/login/imageLogin01@2x.avif";
 import imageLogin01Webp1x from "@assets/images/login/imageLogin01.webp";
@@ -28,7 +25,10 @@ import imageLogin03Webp1x from "@assets/images/login/imageLogin03.webp";
 import imageLogin03Webp2x from "@assets/images/login/imageLogin03@2x.webp";
 import imageLogin03Png1x from "@assets/images/login/imageLogin03.png";
 import imageLogin03Png2x from "@assets/images/login/imageLogin03@2x.png";
+
 import Checkbox from "@/components/ui/Checkbox/Checkbox";
+import IconVKID from "@/components/ui/icons/IconVKID";
+import IconYID from "@/components/ui/icons/IconYID";
 
 const slides = [
   {
@@ -106,7 +106,7 @@ const Registration = () => {
             />
             <Checkbox>
               Даю{" "}
-              <TheLink variant="text" to="/presonal-data">
+              <TheLink variant="text" to="/privacy">
                 согласие
               </TheLink>{" "}
               на обработку персональных данных
@@ -131,11 +131,7 @@ const Registration = () => {
               background="secondary"
               className="registration__button"
             >
-              <img
-                src={iconVKID}
-                alt="VK ID icon"
-                className="registration__icon"
-              />
+              <IconVKID />
               <p className="visually-hidden">Использовать VK ID</p>
             </TheLink>
             <TheLink
@@ -143,11 +139,7 @@ const Registration = () => {
               background="secondary"
               className="registration__button"
             >
-              <img
-                src={iconYandexID}
-                alt="Яндекс ID icon"
-                className="registration__icon"
-              />
+              <IconYID />
               <p className="visually-hidden">Использовать Яндекс ID</p>
             </TheLink>
           </div>

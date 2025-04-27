@@ -2,9 +2,10 @@ import "./TheHeader.scss";
 import { useLocation } from "react-router-dom";
 import TheLink from "../ui/Link/Link";
 import Logo from "../ui/Logo/Logo";
-import iconLogin from "@assets/iconLogin.svg";
 import { useState } from "react";
 import Button from "../ui/Button/Button";
+import IconLogin from "../ui/icons/IconLogin";
+import IconClose from "../ui/icons/IconClose";
 
 function TheHeader() {
   const location = useLocation();
@@ -64,11 +65,7 @@ function TheHeader() {
             Организации
           </TheLink>
           <TheLink icon variant="rounded" background="light" to="/login">
-            <img
-              src={iconLogin}
-              alt="icon login"
-              className="header__link-icon"
-            />
+            <IconLogin className="header__link-icon" />
           </TheLink>
         </div>
 
@@ -95,18 +92,7 @@ function TheHeader() {
             variant="rounded"
             background="secondary"
           >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1.28736 14L0 12.7126L5.72874 6.98391L0 1.28736L1.28736 0L7.01609 5.69655L12.7126 0L14 1.28736L8.30345 6.98391L14 12.7126L12.7126 14L7.01609 8.27126L1.28736 14Z"
-                fill="black"
-              />
-            </svg>
+            <IconClose />
           </Button>
         </div>
 
@@ -160,11 +146,7 @@ function TheHeader() {
                 to="/login"
                 onClick={toggleMenu}
               >
-                <img
-                  src={iconLogin}
-                  alt="icon login"
-                  className="header__link-icon"
-                />
+                <IconLogin className="header__link-icon" />
                 <span className="header__mobile-login-text">Войти</span>
               </TheLink>
             </li>

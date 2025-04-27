@@ -1,6 +1,7 @@
 import { FC, SelectHTMLAttributes, useMemo } from "react";
 import classNames from "classnames";
 import "./Select.scss";
+import IconSelectArrow from "../icons/IconSelectArrow";
 
 interface OptionProps {
   label: string;
@@ -74,22 +75,7 @@ const Select: FC<SelectProps> = ({
         ))}
       </select>
       <span className="select-arrow">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M7 16L12 21L17 16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-          <path
-            d="M17 8L12 3L7 8"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
+        <IconSelectArrow />
       </span>
     </div>
   );
