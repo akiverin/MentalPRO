@@ -2,7 +2,6 @@ import Search from "@components/Search/Search";
 import "./Cases.scss";
 import { useMemo, useState } from "react";
 import Pagination from "@/components/ui/Pagination/Pagination";
-import { useAppSelector } from "@/store/hooks";
 import { searchFilter } from "@/utils/search";
 import CardCase from "@components/CaseCard/CardCase";
 
@@ -17,7 +16,7 @@ interface Case {
 }
 
 const Cases = () => {
-  const cases = useAppSelector((state) => state.cases.cases);
+  const cases = [] as Case[];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
@@ -26,12 +25,12 @@ const Cases = () => {
   const filteredCases = useMemo(
     () =>
       searchFilter<Case>(cases, searchQuery, ["name", "description", "text"]),
-    [searchQuery, cases]
+    [searchQuery, cases],
   );
 
   const totalPages = useMemo(
     () => Math.ceil(filteredCases.length / pageSize),
-    [filteredCases, pageSize]
+    [filteredCases, pageSize],
   );
 
   const paginatedCases = useMemo(() => {

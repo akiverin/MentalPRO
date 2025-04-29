@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { Strategy as VkStrategy } from "passport-vkontakte";
 import { Strategy as YandexStrategy } from "passport-yandex";
-import User from "../models/User.js";
+import User from "../models/user.model.js";
 import dotenv from "dotenv";
 dotenv.config();
 

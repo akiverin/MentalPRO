@@ -24,7 +24,7 @@ export class UserStore {
 
     if (storedToken) {
       try {
-        this.token = JSON.parse(storedToken);
+        this.token = storedToken;
         this.meta = Meta.success;
       } catch {
         this.logout();

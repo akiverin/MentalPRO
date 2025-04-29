@@ -25,7 +25,7 @@ export const routesConfig: RouteObject[] = [
       { path: routes.login.mask, element: <Login /> },
       //   { path: routes.registration.mask, element: <Registration /> },
       //   { path: routes.profile.mask, element: <Profile /> },
-      //   { path: routes.cases.mask, element: <Cases /> },
+      { path: routes.cases.mask, element: <Cases /> },
       //   { path: routes.case.mask, element: <TheCase /> },
       //   { path: routes.organizations.mask, element: <Organizations /> },
       //   { path: routes.organization.mask, element: <TheOrganization /> },
