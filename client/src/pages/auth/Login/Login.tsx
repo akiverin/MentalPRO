@@ -98,7 +98,7 @@ const Login = observer(() => {
               type="email"
               name="email"
               value={form.email}
-              onChange={(e) => form.setField("email", e.target.value)}
+              onChange={(value) => form.setField("email", value)}
               required
             />
             {form.errors.email && <p>{form.errors.email}</p>}
@@ -107,7 +107,7 @@ const Login = observer(() => {
               type="password"
               name="password"
               value={form.password}
-              onChange={(e) => form.setField("password", e.target.value)}
+              onChange={(value) => form.setField("password", value)}
               fullWidth
               required
             />

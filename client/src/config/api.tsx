@@ -18,4 +18,11 @@ export const apiRoutes = {
     register: "/auth/register",
     me: "/auth/me",
   },
+  practice: {
+    getAll: "/practice",
+    getById: (id: string) => `/practice/${id}`,
+    create: "/practice",
+    update: (id: string) => `/practice/${id}`,
+    delete: (id: string) => `/practice/${id}`,
+  },
 };

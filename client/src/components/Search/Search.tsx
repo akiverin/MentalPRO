@@ -1,48 +1,41 @@
-import { FC, useState, useCallback, useEffect } from "react";
+import { FC } from "react";
 import Input from "@components/ui/Input/Input";
 import Button from "@components/ui/Button/Button";
-import { useDebounce } from "@/hooks/debounce";
 import "./Search.scss";
 import IconClose from "../ui/icons/IconClose";
+import IconSearch from "../ui/icons/IconSearch";
 
 interface SearchProps {
   placeholder?: string;
+  value: string;
   onSearch: (query: string) => void;
+  handleClear: () => void;
   className?: string;
+  onChange: (value: string) => void;
 }
 
 const Search: FC<SearchProps> = ({
   placeholder = "Поиск...",
   onSearch,
+  handleClear,
   className = "",
+  ...props
 }) => {
-  const [query, setQuery] = useState("");
-
-  const debouncedQuery = useDebounce(query, 300);
-
-  useEffect(() => {
-    onSearch(debouncedQuery);
-  }, [debouncedQuery, onSearch]);
-
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  }, []);
-
-  const handleClear = useCallback(() => {
-    setQuery("");
-  }, []);
-
   return (
     <div className={`search ${className}`}>
       <Input
         fullWidth
         type="text"
-        value={query}
-        onChange={handleChange}
         placeholder={placeholder}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            onSearch(props.value);
+          }
+        }}
+        {...props}
         className="search__input"
       />
-      {query && (
+      {props.value && (
         <Button
           background="secondary"
           size="large"
@@ -53,6 +46,14 @@ const Search: FC<SearchProps> = ({
           <IconClose />
         </Button>
       )}
+      <Button
+        size="large"
+        onClick={() => onSearch(props.value)}
+        className="search__clear"
+      >
+        <p className="visually-hidden">Найти</p>
+        <IconSearch />
+      </Button>
     </div>
   );
 };

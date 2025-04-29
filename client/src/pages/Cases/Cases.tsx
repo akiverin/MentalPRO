@@ -1,42 +1,42 @@
+import { useCallback, useEffect, useState } from "react";
 import Search from "@components/Search/Search";
 import "./Cases.scss";
-import { useMemo, useState } from "react";
 import Pagination from "@/components/ui/Pagination/Pagination";
-import { searchFilter } from "@/utils/search";
 import CardCase from "@components/CaseCard/CardCase";
+import { PracticeListStore } from "@entities/practice/stores/PracticeListStore";
+import { useSearchParams } from "react-router-dom";
+import { observer, useLocalObservable } from "mobx-react-lite";
 
-interface Case {
-  id: number;
-  name: string;
-  description: string;
-  text?: string[];
-  image?: string;
-  category: string;
-  link: string;
-}
+const Cases = observer(() => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const practiceListStore = useLocalObservable(() => new PracticeListStore());
+  const [localSearch, setLocalSearch] = useState("");
 
-const Cases = () => {
-  const cases = [] as Case[];
+  useEffect(() => {
+    const search = searchParams.get("search") || "";
+    const page = parseInt(searchParams.get("page") || "1", 10);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
-  const [searchQuery, setSearchQuery] = useState("");
+    setLocalSearch(search);
+    practiceListStore.setSearchQuery(search);
+    practiceListStore.fetchPractices(page);
+  }, [searchParams, practiceListStore]);
 
-  const filteredCases = useMemo(
-    () =>
-      searchFilter<Case>(cases, searchQuery, ["name", "description", "text"]),
-    [searchQuery, cases],
+  const onSearch = useCallback(() => {
+    setSearchParams({
+      search: localSearch,
+      page: "1",
+    });
+  }, [localSearch, setSearchParams]);
+
+  const onPageChange = useCallback(
+    (page: number) => {
+      setSearchParams((prev) => {
+        prev.set("page", String(page));
+        return new URLSearchParams(prev);
+      });
+    },
+    [setSearchParams],
   );
-
-  const totalPages = useMemo(
-    () => Math.ceil(filteredCases.length / pageSize),
-    [filteredCases, pageSize],
-  );
-
-  const paginatedCases = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    return filteredCases.slice(start, start + pageSize);
-  }, [currentPage, pageSize, filteredCases]);
 
   return (
     <>
@@ -54,30 +54,45 @@ const Cases = () => {
               спокойнее в кризисные ситуации необходимо найти свой метод из
               предложенных, чтобы противостоять состоянию тревожности.
             </p>
-            <Search onSearch={setSearchQuery} className="cases-info__search" />
+            <Search
+              value={localSearch}
+              onSearch={onSearch}
+              handleClear={() => {
+                setLocalSearch("");
+                setSearchParams({ search: "", page: "1" });
+              }}
+              onChange={(value) => {
+                setLocalSearch(value);
+              }}
+              className="cases-info__search"
+            />
           </div>
         </div>
       </section>
       <section className="cases-content">
         <div className="cases-content__wrapper">
           <ul className="cases-content__list">
-            {paginatedCases.map((item) => (
+            {practiceListStore.practices.map((item) => (
               <li key={`case-${item.id}`} className="cases-content__item">
-                <CardCase {...item} />
+                <CardCase
+                  id={item.id}
+                  title={item.title}
+                  description={item.description}
+                  category={item.category}
+                  image={item.image}
+                />
               </li>
             ))}
           </ul>
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            pageSize={pageSize}
-            onPageChange={setCurrentPage}
-            onPageSizeChange={setPageSize}
+            currentPage={practiceListStore.pagination.page}
+            totalPages={practiceListStore.pagination.pageCount}
+            onPageChange={onPageChange}
           />
         </div>
       </section>
     </>
   );
-};
+});
 
 export default Cases;

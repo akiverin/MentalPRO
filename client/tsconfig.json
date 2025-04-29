@@ -25,6 +25,7 @@
       "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"],
       "@styles/*": ["src/styles/*"],
       "@entities/*": ["src/entities/*"],
       "@config/*": ["src/config/*"]

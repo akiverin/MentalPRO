@@ -3,32 +3,36 @@ import "./CardCase.scss";
 import TheLink from "@components/ui/Link/Link";
 import Badge from "@components/ui/Badge/Badge";
 
-interface Case {
-  id: number;
-  name: string;
+interface CardCaseProps {
+  id: string;
+  title: string;
   description: string;
-  text?: string[];
-  image?: string;
   category: string;
-  link: string;
+  image: string;
 }
 
-const CardCase: FC<Case> = ({ name, description, category, image, link }) => {
+const CardCase: FC<CardCaseProps> = ({
+  id,
+  title,
+  description,
+  category,
+  image,
+}) => {
   return (
     <div className="case-card">
-      <img src={image} alt={name} className="case-card__image" />
+      <img src={image} alt={title} className="case-card__image" />
       <div className="case-card__info">
         <Badge variant="small" className="case-card__time">
           {category}
         </Badge>
-        <h3 className="case-card__title">{name}</h3>
+        <h3 className="case-card__title">{title}</h3>
         <p className="case-card__description">{description}</p>
         <TheLink
           variant="rounded"
           background="primary"
           small
           className="exercise-card__link"
-          to={"/cases/" + link + "/"}
+          to={"/cases/" + id + "/"}
         >
           Читать далее
         </TheLink>
