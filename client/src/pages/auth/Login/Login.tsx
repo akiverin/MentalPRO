@@ -29,6 +29,11 @@ import imageLogin03Png2x from "@assets/images/login/imageLogin03@2x.png";
 import IconVKID from "@/components/ui/icons/IconVKID";
 import IconYID from "@/components/ui/icons/IconYID";
 
+import { observer, useLocalObservable } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
+import { LoginFormStore } from "@/entities/user/stores/LoginFormStore";
+import { userStore } from "@/entities/user/stores/userStoreInstance";
+
 const slides = [
   {
     id: 1,
@@ -59,7 +64,21 @@ const slides = [
   },
 ];
 
-const Login = () => {
+const Login = observer(() => {
+  const form = useLocalObservable(() => new LoginFormStore());
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.validateAll()) {
+      return;
+    }
+    const success = await userStore.login(form.email, form.password);
+    if (success) {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="login">
       <Slider slides={slides} slideDuration={10} />
@@ -72,21 +91,28 @@ const Login = () => {
               Зарегистрируйтесь
             </TheLink>
           </p>
-          <Form className="login__form" onSubmit={() => {}}>
+          <Form className="login__form" onSubmit={handleSubmit}>
             <Input
               fullWidth
               placeholder="Email"
               type="email"
               name="email"
+              value={form.email}
+              onChange={(e) => form.setField("email", e.target.value)}
               required
             />
+            {form.errors.email && <p>{form.errors.email}</p>}
             <Input
               placeholder="Пароль"
               type="password"
               name="password"
+              value={form.password}
+              onChange={(e) => form.setField("password", e.target.value)}
               fullWidth
               required
             />
+            {form.errors.password && <p>{form.errors.password}</p>}
+            {userStore.meta === "error" && <p>{userStore.error}</p>}
             <div className="login__actions">
               <TheLink
                 className="login__button"
@@ -123,6 +149,7 @@ const Login = () => {
               variant="button"
               background="secondary"
               className="login__button"
+              href="http://localhost:3030/api/auth/yandex"
             >
               <IconYID />
               <p className="visually-hidden">Использовать Яндекс ID</p>
@@ -132,6 +159,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Login;
