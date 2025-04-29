@@ -1,12 +1,12 @@
 import "./TheFooter.scss";
 import TheLink from "../ui/Link/Link";
 import Logo from "../ui/Logo/Logo";
-import vkIcon from "@assets/vkIcon.svg";
-import tgIcon from "@assets/tgIcon.svg";
-import ghIcon from "@assets/ghIcon.svg";
 import { Form } from "../ui/Form/Form";
 import Input from "../ui/Input/Input";
 import Button from "../ui/Button/Button";
+import IconVK from "../ui/icons/IconVK";
+import IconTg from "../ui/icons/IconTg";
+import IconGH from "../ui/icons/IconGH";
 
 function TheFooter() {
   return (
@@ -116,13 +116,16 @@ function TheFooter() {
         <div className="footer__extra">
           <div className="footer__social">
             <TheLink href="/" aria-label="Вконтакте">
-              <img src={vkIcon} alt="Вконтакте" className="footer__soc-icon" />
+              <p className="visually-hidden">Вконтакте</p>
+              <IconVK className="footer__soc-icon" />
             </TheLink>
             <TheLink href="/" aria-label="Телеграм">
-              <img src={tgIcon} alt="Телеграм" className="footer__soc-icon" />
+              <p className="visually-hidden">Телеграм</p>
+              <IconTg className="footer__soc-icon" />
             </TheLink>
             <TheLink href="/" aria-label="GitHub">
-              <img src={ghIcon} alt="GitHub" className="footer__soc-icon" />
+              <p className="visually-hidden">GitHub</p>
+              <IconGH className="footer__soc-icon" />
             </TheLink>
           </div>
 

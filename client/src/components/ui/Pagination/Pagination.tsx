@@ -3,6 +3,8 @@ import classNames from "classnames";
 import "./Pagination.scss";
 import Button from "../Button/Button";
 import Select from "../Select/Select";
+import IconArrowLeft from "../icons/IconArrowLeft";
+import IconArrowRight from "../icons/IconArrowRight";
 
 interface PaginationProps {
   currentPage: number;
@@ -90,6 +92,11 @@ const Pagination: FC<PaginationProps> = ({
     return null;
   }
 
+  const handlePageChange = (page: number) => {
+    onPageChange(page);
+    document.documentElement.scrollTo(0, 0);
+  };
+
   return (
     <div className={classNames("pagination-container", className)}>
       <div className="pagination">
@@ -98,22 +105,11 @@ const Pagination: FC<PaginationProps> = ({
           variant="rounded"
           background="secondary"
           disabled={isPrevDisabled}
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
           aria-label={labels.prevPage}
         >
           <span className="visually-hidden">{labels.prevPage}</span>
-          <svg
-            className="pagination__arrow"
-            width="15"
-            height="14"
-            viewBox="0 0 15 14"
-            aria-hidden="true"
-          >
-            <path
-              d="M6.58381 13.5065L0.123047 7.04572L6.58381 0.584961L7.83026 1.81756L3.50231 6.14551H14.3741V7.94593H3.50231L7.83026 12.267L6.58381 13.5065Z"
-              fill="currentColor"
-            />
-          </svg>
+          <IconArrowLeft width={16} height={16} className="pagination__arrow" />
         </Button>
 
         <ul className="pagination__pages" role="list">
@@ -131,7 +127,7 @@ const Pagination: FC<PaginationProps> = ({
                   className={classNames("pagination__page-button", {
                     "pagination__page-button--active": currentPage === page,
                   })}
-                  onClick={() => onPageChange(page as number)}
+                  onClick={() => handlePageChange(page as number)}
                   aria-current={currentPage === page ? "page" : undefined}
                   aria-label={`Страница ${page}`}
                 >
@@ -147,22 +143,15 @@ const Pagination: FC<PaginationProps> = ({
           variant="rounded"
           background="secondary"
           disabled={isNextDisabled}
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => handlePageChange(currentPage + 1)}
           aria-label={labels.nextPage}
         >
           <span className="visually-hidden">{labels.nextPage}</span>
-          <svg
+          <IconArrowRight
+            width={16}
+            height={16}
             className="pagination__arrow"
-            width="16"
-            height="15"
-            viewBox="0 0 16 15"
-            aria-hidden="true"
-          >
-            <path
-              d="M8.65626 14.6023L7.2911 13.2523L12.0312 8.51221H0.124023V6.54032H12.0312L7.2911 1.80777L8.65626 0.450195L15.7323 7.52627L8.65626 14.6023Z"
-              fill="currentColor"
-            />
-          </svg>
+          />
         </Button>
       </div>
 

@@ -7,6 +7,9 @@
   justify-content: center;
 
   &__button {
+    width: 46px;
+    height: 46px;
+
     &--prev {
       margin-right: auto;
     }
@@ -22,7 +25,7 @@
 
   &__pages {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     list-style: none;
   }
 
@@ -31,16 +34,18 @@
   }
 
   &__page-button {
-    width: 52px;
-    height: 52px;
+    width: 46px;
+    height: 46px;
+    border: 1px solid v.$secondary-hover;
 
     &--active {
       opacity: 0.6;
       cursor: not-allowed;
+      border: 1px solid v.$light-hover;
     }
 
     &:hover {
-      background: #e0e0e0;
+      background: v.$secondary-hover;
     }
   }
 }

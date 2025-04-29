@@ -89,10 +89,4 @@
   .select-container:focus-within & {
     color: v.$primary;
   }
-
-  & svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 }

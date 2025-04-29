@@ -1,0 +1,12 @@
+.icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: inherit;
+
+  & svg {
+    height: 100%;
+    width: 100%;
+  }
+}
