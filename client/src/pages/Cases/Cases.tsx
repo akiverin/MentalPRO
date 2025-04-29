@@ -3,13 +3,13 @@ import Search from "@components/Search/Search";
 import "./Cases.scss";
 import Pagination from "@/components/ui/Pagination/Pagination";
 import CardCase from "@components/CaseCard/CardCase";
-import { PracticeListStore } from "@entities/practice/stores/PracticeListStore";
+import { practiceListStore } from "@entities/practice/stores/practiceStoreInstance";
 import { useSearchParams } from "react-router-dom";
-import { observer, useLocalObservable } from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
+import { PracticeModel } from "@/entities/practice/model";
 
 const Cases = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const practiceListStore = useLocalObservable(() => new PracticeListStore());
   const [localSearch, setLocalSearch] = useState("");
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Cases = observer(() => {
     setLocalSearch(search);
     practiceListStore.setSearchQuery(search);
     practiceListStore.fetchPractices(page);
-  }, [searchParams, practiceListStore]);
+  }, [searchParams]);
 
   const onSearch = useCallback(() => {
     setSearchParams({
@@ -72,7 +72,7 @@ const Cases = observer(() => {
       <section className="cases-content">
         <div className="cases-content__wrapper">
           <ul className="cases-content__list">
-            {practiceListStore.practices.map((item) => (
+            {practiceListStore.practices.map((item: PracticeModel) => (
               <li key={`case-${item.id}`} className="cases-content__item">
                 <CardCase
                   id={item.id}

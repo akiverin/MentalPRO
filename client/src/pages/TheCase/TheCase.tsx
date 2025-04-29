@@ -1,21 +1,24 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useParams } from 'react-router-dom';
 
-import "./TheCase.scss";
-import Badge from "@/components/ui/Badge/Badge";
-import CardCase from "@/components/CaseCard/CardCase";
+import './TheCase.scss';
+import Badge from '@/components/ui/Badge/Badge';
+import CardCase from '@/components/CaseCard/CardCase';
+import { practiceListStore } from '@/entities/practice/stores/practiceStoreInstance';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
-const TheCase = () => {
+const TheCase = observer(() => {
   const { link } = useParams<{ link: string }>();
-  const article = useSelector((state: RootState) =>
-    state.cases.cases.find((s) => s.link === link)
-  );
-  const cases = useSelector((state: RootState) => {
-    return state.cases.cases
-      .filter((item) => article !== undefined && item.id !== article.id)
-      .slice(0, 4);
-  });
+  if (!link) {
+    return <h2 className="case__not-found">ID практики не найден или передан не верно</h2>;
+  }
+  useEffect(() => {
+    practiceListStore.fetchPracticeById(link);
+    practiceListStore.fetchPractices();
+  }, [link]);
+
+  const cases = practiceListStore.practices;
+  const article = practiceListStore.practice;
 
   if (!article) {
     return <h2 className="case__not-found">Практика не найдена</h2>;
@@ -28,10 +31,10 @@ const TheCase = () => {
           <Badge className="case__badge" variant="small">
             {article.category}
           </Badge>
-          <h1 className="case__title">{article.name}</h1>
-          <img src={article.image} alt={article.name} className="case__image" />
+          <h1 className="case__title">{article.title}</h1>
+          <img src={article.image} alt={article.title} className="case__image" />
           <div className="case__text">
-            {article.text.map((paragraph) => {
+            {article.content.split('\n').map((paragraph) => {
               return <p className="case__paragraph">{paragraph}</p>;
             })}
           </div>
@@ -43,7 +46,13 @@ const TheCase = () => {
           <ul className="other-cases__list">
             {cases.slice(0, 4).map((cs) => (
               <li key={`case-${cs.id}`} className="other-cases_item">
-                <CardCase {...cs} />
+                <CardCase
+                  id={cs.id}
+                  title={cs.title}
+                  description={cs.description}
+                  category={cs.category}
+                  image={cs.image}
+                />
               </li>
             ))}
           </ul>
@@ -51,6 +60,6 @@ const TheCase = () => {
       </section>
     </>
   );
-};
+});
 
 export default TheCase;

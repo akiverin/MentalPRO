@@ -1,12 +1,18 @@
-import { useEffect, useRef } from "react";
-import { enableDragScroll } from "../../../utils/dragScroll";
-import "./Exercises.scss";
-import { useAppSelector } from "@/store/hooks";
-import CardCase from "@/components/CaseCard/CardCase";
+import { useEffect, useRef } from 'react';
+import { enableDragScroll } from '../../../utils/dragScroll';
+import './Exercises.scss';
+import CardCase from '@/components/CaseCard/CardCase';
+import { practiceListStore } from '@entities/practice/stores/practiceStoreInstance';
+import { observer } from 'mobx-react-lite';
 
-const Exercises = () => {
+const Exercises = observer(() => {
   const containerRef = useRef<HTMLUListElement | null>(null);
-  const cases = useAppSelector((state) => state.cases.cases);
+
+  useEffect(() => {
+    practiceListStore.fetchPractices();
+  }, []);
+
+  const cases = practiceListStore.practices;
 
   useEffect(() => {
     if (containerRef.current) {
@@ -22,18 +28,21 @@ const Exercises = () => {
         </p>
         <h2 className="exercises__title home-title">Популярные практики</h2>
         <ul ref={containerRef} className="exercises__list">
-          {[...cases]
-            .sort((a, b) => b.views - a.views)
-            .slice(0, 5)
-            .map((exercise, index) => (
-              <li className="exercises__item" key={index}>
-                <CardCase {...exercise} />
-              </li>
-            ))}
+          {[...cases].slice(0, 5).map((item, index) => (
+            <li className="exercises__item" key={index}>
+              <CardCase
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                category={item.category}
+                image={item.image}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </section>
   );
-};
+});
 
 export default Exercises;
