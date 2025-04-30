@@ -1,28 +1,35 @@
-import axios from "axios";
-import qs from "qs";
+import axios from 'axios';
+import qs from 'qs';
 
-export const API_BASE_URL = "http://localhost:3030/api";
+export const API_BASE_URL = 'http://localhost:3030/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
   paramsSerializer: (params) =>
     qs.stringify(params, {
       encodeValuesOnly: true,
-      arrayFormat: "brackets",
+      arrayFormat: 'brackets',
     }),
 });
 
 export const apiRoutes = {
   users: {
-    auth: "/auth/login",
-    register: "/auth/register",
-    me: "/auth/me",
+    auth: '/auth/login',
+    register: '/auth/register',
+    me: '/auth/me',
   },
   practice: {
-    getAll: "/practice",
+    getAll: '/practice',
     getById: (id: string) => `/practice/${id}`,
-    create: "/practice",
+    create: '/practice',
     update: (id: string) => `/practice/${id}`,
     delete: (id: string) => `/practice/${id}`,
+  },
+  survey: {
+    getAll: '/survey',
+    getById: (id: string) => `/survey/${id}`,
+    create: '/survey',
+    update: (id: string) => `/survey/${id}`,
+    delete: (id: string) => `/survey/${id}`,
   },
 };
