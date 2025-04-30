@@ -20,7 +20,6 @@ export class SurveyListStore {
   constructor() {
     makeAutoObservable(this);
   }
-
   async fetchSurveys(page = 1): Promise<LoadResponse> {
     if (this._abortController) {
       this._abortController.abort();

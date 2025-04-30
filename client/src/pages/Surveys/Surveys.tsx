@@ -77,7 +77,8 @@ const Surveys = observer(() => {
                   id={item.id}
                   title={item.title}
                   description={item.description}
-                  content={item.content}
+                  details={item.details}
+                  time={item.time}
                   image={item.image}
                 />
               </li>

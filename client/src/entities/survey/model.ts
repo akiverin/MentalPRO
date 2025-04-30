@@ -15,8 +15,16 @@ export class SurveyModel {
     return this.data.description;
   }
 
-  get content() {
-    return this.data.content;
+  get details() {
+    return this.data.details;
+  }
+
+  get results() {
+    return this.data.results;
+  }
+
+  get time() {
+    return this.data.time;
   }
 
   get image() {

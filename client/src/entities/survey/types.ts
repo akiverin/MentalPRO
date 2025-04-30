@@ -2,8 +2,10 @@ export interface Survey {
   _id: string;
   title: string;
   description: string;
-  content: string;
   image: string;
+  time: number;
+  details?: string;
+  results?: string;
   createdAt: string;
   updatedAt: string;
 }
