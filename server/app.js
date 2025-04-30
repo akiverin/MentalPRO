@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import authRoutes from "./src/routes/auth.routes.js";
 import practiceRoutes from "./src/routes/practice.routes.js";
 import surveyRoutes from "./src/routes/survey.routes.js";
+import sorganizationRoutes from "./src/routes/organization.routes.js";
 
 dotenv.config();
 const app = express();
@@ -38,6 +39,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/practice", practiceRoutes);
 app.use("/api/survey", surveyRoutes);
+app.use("/api/organization", sorganizationRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose
