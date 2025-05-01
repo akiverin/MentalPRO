@@ -32,4 +32,11 @@ export const apiRoutes = {
     update: (id: string) => `/survey/${id}`,
     delete: (id: string) => `/survey/${id}`,
   },
+  organization: {
+    getAll: '/organization',
+    getById: (id: string) => `/organization/${id}`,
+    create: '/organization',
+    update: (id: string) => `/organization/${id}`,
+    delete: (id: string) => `/organization/${id}`,
+  },
 };
