@@ -12,6 +12,7 @@ import surveyRoutes from "./src/routes/survey.routes.js";
 import organizationRoutes from "./src/routes/organization.routes.js";
 import questionRoutes from "./src/routes/question.routes.js";
 import answerRoutes from "./src/routes/answer.routes.js";
+import resultRoutes from "./src/routes/result.routes.js";
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,7 @@ app.use("/api/survey", surveyRoutes);
 app.use("/api/organization", organizationRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/answer", answerRoutes);
+app.use("/api/result", resultRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose

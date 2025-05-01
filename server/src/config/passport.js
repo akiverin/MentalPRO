@@ -65,6 +65,7 @@ passport.use(
           user = await User.create({
             firstName: profile.displayName,
             yandexId: profile.id,
+            image: profile.defaultAvatarId,
             email: profile.emails[0].value,
             emailConfirmed: true,
           });

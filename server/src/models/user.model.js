@@ -16,9 +16,13 @@ const userSchema = new mongoose.Schema(
     emailConfirmed: { type: Boolean, default: false },
     emailConfirmToken: { type: String, select: false },
     password: { type: String, select: false },
+    image: { type: String, default: "" },
     vkId: { type: String, index: true, sparse: true },
     yandexId: { type: String, index: true, sparse: true },
-    organizationId: { type: String },
+    organizationId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Organization",
+    },
     role: { type: String, enum: ["client", "hr", "admin"], default: "client" },
   },
   {
