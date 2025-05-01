@@ -43,6 +43,28 @@ export const SurveyController = {
     res.status(201).json(survey);
   },
 
+  async getQuestions(req, res) {
+    try {
+      const { id } = req.params;
+      const survey = await Survey.findById(id).populate({
+        path: "questions",
+        populate: {
+          path: "answers",
+        },
+      });
+
+      if (!survey) return res.status(404).json({ message: "Survey not found" });
+
+      res.json({
+        surveyId: survey._id,
+        questions: survey.questions,
+      });
+    } catch (err) {
+      console.error("Ошибка получения вопросов:", err);
+      res.status(500).json({ message: "Ошибка сервера" });
+    }
+  },
+
   async update(req, res) {
     const { id } = req.params;
     const updated = await Survey.findByIdAndUpdate(id, req.body, {

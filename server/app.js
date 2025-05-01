@@ -9,7 +9,9 @@ import { fileURLToPath } from "url";
 import authRoutes from "./src/routes/auth.routes.js";
 import practiceRoutes from "./src/routes/practice.routes.js";
 import surveyRoutes from "./src/routes/survey.routes.js";
-import sorganizationRoutes from "./src/routes/organization.routes.js";
+import organizationRoutes from "./src/routes/organization.routes.js";
+import questionRoutes from "./src/routes/question.routes.js";
+import answerRoutes from "./src/routes/answer.routes.js";
 
 dotenv.config();
 const app = express();
@@ -39,7 +41,9 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/practice", practiceRoutes);
 app.use("/api/survey", surveyRoutes);
-app.use("/api/organization", sorganizationRoutes);
+app.use("/api/organization", organizationRoutes);
+app.use("/api/question", questionRoutes);
+app.use("/api/answer", answerRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose

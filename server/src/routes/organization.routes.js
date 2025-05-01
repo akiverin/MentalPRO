@@ -13,7 +13,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /organizations:
+ * /organization:
  *   get:
  *     tags: [Organizations]
  *     summary: Get all organizations
@@ -25,7 +25,7 @@ router.get("/", OrganizationController.getAll);
 
 /**
  * @openapi
- * /organizations/{id}:
+ * /organization/{id}:
  *   get:
  *     tags: [Organizations]
  *     summary: Get a organization by ID
@@ -43,7 +43,7 @@ router.get("/:id", authMiddleware, OrganizationController.getById);
 
 /**
  * @openapi
- * /organizations:
+ * /organization:
  *   post:
  *     tags: [Organizations]
  *     summary: Create a new organization
@@ -61,7 +61,7 @@ router.post("/", authMiddleware, OrganizationController.create);
 
 /**
  * @openapi
- * /organizations/{id}:
+ * /organization/{id}:
  *   put:
  *     tags: [Organizations]
  *     summary: Update a organization
@@ -85,7 +85,7 @@ router.put("/:id", authMiddleware, OrganizationController.update);
 
 /**
  * @openapi
- * /organizations/{id}:
+ * /organization/{id}:
  *   delete:
  *     tags: [Organizations]
  *     summary: Delete a organization

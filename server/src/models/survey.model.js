@@ -7,6 +7,9 @@ const surveySchema = new mongoose.Schema(
     details: { type: String, required: true },
     time: { type: Number, required: true },
     results: { type: String, required: false },
+    questions: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Question", required: true },
+    ],
     image: { type: String, required: false },
     isActive: { type: Boolean, default: true },
   },

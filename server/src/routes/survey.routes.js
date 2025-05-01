@@ -1,5 +1,6 @@
 import express from "express";
 import { SurveyController } from "../controllers/survey.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /surveys:
+ * /survey:
  *   get:
  *     tags: [Surveys]
  *     summary: Get all surveys
@@ -24,7 +25,7 @@ router.get("/", SurveyController.getAll);
 
 /**
  * @openapi
- * /surveys/{id}:
+ * /survey/{id}:
  *   get:
  *     tags: [Surveys]
  *     summary: Get a survey by ID
@@ -38,11 +39,29 @@ router.get("/", SurveyController.getAll);
  *       200:
  *         description: Survey details
  */
-router.get("/:id", SurveyController.getById);
+router.get("/:id", authMiddleware, SurveyController.getById);
 
 /**
  * @openapi
- * /surveys:
+ * /surveys/{id}:
+ *   get:
+ *     tags: [Surveys]
+ *     summary: Get a questions with answers of survey by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Survey details
+ */
+router.get("/:id/questions", SurveyController.getQuestions);
+
+/**
+ * @openapi
+ * /survey:
  *   post:
  *     tags: [Surveys]
  *     summary: Create a new survey
@@ -60,7 +79,7 @@ router.post("/", SurveyController.create);
 
 /**
  * @openapi
- * /surveys/{id}:
+ * /survey/{id}:
  *   put:
  *     tags: [Surveys]
  *     summary: Update a survey
@@ -84,7 +103,7 @@ router.put("/:id", SurveyController.update);
 
 /**
  * @openapi
- * /surveys/{id}:
+ * /survey/{id}:
  *   delete:
  *     tags: [Surveys]
  *     summary: Delete a survey

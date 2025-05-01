@@ -30,12 +30,17 @@ export const PracticeController = {
   },
 
   async getById(req, res) {
-    const { id } = req.params;
-    const practice = await Practice.findById(id);
+    try {
+      const { id } = req.params;
+      const practice = await Practice.findById(id);
 
-    if (!practice)
-      return res.status(404).json({ message: "Practice not found" });
-    res.json(practice);
+      if (!practice)
+        return res.status(404).json({ message: "Practice not found" });
+      res.json(practice);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Ошибка получения практики" });
+    }
   },
 
   async create(req, res) {

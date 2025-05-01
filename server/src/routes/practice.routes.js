@@ -1,5 +1,6 @@
 import express from "express";
 import { PracticeController } from "../controllers/practice.controller.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /practices:
+ * /practice:
  *   get:
  *     tags: [Practices]
  *     summary: Get all practices
@@ -24,7 +25,7 @@ router.get("/", PracticeController.getAll);
 
 /**
  * @openapi
- * /practices/{id}:
+ * /practice/{id}:
  *   get:
  *     tags: [Practices]
  *     summary: Get a practice by ID
@@ -38,11 +39,11 @@ router.get("/", PracticeController.getAll);
  *       200:
  *         description: Practice details
  */
-router.get("/:id", PracticeController.getById);
+router.get("/:id", authMiddleware, PracticeController.getById);
 
 /**
  * @openapi
- * /practices:
+ * /practice:
  *   post:
  *     tags: [Practices]
  *     summary: Create a new practice
@@ -56,11 +57,11 @@ router.get("/:id", PracticeController.getById);
  *       201:
  *         description: Practice created
  */
-router.post("/", PracticeController.create);
+router.post("/", authMiddleware, PracticeController.create);
 
 /**
  * @openapi
- * /practices/{id}:
+ * /practice/{id}:
  *   put:
  *     tags: [Practices]
  *     summary: Update a practice
@@ -80,11 +81,11 @@ router.post("/", PracticeController.create);
  *       200:
  *         description: Practice updated
  */
-router.put("/:id", PracticeController.update);
+router.put("/:id", authMiddleware, PracticeController.update);
 
 /**
  * @openapi
- * /practices/{id}:
+ * /practice/{id}:
  *   delete:
  *     tags: [Practices]
  *     summary: Delete a practice
@@ -98,6 +99,6 @@ router.put("/:id", PracticeController.update);
  *       200:
  *         description: Practice deleted
  */
-router.delete("/:id", PracticeController.remove);
+router.delete("/:id", authMiddleware, PracticeController.remove);
 
 export default router;
