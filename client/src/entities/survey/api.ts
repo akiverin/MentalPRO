@@ -1,5 +1,5 @@
 import { api, apiRoutes } from '@config/api';
-import { SurveysResponse } from './types';
+import { QuestionsResponse, SurveysResponse } from './types';
 import { SurveyModel } from './model';
 
 export const getSurveys = async (
@@ -22,6 +22,18 @@ export const getSurveys = async (
 
 export const getSurveyById = async (id: string, signal?: AbortSignal): Promise<SurveyModel> => {
   const url = `${apiRoutes.survey.getById(id)}/`;
-  const response = await api.get<SurveyModel>(url, { signal });
+  const response = await api.get<SurveyModel>(url, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};
+
+export const getQuestionsSurvey = async (id: string, signal?: AbortSignal): Promise<QuestionsResponse> => {
+  const url = `${apiRoutes.survey.getQuestions(id)}/`;
+  const response = await api.get<QuestionsResponse>(url, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
   return response.data;
 };

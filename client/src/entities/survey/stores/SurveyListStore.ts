@@ -1,14 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { SurveyModel } from '../model';
-import { getSurveyById, getSurveys } from '../api';
+import { getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
 import { Survey } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
+import { QuestionModel } from '@/entities/question/model';
 export class SurveyListStore {
   surveys: SurveyModel[] = [];
   survey: SurveyModel | null = null;
+  questions: QuestionModel[] = [];
   meta: Meta = Meta.initial;
   error = '';
   pagination = new PaginationStore();
@@ -16,6 +18,7 @@ export class SurveyListStore {
 
   private _abortController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
+  private _abortQuestionsController: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -89,6 +92,38 @@ export class SurveyListStore {
     } finally {
       runInAction(() => {
         this._abortByIdController = null;
+      });
+    }
+  }
+
+  async fetchQuestions(id: string): Promise<LoadResponse | null> {
+    if (this._abortQuestionsController) {
+      this._abortQuestionsController.abort();
+    }
+
+    this._abortQuestionsController = new AbortController();
+    const signal = this._abortQuestionsController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await getQuestionsSurvey(id, signal);
+      runInAction(() => {
+        this.questions = response.questions;
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortQuestionsController = null;
       });
     }
   }

@@ -1,3 +1,5 @@
+import { QuestionModel } from '../question/model';
+
 export interface Survey {
   _id: string;
   title: string;
@@ -20,4 +22,9 @@ export interface SurveysResponse {
       total: number;
     };
   };
+}
+
+export interface QuestionsResponse {
+  surveyId: string;
+  questions: QuestionModel[];
 }

@@ -28,6 +28,7 @@ export const apiRoutes = {
   survey: {
     getAll: '/survey',
     getById: (id: string) => `/survey/${id}`,
+    getQuestions: (id: string) => `/survey/${id}/questions`,
     create: '/survey',
     update: (id: string) => `/survey/${id}`,
     delete: (id: string) => `/survey/${id}`,

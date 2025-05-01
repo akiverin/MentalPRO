@@ -11,7 +11,7 @@ import Organizations from '../pages/Organizations/Organizations';
 import TheOrganization from '../pages/TheOrganization/TheOrganization';
 import Surveys from '../pages/Surveys/Surveys';
 import TheSurvey from '../pages/TheSurvey/TheSurvey';
-// import Quest from "../pages/Quest/Quest";
+import Quest from '../pages/Quest/Quest';
 import Privacy from '../pages/Privacy/Privacy';
 import { routes } from './routes';
 import YandexOAuth from '@/pages/auth/YandexOAuth';
@@ -31,7 +31,7 @@ export const routesConfig: RouteObject[] = [
       { path: routes.organization.mask, element: <TheOrganization /> },
       { path: routes.surveys.mask, element: <Surveys /> },
       { path: routes.survey.mask, element: <TheSurvey /> },
-      //   { path: routes.quest.mask, element: <Quest /> },
+      { path: routes.quest.mask, element: <Quest /> },
       { path: routes.privacy.mask, element: <Privacy /> },
       {
         path: routes.yandexOauth.mask,
