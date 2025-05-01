@@ -22,6 +22,11 @@ export const getOrganizations = async (
 
 export const getOrganizationById = async (id: string, signal?: AbortSignal): Promise<OrganizationModel> => {
   const url = `${apiRoutes.organization.getById(id)}/`;
-  const response = await api.get<OrganizationModel>(url, { signal });
+  const response = await api.get<OrganizationModel>(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+    },
+    signal,
+  });
   return response.data;
 };

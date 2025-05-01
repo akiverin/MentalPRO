@@ -8,7 +8,7 @@ import Login from '../pages/auth/Login/Login';
 import Cases from '../pages/Cases/Cases';
 import TheCase from '../pages/TheCase/TheCase';
 import Organizations from '../pages/Organizations/Organizations';
-// import TheOrganization from "../pages/TheOrganization/TheOrganization";
+import TheOrganization from '../pages/TheOrganization/TheOrganization';
 import Surveys from '../pages/Surveys/Surveys';
 import TheSurvey from '../pages/TheSurvey/TheSurvey';
 // import Quest from "../pages/Quest/Quest";
@@ -28,7 +28,7 @@ export const routesConfig: RouteObject[] = [
       { path: routes.cases.mask, element: <Cases /> },
       { path: routes.case.mask, element: <TheCase /> },
       { path: routes.organizations.mask, element: <Organizations /> },
-      //   { path: routes.organization.mask, element: <TheOrganization /> },
+      { path: routes.organization.mask, element: <TheOrganization /> },
       { path: routes.surveys.mask, element: <Surveys /> },
       { path: routes.survey.mask, element: <TheSurvey /> },
       //   { path: routes.quest.mask, element: <Quest /> },

@@ -62,7 +62,7 @@ const Organizations = observer(() => {
                 setLocalSearch(value);
               }}
               className="organizations-info__search"
-            />{' '}
+            />
           </div>
         </div>
       </section>

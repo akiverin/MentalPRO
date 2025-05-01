@@ -1,10 +1,135 @@
-const TheOrganization = () => {
-    return (
-      <>
-        <section></section>
-      </>
-    );
-  };
-  
-  export default TheOrganization;
-  
+@use "@styles/variables" as v;
+
+.organization-info {
+  &__wrapper {
+    max-width: v.$wrapper;
+    margin: clamp(40px, 5vw, 60px) auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    gap: 20vw;
+    flex-wrap: wrap;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+    max-width: 650px;
+    flex: 1;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+    font-size: v.$h1-size;
+  }
+
+  &__subtitle {
+    font-size: v.$h6-size;
+    margin: 0;
+    color: v.$dark;
+    line-height: 1.5;
+  }
+
+  &__extra {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 30px;
+    max-width: 460px;
+  }
+
+  &__search {
+    max-width: 100%;
+  }
+
+  &__desc {
+    font-size: v.$h6-size;
+    color: v.$dark-active;
+    line-height: 1.5;
+  }
+}
+
+.organizations-content {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+    gap: 20px;
+  }
+
+  &__item {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .organizations-info {
+    &__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+    }
+
+    &__title {
+      font-size: v.$h2-size;
+      margin-bottom: 24px;
+    }
+
+    &__extra {
+      align-items: flex-start;
+      max-width: 100%;
+      width: 100%;
+      gap: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: v.$tablet) {
+  .organizations-content {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .organizations-info {
+    &__wrapper {
+      margin: 30px auto;
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__title {
+      margin-bottom: 20px;
+      font-size: v.$h3-size;
+    }
+
+    &__subtitle {
+      font-size: v.$body-large;
+    }
+
+    &__extra {
+      max-width: 100%;
+      gap: 20px;
+    }
+  }
+
+  .organizations-content {
+    &__wrapper {
+      padding: 0 15px;
+    }
+
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
+    }
+  }
+}
