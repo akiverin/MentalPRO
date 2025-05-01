@@ -57,15 +57,20 @@ passport.use(
       clientID: process.env.YANDEX_CLIENT_ID,
       clientSecret: process.env.YANDEX_CLIENT_SECRET,
       callbackURL: `${process.env.API_URL}/auth/yandex/callback`,
+      profileFields: ["id", "displayName", "emails", "photos"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
         let user = await User.findOne({ yandexId: profile.id });
+        const avatarId = profile._json.default_avatar_id;
+        const image = avatarId
+          ? `https://avatars.yandex.net/get-yapic/${avatarId}/islands-200`
+          : "https://avatars.yandex.net/get-yapic/0/islands-200";
         if (!user) {
           user = await User.create({
             firstName: profile.displayName,
             yandexId: profile.id,
-            image: profile.defaultAvatarId,
+            image,
             email: profile.emails[0].value,
             emailConfirmed: true,
           });

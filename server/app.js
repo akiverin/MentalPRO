@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { swaggerUi, swaggerSpec } from "./src/config/swagger.js";
 import path from "path";
+import passport from "./src/config/passport.js";
 import { fileURLToPath } from "url";
 
 import authRoutes from "./src/routes/auth.routes.js";
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
 
 app.set("trust proxy", true);
 
@@ -39,6 +41,7 @@ app.use(
     ],
   })
 );
+
 app.use("/api/auth", authRoutes);
 app.use("/api/practice", practiceRoutes);
 app.use("/api/survey", surveyRoutes);

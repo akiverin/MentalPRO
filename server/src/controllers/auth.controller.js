@@ -1,5 +1,4 @@
 import { AuthService } from "../services/auth.service.js";
-import passport from "../config/passport.js";
 import jwt from "jsonwebtoken";
 
 export class AuthController {
