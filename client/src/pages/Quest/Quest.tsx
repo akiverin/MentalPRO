@@ -6,8 +6,10 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { surveyListStore } from '@entities/survey/stores/surveyStoreInstance';
 import { observer } from 'mobx-react-lite';
-import { AnswerModel } from '@/entities/answer/model';
-import { QuestionModel } from '@/entities/question/model';
+import { AnswerModel } from '@entities/answer/model';
+import { QuestionModel } from '@entities/question/model';
+import { resultStore } from '@entities/result/store/resultStoreInstance';
+import { ResultModel } from '@entities/result/model';
 
 const Quest = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -58,6 +60,21 @@ const Quest = observer(() => {
   if (!questions.length || !survey || !currentQuestion) {
     return <h2 className="survey__not-found">Опрос или вопросы не найдены</h2>;
   }
+
+  const saveResults = () => {
+    const result = {
+      surveyId: link,
+      answers: Object.entries(answers).map(([questionId, answerId]) => ({
+        questionId,
+        answerId,
+      })),
+    };
+    console.log('result', result);
+    resultStore.fetchCreate(result as ResultModel);
+    localStorage.removeItem(`survey-${link}-answers`);
+    localStorage.removeItem(`survey-${link}-current`);
+    alert('Ваши ответы отправлены!');
+  };
 
   return (
     <section className="quest">
@@ -118,11 +135,7 @@ const Quest = observer(() => {
           </Button>
           {currentIndex === questions.length - 1 ? (
             <Button
-              onClick={() => {
-                localStorage.removeItem(`survey-${link}-answers`);
-                localStorage.removeItem(`survey-${link}-current`);
-                alert('Ваши ответы отправлены!');
-              }}
+              onClick={saveResults}
               variant="rounded"
               background="primary"
               disabled={Object.keys(answers).length !== questions.length}

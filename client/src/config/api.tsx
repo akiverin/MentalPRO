@@ -40,4 +40,8 @@ export const apiRoutes = {
     update: (id: string) => `/organization/${id}`,
     delete: (id: string) => `/organization/${id}`,
   },
+  result: {
+    getByUser: '/result/my',
+    create: '/result',
+  },
 };
