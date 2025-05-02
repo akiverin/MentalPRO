@@ -1,17 +1,17 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { login, register, me } from "../api";
-import { AuthResponse } from "../types";
-import { Meta } from "@utils/meta";
-import { UserModel } from "../model";
-import { errorMessage, isCancelError } from "@utils/errors";
+import { makeAutoObservable, runInAction } from 'mobx';
+import { login, register, me } from '../api';
+import { AuthResponse } from '../types';
+import { Meta } from '@utils/meta';
+import { UserModel } from '../model';
+import { errorMessage, isCancelError } from '@utils/errors';
 
-const AUTH_TOKEN_KEY = "authToken";
+const AUTH_TOKEN_KEY = 'authToken';
 
 export class UserStore {
   user: UserModel | null = null;
   token: string | null = null;
   meta: Meta = Meta.initial;
-  error: string = "";
+  error: string = '';
 
   private _loginAbortController: AbortController | null = null;
   private _meAbortController: AbortController | null = null;
@@ -67,12 +67,17 @@ export class UserStore {
     }
   }
 
-  async register(
-    firstName: string,
-    email: string,
-    password: string,
-    lastName?: string,
-  ): Promise<boolean> {
+  async register({
+    firstName,
+    lastName,
+    email,
+    password,
+  }: {
+    firstName: string;
+    email: string;
+    password: string;
+    lastName?: string;
+  }): Promise<boolean> {
     if (this._registerAbortController) {
       this._registerAbortController.abort();
     }
@@ -83,17 +88,14 @@ export class UserStore {
     this.meta = Meta.loading;
 
     try {
-      const response: AuthResponse = await register(
-        { firstName, lastName, email, password },
-        signal,
-      );
+      const response: AuthResponse = await register({ firstName, lastName, email, password }, signal);
 
       runInAction(() => {
-        this.token = response.token;
         this.user = new UserModel(response.user);
         this.meta = Meta.success;
       });
 
+      this.login(email, password);
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;
@@ -124,6 +126,12 @@ export class UserStore {
     localStorage.setItem(AUTH_TOKEN_KEY, token);
   }
 
+  async clear() {
+    this.user = null;
+    this.meta = Meta.initial;
+    this.error = '';
+  }
+
   async me(): Promise<boolean> {
     if (this._meAbortController) {
       this._meAbortController.abort();
@@ -135,7 +143,7 @@ export class UserStore {
     this.meta = Meta.loading;
 
     try {
-      const response: AuthResponse["user"] = await me(signal);
+      const response: AuthResponse['user'] = await me(signal);
 
       runInAction(() => {
         this.user = new UserModel(response);

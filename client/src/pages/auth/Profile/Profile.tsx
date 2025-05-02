@@ -1,34 +1,33 @@
-import { useAppSelector } from "@/store/hooks";
-import "./Profile.scss";
-import imageCover from "@assets/images/imageProfile.webp";
-import TheLink from "@/components/ui/Link/Link";
-import Badge from "@/components/ui/Badge/Badge";
-import formatDate from "@/utils/formatDate";
+import './Profile.scss';
+import imageCover from '@assets/images/imageProfile.webp';
+import TheLink from '@components/ui/Link/Link';
+import Badge from '@components/ui/Badge/Badge';
+import formatDate from '@utils/formatDate';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { userStore } from '@entities/user/stores/userStoreInstance';
 
-const Profile = () => {
-  const user = useAppSelector((state) => state.user);
-  const organizations = useAppSelector(
-    (state) => state.organizations.organizations
-  );
-  const organization = organizations.find(
-    (item) => item.id === user.organizationID
-  );
-
+const Profile = observer(() => {
+  useEffect(() => {
+    userStore.me();
+  }, []);
+  const user = userStore.user;
+  if (!user) {
+    return (
+      <section className="profile-head">
+        <div className="profile-head__wrapper">
+          <h1 className="profile-head__name">Пользователь не найден или не авторизован</h1>
+        </div>
+      </section>
+    );
+  }
   return (
     <>
       <section className="profile-head">
         <div className="profile-head__wrapper">
           <div className="profile-head__images">
-            <img
-              src={imageCover}
-              alt="Cover profile page"
-              className="profile-head__cover"
-            />
-            <img
-              src={user.profileImage}
-              alt=""
-              className="profile-head__avatar"
-            />
+            <img src={imageCover} alt="Cover profile page" className="profile-head__cover" />
+            <img src={user.image} alt="" className="profile-head__avatar" />
           </div>
           <div className="profile-head__content">
             <div className="profile-head__actions">
@@ -42,25 +41,21 @@ const Profile = () => {
             <div className="profile-head__info">
               <div className="profile-head__personal">
                 <div className="profile-head__titles">
-                  <h1 className="profile-head__name">{user.fullName}</h1>
-                  {organization && (
-                    <Badge variant="small">{organization.name}</Badge>
-                  )}
+                  <h1 className="profile-head__name">
+                    {user.firstName} {user.lastName && user.lastName}
+                  </h1>
+                  {user.organizationId && <Badge variant="small">{user.organizationId}</Badge>}
                 </div>
                 <p className="profile-head__email">{user.email}</p>
               </div>
               <div className="profile-head__details">
                 <div className="profile-head__details-item">
                   <p className="profile-head__detail-name">Регистрация</p>
-                  <p className="profile-head__detail-content">
-                    {formatDate(user.createdAt)}
-                  </p>
+                  <p className="profile-head__detail-content">{formatDate(user.createdAt)}</p>
                 </div>
                 <div className="profile-head__details-item">
                   <p className="profile-head__detail-name">Последний опрос</p>
-                  <p className="profile-head__detail-content">
-                    {formatDate(user.updatedAt)}
-                  </p>
+                  <p className="profile-head__detail-content">{formatDate(user.updatedAt)}</p>
                 </div>
                 <div className="profile-head__details-item">
                   <p className="profile-head__detail-name">Пройдено опросов</p>
@@ -73,6 +68,6 @@ const Profile = () => {
       </section>
     </>
   );
-};
+});
 
 export default Profile;

@@ -90,6 +90,15 @@
   }
 }
 
+.organization {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    display: flex;
+  }
+}
+
 @media screen and (max-width: v.$tablet) {
   .organizations-content {
     &__list {

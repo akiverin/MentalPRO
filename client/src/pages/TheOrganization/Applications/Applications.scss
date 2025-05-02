@@ -1,0 +1,47 @@
+@use "@styles/variables" as v;
+
+.organization-application {
+  padding: 20px;
+  background-color: v.$surface;
+  border-radius: v.$border-radius;
+  flex: 3;
+
+  &__title {
+    font-size: v.$h4-size;
+  }
+
+  &__list {
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__user-info {
+  }
+
+  &__name {
+    margin: 0 0 4px;
+  }
+
+  &__email {
+    margin: 0;
+    color: v.$primary;
+  }
+
+  &__details {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &__button {
+    height: 36px;
+    width: 36px;
+  }
+
+  &__delete {
+    height: 36px;
+  }
+}

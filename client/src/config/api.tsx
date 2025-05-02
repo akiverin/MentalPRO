@@ -44,4 +44,12 @@ export const apiRoutes = {
     getByUser: '/result/my',
     create: '/result',
   },
+  application: {
+    getAll: '/application',
+    getByUser: '/application/my',
+    getByOrganization: (id: string) => `/application/organization/${id}`,
+    create: '/application',
+    updateStatus: (id: string) => `/application/${id}/status`,
+    delete: (id: string) => `/application/${id}`,
+  },
 };

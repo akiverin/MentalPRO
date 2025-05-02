@@ -1,6 +1,6 @@
 // model/user.model.ts
-import { User } from "./types";
-import { makeAutoObservable } from "mobx";
+import { User } from './types';
+import { makeAutoObservable } from 'mobx';
 
 export class UserModel {
   constructor(private readonly data: User) {
@@ -25,6 +25,10 @@ export class UserModel {
 
   get email(): string {
     return this.data.email;
+  }
+
+  get image(): string | undefined {
+    return this.data.image;
   }
 
   get emailConfirmed(): boolean {

@@ -1,4 +1,4 @@
-export type Role = "client" | "hr" | "admin";
+export type Role = 'client' | 'hr' | 'admin';
 
 export interface User {
   _id: string;
@@ -6,6 +6,7 @@ export interface User {
   lastName?: string;
   patronymic?: string;
   email: string;
+  image?: string;
   emailConfirmed: boolean;
   vkId?: string;
   yandexId?: string;

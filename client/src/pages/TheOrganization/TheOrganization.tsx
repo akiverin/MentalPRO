@@ -3,6 +3,9 @@ import './TheOrganization.scss';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { organizationListStore } from '@/entities/organization/stores/organizationStoreInstance';
+import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
+import Applications from './Applications';
+import Content from './Content';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +17,11 @@ const TheOrganization: React.FC = observer(() => {
     );
   }
   useEffect(() => {
+    if (!id) return;
+    organizationListStore.clear();
+    applicationStore.clear();
     organizationListStore.fetchOrganizationById(id);
+    applicationStore.fetchApplicationByOrganization(id);
   }, [id]);
 
   const organization = organizationListStore.organization;
@@ -57,6 +64,12 @@ const TheOrganization: React.FC = observer(() => {
               <img src={organization.image} alt={organization.title} className="organization-info__image" />
             )}
           </div>
+        </div>
+      </section>
+      <section className="organization">
+        <div className="organization__wrapper">
+          <Content />
+          <Applications id={id} />
         </div>
       </section>
     </>

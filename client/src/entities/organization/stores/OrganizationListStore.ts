@@ -92,4 +92,11 @@ export class OrganizationListStore {
       });
     }
   }
+
+  async clear() {
+    this.organizations = [];
+    this.organization = null;
+    this.meta = Meta.initial;
+    this.error = '';
+  }
 }
