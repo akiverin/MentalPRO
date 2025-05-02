@@ -17,12 +17,6 @@ const router = express.Router();
  *   get:
  *     tags: [Results]
  *     summary: Get a results by user
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: Results details
@@ -45,6 +39,6 @@ router.get("/my", authMiddleware, ResultController.getByUser);
  *       201:
  *         description: Result created
  */
-router.post("/", ResultController.create);
+router.post("/", authMiddleware, ResultController.create);
 
 export default router;

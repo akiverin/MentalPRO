@@ -14,6 +14,7 @@ import organizationRoutes from "./src/routes/organization.routes.js";
 import questionRoutes from "./src/routes/question.routes.js";
 import answerRoutes from "./src/routes/answer.routes.js";
 import resultRoutes from "./src/routes/result.routes.js";
+import applicationRoutes from "./src/routes/application.routes.js";
 
 dotenv.config();
 const app = express();
@@ -49,6 +50,7 @@ app.use("/api/organization", organizationRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/answer", answerRoutes);
 app.use("/api/result", resultRoutes);
+app.use("/api/application", applicationRoutes);
 
 mongoose.set("strictQuery", true);
 mongoose

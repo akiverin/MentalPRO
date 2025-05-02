@@ -22,7 +22,7 @@ export const ResultController = {
   async getByUser(req, res) {
     try {
       const results = await Result.find({
-        userId: req.user._id,
+        userId: req.user?._id,
       })
         .populate("surveyId")
         .populate({
