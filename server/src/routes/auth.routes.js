@@ -80,7 +80,6 @@ router.get(
 router.get(
   "/yandex",
   (req, res, next) => {
-    console.log("→ /auth/yandex hit");
     next();
   },
   passport.authenticate("yandex")

@@ -20,15 +20,24 @@ export class AuthController {
     }
   }
 
-  static async login(req, res, next) {
+  static async login(req, res) {
     try {
       const { user, token } = await AuthService.login(req.body);
       res.json({
         token,
-        user: { id: user._id, firstName: user.firstName, role: user.role },
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName || "",
+          email: user.email,
+          role: user.role,
+          image: user.image,
+        },
       });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      const status = error.status || 500;
+      const message = error.message || "Ошибка сервера";
+      res.status(status).json({ message });
     }
   }
 
