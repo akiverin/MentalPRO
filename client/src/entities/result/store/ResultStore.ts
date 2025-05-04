@@ -5,8 +5,9 @@ import { getResultByUser, createResult } from '../api';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
+import { Result } from '../types';
 export class ResultStore {
-  results: ResultModel | null = null;
+  results: ResultModel[] | null = null;
   meta: Meta = Meta.initial;
   error = '';
   pagination = new PaginationStore();
@@ -53,7 +54,7 @@ export class ResultStore {
     }
   }
 
-  async fetchResultsByUser(): Promise<ResultModel | null> {
+  async fetchResultsByUser(): Promise<ResultModel[] | null> {
     if (this._abortController) {
       this._abortController.abort();
     }
@@ -65,7 +66,7 @@ export class ResultStore {
     try {
       const response = await getResultByUser(signal);
       runInAction(() => {
-        this.results = response;
+        this.results = response.map((res: Result) => new ResultModel(res));
         this.meta = Meta.success;
       });
       return this.results || null;

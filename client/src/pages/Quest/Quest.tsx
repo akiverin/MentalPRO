@@ -70,7 +70,7 @@ const Quest = observer(() => {
       })),
     };
     console.log('result', result);
-    resultStore.fetchCreate(result as ResultModel);
+    resultStore.fetchCreate(result as unknown as ResultModel);
     localStorage.removeItem(`survey-${link}-answers`);
     localStorage.removeItem(`survey-${link}-current`);
     alert('Ваши ответы отправлены!');

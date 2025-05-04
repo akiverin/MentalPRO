@@ -1,0 +1,30 @@
+@use "@styles/variables" as v;
+
+.error {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: v.$error-bg;
+  border-radius: v.$border-radius;
+  border: 1px solid v.$error-fill;
+  box-shadow: 0px 0px 5px -3px #111;
+}
+
+.error__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+}
+
+.error__icon path {
+  fill: v.$error-fill;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: v.$error-text;
+}

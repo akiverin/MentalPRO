@@ -1,6 +1,6 @@
 import { api, apiRoutes } from '@config/api';
 import { ApplicationModel } from './model';
-import { ApplicationPopulated, ApplicationStatus } from './types';
+import { ApplicationPopulated, ApplicationRequest, ApplicationStatus } from './types';
 
 export const getApplications = async (signal?: AbortSignal): Promise<ApplicationModel[]> => {
   const url = `${apiRoutes.application.getAll}`;
@@ -13,30 +13,30 @@ export const getApplications = async (signal?: AbortSignal): Promise<Application
   return response.data.map((item) => new ApplicationModel(item));
 };
 
-export const getApplicationByUser = async (signal?: AbortSignal): Promise<ApplicationModel> => {
+export const getApplicationByUser = async (signal?: AbortSignal): Promise<ApplicationPopulated[]> => {
   const url = `${apiRoutes.application.getByUser}/`;
-  const response = await api.get<ApplicationPopulated>(url, {
+  const response = await api.get<ApplicationPopulated[]>(url, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
     },
     signal,
   });
-  return new ApplicationModel(response.data);
+  return response.data;
 };
 
-export const createApplication = async (model: ApplicationModel, signal?: AbortSignal): Promise<ApplicationModel> => {
+export const createApplication = async (model: ApplicationRequest, signal?: AbortSignal): Promise<ApplicationModel> => {
   const url = `${apiRoutes.application.create}/`;
-  const response = await api.post<ApplicationPopulated>(url, model.toRequest(), {
+  const response = await api.post<ApplicationModel>(url, model, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
     },
     signal,
   });
-  return new ApplicationModel(response.data);
+  return response.data;
 };
 
-export const getApplicationByOrganization = async (id: string, signal?: AbortSignal): Promise<ApplicationModel[]> => {
-  const url = `${apiRoutes.application.getByOrganization(id)}/`;
+export const getApplicationByOrganization = async (_id: string, signal?: AbortSignal): Promise<ApplicationModel[]> => {
+  const url = `${apiRoutes.application.getByOrganization(_id)}/`;
   const response = await api.get<ApplicationPopulated[]>(url, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,

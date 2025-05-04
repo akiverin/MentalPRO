@@ -1,9 +1,10 @@
 import { api, apiRoutes } from '@config/api';
 import { ResultModel } from './model';
+import { Result } from './types';
 
-export const getResultByUser = async (signal?: AbortSignal): Promise<ResultModel> => {
+export const getResultByUser = async (signal?: AbortSignal): Promise<Result[]> => {
   const url = `${apiRoutes.result.getByUser}/`;
-  const response = await api.get<ResultModel>(url, {
+  const response = await api.get<Result[]>(url, {
     headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
     signal,
   });

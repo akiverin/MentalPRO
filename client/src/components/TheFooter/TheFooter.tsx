@@ -1,14 +1,16 @@
-import "./TheFooter.scss";
-import TheLink from "../ui/Link/Link";
-import Logo from "../ui/Logo/Logo";
-import { Form } from "../ui/Form/Form";
-import Input from "../ui/Input/Input";
-import Button from "../ui/Button/Button";
-import IconVK from "../ui/icons/IconVK";
-import IconTg from "../ui/icons/IconTg";
-import IconGH from "../ui/icons/IconGH";
+import './TheFooter.scss';
+import TheLink from '../ui/Link/Link';
+import Logo from '../ui/Logo/Logo';
+import { Form } from '../ui/Form/Form';
+import Input from '../ui/Input/Input';
+import Button from '../ui/Button/Button';
+import IconVK from '../ui/icons/IconVK';
+import IconTg from '../ui/icons/IconTg';
+import IconGH from '../ui/icons/IconGH';
+import { useState } from 'react';
 
 function TheFooter() {
+  const [email, setEmail] = useState<string>('');
   return (
     <footer className="footer">
       <div className="footer__wrapper">
@@ -20,21 +22,28 @@ function TheFooter() {
               Свяжитесь с нами!
             </h3>
             <p className="footer__desc">
-              Для обратной связи необходимо ввести Ваш адрес электронной почты в
-              поле ввода, и мы свяжемся с Вами как можно скорее!
+              Для обратной связи необходимо ввести Ваш адрес электронной почты в поле ввода, и мы свяжемся с Вами как
+              можно скорее!
             </p>
             <div className="footer__form">
-              <Input fullWidth placeholder="Email" />
+              <Input
+                value={email}
+                onChange={(v) => {
+                  setEmail(v);
+                }}
+                fullWidth
+                placeholder="Email"
+              />
               <Button fullWidth size="large" onClick={() => {}}>
                 Отправить
               </Button>
             </div>
             <p className="footer__comment">
-              Я даю{" "}
+              Я даю{' '}
               <TheLink variant="text" to="/privacy">
                 согласие
-              </TheLink>{" "}
-              на обработку моих персональных данных.{" "}
+              </TheLink>{' '}
+              на обработку моих персональных данных.{' '}
             </p>
           </Form>
           <div className="footer__map">
@@ -42,47 +51,27 @@ function TheFooter() {
               <h4 className="footer__nav-title">Навигация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/">
                     Главная
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/surveys"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/surveys">
                     Опросы
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/cases"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/cases">
                     Практики
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/organizations"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/organizations">
                     Организации
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/profile"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/profile">
                     Мой профиль
                   </TheLink>
                 </li>
@@ -92,20 +81,12 @@ function TheFooter() {
               <h4 className="footer__nav-title">Аутентификация</h4>
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/registration"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/registration">
                     Регистрация
                   </TheLink>
                 </li>
                 <li className="footer__nav-item">
-                  <TheLink
-                    className="footer__nav-link"
-                    variant="navigation"
-                    to="/login"
-                  >
+                  <TheLink className="footer__nav-link" variant="navigation" to="/login">
                     Вход в аккаунт
                   </TheLink>
                 </li>
@@ -135,11 +116,7 @@ function TheFooter() {
           </TheLink>
           <ul className="footer__docs">
             <li className="footer__docs-item">
-              <TheLink
-                to="/privacy"
-                variant="navigation"
-                className="footer__docs-link"
-              >
+              <TheLink to="/privacy" variant="navigation" className="footer__docs-link">
                 Политика обработки персональных данных
               </TheLink>
             </li>

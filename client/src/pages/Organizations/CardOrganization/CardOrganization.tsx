@@ -5,6 +5,8 @@ import Badge from '@components/ui/Badge/Badge';
 import { observer } from 'mobx-react-lite';
 import { userStore } from '@entities/user/stores/userStoreInstance';
 import { UserModel } from '@entities/user/model';
+import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
+import Button from '@/components/ui/Button';
 
 interface Organization {
   id: string;
@@ -18,11 +20,20 @@ interface Organization {
 const CardOrganization: FC<Organization> = observer(({ id, title, description, image, members, createdBy }) => {
   useEffect(() => {
     userStore.me();
+    applicationStore.clear();
+    applicationStore.fetchApplicationsByUser();
   }, []);
   const user = userStore.user;
+  const applications = applicationStore.applications;
   const isMember =
     (members && user && members.some((usr) => usr.id === user.id)) || (createdBy && user && createdBy === user.id);
-  console.log(user, members, isMember, createdBy);
+
+  const isCreatedApplication = applications.some((app) => app.organizationId.id === id);
+  const createApplication = () => {
+    if (!user) return;
+    applicationStore.createApplication({ userId: user.id, organizationId: id });
+  };
+
   return (
     <div className="organization-card">
       <div className="organization-card__head">
@@ -51,14 +62,18 @@ const CardOrganization: FC<Organization> = observer(({ id, title, description, i
             <Badge variant="small" className="organization-card__time">
               Доступ закрыт
             </Badge>
-            <TheLink
-              variant="rounded"
-              background="primary"
-              className="exercise-card__link"
-              to={'/organizations/' + id + '/'}
-            >
-              Подать заявку
-            </TheLink>
+            {isCreatedApplication ? (
+              <Badge>Заявка подана</Badge>
+            ) : (
+              <Button
+                variant="rounded"
+                background="primary"
+                className="exercise-card__link"
+                onClick={createApplication}
+              >
+                Подать заявку
+              </Button>
+            )}
           </>
         )}
       </div>

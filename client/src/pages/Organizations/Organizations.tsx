@@ -70,7 +70,7 @@ const Organizations = observer(() => {
         <div className="organizations-content__wrapper">
           <ul className="organizations-content__list">
             {organizationListStore.organizations.map((item: OrganizationModel) => (
-              <li key={`survey-${item.id}`} className="surveys-content__item">
+              <li key={`org-${item.id}-${item.title}`} className="organizations-content__item">
                 <CardOrganization
                   id={item.id}
                   title={item.title}

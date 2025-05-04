@@ -3,7 +3,7 @@ import { Result } from './types';
 export class ResultModel {
   constructor(private readonly data: Result) {}
 
-  get id() {
+  get _id() {
     return this.data._id;
   }
   get surveyId() {

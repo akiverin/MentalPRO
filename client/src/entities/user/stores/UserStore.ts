@@ -51,6 +51,8 @@ export class UserStore {
         this.meta = Meta.success;
       });
 
+      this.setToken(response.token);
+
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;
@@ -95,7 +97,6 @@ export class UserStore {
         this.meta = Meta.success;
       });
 
-      this.login(email, password);
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;

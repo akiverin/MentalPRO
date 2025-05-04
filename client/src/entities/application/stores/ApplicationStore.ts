@@ -11,7 +11,7 @@ import {
 } from '../api';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
-import { ApplicationStatus } from '../types';
+import { ApplicationPopulated, ApplicationRequest, ApplicationStatus } from '../types';
 export class ApplicationStore {
   applications: ApplicationModel[] = [];
   application: ApplicationModel | null = null;
@@ -64,7 +64,7 @@ export class ApplicationStore {
       });
     }
   }
-  async fetchApplicationByUser(): Promise<ApplicationModel | null> {
+  async fetchApplicationsByUser(): Promise<ApplicationModel[] | null> {
     if (this._abortByUserController) {
       this._abortByUserController.abort();
     }
@@ -76,10 +76,10 @@ export class ApplicationStore {
     try {
       const response = await getApplicationByUser(signal);
       runInAction(() => {
-        this.application = response || null;
+        this.applications = response.map((app: ApplicationPopulated) => new ApplicationModel(app));
         this.meta = Meta.success;
       });
-      return this.application;
+      return this.applications || null;
     } catch (error) {
       if (isCancelError(error)) {
         return null;
@@ -127,7 +127,7 @@ export class ApplicationStore {
     }
   }
 
-  async createApplication(data: ApplicationModel): Promise<LoadResponse> {
+  async createApplication(data: ApplicationRequest): Promise<LoadResponse> {
     if (this._abortCreateController) {
       this._abortCreateController.abort();
     }

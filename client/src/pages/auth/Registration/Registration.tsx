@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { userStore } from '@entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
+import Error from '@/components/ui/Error';
 
 const Registration = observer(() => {
   const form = useLocalObservable(() => new RegisterFormStore());
@@ -34,7 +35,7 @@ const Registration = observer(() => {
       password: form.password,
     });
     if (success) {
-      navigate('/profile');
+      navigate(`/login?confirm=${form.email}`);
     }
   };
   return (
@@ -62,7 +63,7 @@ const Registration = observer(() => {
                     name="firstNameInput"
                     required
                   />
-                  {form.errors.firstName && <p>{form.errors.firstName}</p>}
+                  {form.errors.firstName && <p className="registration__error">{form.errors.firstName}</p>}
                 </div>
                 <div className="registration__field">
                   <Input
@@ -74,7 +75,7 @@ const Registration = observer(() => {
                     name="secondNameInput"
                     required
                   />
-                  {form.errors.lastName && <p>{form.errors.lastName}</p>}
+                  {form.errors.lastName && <p className="registration__error">{form.errors.lastName}</p>}
                 </div>
               </div>
               <Input
@@ -86,7 +87,7 @@ const Registration = observer(() => {
                 name="emailInput"
                 required
               />
-              {form.errors.email && <p>{form.errors.email}</p>}
+              {form.errors.email && <p className="registration__error">{form.errors.email}</p>}
               <Input
                 onChange={(value) => form.setField('password', value)}
                 value={form.password}
@@ -96,7 +97,7 @@ const Registration = observer(() => {
                 fullWidth
                 required
               />
-              {form.errors.password && <p>{form.errors.password}</p>}
+              {form.errors.password && <p className="registration__error">{form.errors.password}</p>}
               <Checkbox checked={form.privacy} onChange={(value) => form.setField('privacy', value)}>
                 Даю{' '}
                 <TheLink variant="text" to="/privacy">
@@ -104,7 +105,11 @@ const Registration = observer(() => {
                 </TheLink>{' '}
                 на обработку персональных данных
               </Checkbox>
-              {userStore.meta === 'error' && <p>{userStore.error}</p>}
+              {userStore.meta === 'error' && (
+                <Error>
+                  <p>{userStore.error}</p>
+                </Error>
+              )}{' '}
               <div className="registration__actions">
                 <Button disabled={!form.privacy} size="large" className="registration__button" fullWidth type="submit">
                   Создать аккаунт
@@ -119,12 +124,7 @@ const Registration = observer(() => {
                 <IconVKID />
                 <p className="visually-hidden">Использовать VK ID</p>
               </TheLink>
-              <TheLink
-                variant="button"
-                href="http://localhost:3030/api/auth/yandex"
-                background="secondary"
-                className="registration__button"
-              >
+              <TheLink variant="button" href="/api/auth/yandex" background="secondary" className="registration__button">
                 <IconYID />
                 <p className="visually-hidden">Использовать Яндекс ID</p>
               </TheLink>

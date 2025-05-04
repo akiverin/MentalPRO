@@ -64,7 +64,7 @@ export class SurveyListStore {
     this.searchQuery = query;
   }
 
-  async fetchSurveyById(id: string): Promise<SurveyModel | null> {
+  async fetchSurveyById(_id: string): Promise<SurveyModel | null> {
     if (this._abortByIdController) {
       this._abortByIdController.abort();
     }
@@ -74,7 +74,7 @@ export class SurveyListStore {
 
     this.meta = Meta.loading;
     try {
-      const response = await getSurveyById(id, signal);
+      const response = await getSurveyById(_id, signal);
       runInAction(() => {
         this.survey = response;
         this.meta = Meta.success;

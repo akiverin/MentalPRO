@@ -19,7 +19,6 @@ const TheSurvey = observer(() => {
   }, [link]);
 
   const survey = surveyListStore.surveys.find((srv) => srv.id === link) as SurveyModel;
-  const otherSurveys = surveyListStore.surveys.filter((srv) => srv.id !== survey.id).slice(0, 4);
 
   if (surveyListStore.meta === 'loading') {
     return (
@@ -44,6 +43,9 @@ const TheSurvey = observer(() => {
       </div>
     );
   }
+
+  const otherSurveys = surveyListStore.surveys.filter((srv) => srv.id !== survey.id).slice(0, 4);
+
   return (
     <>
       <section className="survey">

@@ -8,19 +8,22 @@ import IconVKID from '@/components/ui/icons/IconVKID';
 import IconYID from '@/components/ui/icons/IconYID';
 
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LoginFormStore } from '@/entities/user/stores/LoginFormStore';
 import { userStore } from '@/entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
+import Error from '@/components/ui/Error';
 
 const Login = observer(() => {
   const form = useLocalObservable(() => new LoginFormStore());
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const confirm = params.get('confirm');
 
   useEffect(() => {
     userStore.clear();
-  });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +48,13 @@ const Login = observer(() => {
               Зарегистрируйтесь
             </TheLink>
           </p>
+          {confirm && (
+            <Error>
+              <p>
+                Перейдите по ссылке в письме, отправленному по адресу {confirm}, для подтверждения электронной почты.
+              </p>
+            </Error>
+          )}
           <Form className="login__form" onSubmit={handleSubmit}>
             <Input
               fullWidth
@@ -55,7 +65,7 @@ const Login = observer(() => {
               onChange={(value) => form.setField('email', value)}
               required
             />
-            {form.errors.email && <p>{form.errors.email}</p>}
+            {form.errors.email && <p className="login__error">{form.errors.email}</p>}
             <Input
               placeholder="Пароль"
               type="password"
@@ -65,8 +75,12 @@ const Login = observer(() => {
               fullWidth
               required
             />
-            {form.errors.password && <p>{form.errors.password}</p>}
-            {userStore.meta === 'error' && <p>{userStore.error}</p>}
+            {form.errors.password && <p className="login__error">{form.errors.password}</p>}
+            {userStore.meta === 'error' && (
+              <Error>
+                <p>{userStore.error}</p>
+              </Error>
+            )}
             <div className="login__actions">
               {/* <TheLink
                 className="login__button"
@@ -90,12 +104,7 @@ const Login = observer(() => {
               <IconVKID />
               <p className="visually-hidden">Использовать VK ID</p>
             </TheLink>
-            <TheLink
-              variant="button"
-              background="secondary"
-              className="login__button"
-              href="http://localhost:3030/api/auth/yandex"
-            >
+            <TheLink variant="button" background="secondary" className="login__button" href="/api/auth/yandex">
               <IconYID />
               <p className="visually-hidden">Использовать Яндекс ID</p>
             </TheLink>

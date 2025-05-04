@@ -1,5 +1,6 @@
 @use "@styles/variables" as v;
-.profile-head {
+.profile-head,
+.profile {
   &__wrapper {
     max-width: v.$wrapper;
     margin: 0 auto;
@@ -53,7 +54,8 @@
     gap: 26px;
   }
 
-  &__name {
+  &__name,
+  &__title {
     font-size: v.$h3-size;
     font-weight: 500;
     margin: 0;
@@ -93,8 +95,13 @@
   }
 }
 
+.profile {
+  margin-top: 80px;
+}
+
 @media screen and (max-width: 1800px) {
-  .profile-head {
+  .profile-head,
+  .profile {
     &__wrapper {
       padding: 20px 120px 0;
     }
@@ -102,7 +109,8 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .profile-head {
+  .profile-head,
+  .profile {
     &__wrapper {
       padding: 20px 40px 0;
     }

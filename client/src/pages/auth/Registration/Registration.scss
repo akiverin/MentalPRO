@@ -74,6 +74,13 @@
     justify-content: center;
     gap: 16px;
   }
+
+  &__error {
+    margin: 0;
+    padding: 0;
+    color: v.$error-text;
+    font-weight: 500;
+  }
 }
 
 .registration__extra {
