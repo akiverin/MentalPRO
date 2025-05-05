@@ -6,12 +6,15 @@ export class ResultModel {
   get _id() {
     return this.data._id;
   }
+
   get surveyId() {
     return this.data.surveyId;
   }
+
   get userId() {
     return this.data.userId;
   }
+
   get answers() {
     return this.data.answers;
   }

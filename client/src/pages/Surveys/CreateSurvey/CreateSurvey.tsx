@@ -30,7 +30,6 @@ const CreateSurvey = observer(() => {
 
     const questions = [];
     console.log(toJS(form.ranges));
-    console.log(toJS(questionForm.questions));
 
     for (const question of questionForm.questions) {
       const answersToSend = question.answerStore.answers.map((answer) => ({
@@ -56,7 +55,7 @@ const CreateSurvey = observer(() => {
       description: form.description,
       image: form.image,
       time: Number(form.time),
-      ranges: toJS(form.ranges),
+      ranges: form.ranges,
       details: form.details,
       results: form.results,
       questions: questions,

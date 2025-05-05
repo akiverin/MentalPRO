@@ -16,6 +16,7 @@ import Privacy from '../pages/Privacy/Privacy';
 import { routes } from './routes';
 import YandexOAuth from '@/pages/auth/YandexOAuth';
 import CreateSurvey from '@/pages/Surveys/CreateSurvey';
+import PrivateRoute from '@/components/PrivateRoute';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -25,14 +26,28 @@ export const routesConfig: RouteObject[] = [
       { path: routes.main.mask, element: <Home /> },
       { path: routes.login.mask, element: <Login /> },
       { path: routes.registration.mask, element: <Registration /> },
-      { path: routes.profile.mask, element: <Profile /> },
+      {
+        path: routes.profile.mask,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.cases.mask, element: <Cases /> },
       { path: routes.case.mask, element: <TheCase /> },
       { path: routes.organizations.mask, element: <Organizations /> },
       { path: routes.organization.mask, element: <TheOrganization /> },
       { path: routes.surveys.mask, element: <Surveys /> },
       { path: routes.survey.mask, element: <TheSurvey /> },
-      { path: routes.surveyCreate.mask, element: <CreateSurvey /> },
+      {
+        path: routes.surveyCreate.mask,
+        element: (
+          <PrivateRoute requiredRoles={['admin']}>
+            <CreateSurvey />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.quest.mask, element: <Quest /> },
       { path: routes.privacy.mask, element: <Privacy /> },
       {

@@ -8,7 +8,7 @@ export interface Survey {
   time: string;
   ranges: {
     section: string;
-    thresholds: { min: number | ''; max: number | ''; title: string; color: string }[];
+    thresholds: { min: number; max: number; title: string; color: string }[];
   }[];
   details?: string;
   results?: string;
@@ -20,7 +20,7 @@ export interface SurveyCreate {
   title: string;
   description: string;
   image: string;
-  time: string;
+  time: number;
   ranges: {
     section: string;
     thresholds: { min: number | ''; max: number | ''; title: string; color: string }[];

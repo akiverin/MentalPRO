@@ -1,7 +1,7 @@
 import { UserModel } from '@entities/user/model';
 
 export interface Organization {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   image?: string;

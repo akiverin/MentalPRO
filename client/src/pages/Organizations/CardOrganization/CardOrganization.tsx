@@ -19,7 +19,6 @@ interface Organization {
 
 const CardOrganization: FC<Organization> = observer(({ id, title, description, image, members, createdBy }) => {
   useEffect(() => {
-    userStore.me();
     applicationStore.clear();
     applicationStore.fetchApplicationsByUser();
   }, []);
@@ -27,7 +26,6 @@ const CardOrganization: FC<Organization> = observer(({ id, title, description, i
   const applications = applicationStore.applications;
   const isMember =
     (members && user && members.some((usr) => usr.id === user.id)) || (createdBy && user && createdBy === user.id);
-
   const isCreatedApplication = applications.some((app) => app.organizationId.id === id);
   const createApplication = () => {
     if (!user) return;

@@ -11,7 +11,6 @@ import SurveyResultCard from './SurveyResultCard/SurveyResultCard';
 
 const Profile = observer(() => {
   useEffect(() => {
-    userStore.me();
     resultStore.fetchResultsByUser();
   }, []);
   const user = userStore.user;
@@ -61,7 +60,7 @@ const Profile = observer(() => {
               <TheLink variant="rounded" background="primary">
                 Редактировать
               </TheLink>
-              <TheLink variant="rounded" background="light">
+              <TheLink variant="rounded" background="light" onClick={() => userStore.logout()}>
                 Выйти из аккаунта
               </TheLink>
             </div>

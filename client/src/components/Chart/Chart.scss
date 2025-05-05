@@ -21,7 +21,12 @@
       font-size: 11px;
       color: rgba(255, 255, 255, 0.9);
       font-weight: 500;
-      white-space: nowrap;
+      width: 100%;
+      line-height: 0.8;
+      text-align: center;
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
     }
   }
 
@@ -55,7 +60,8 @@
     &-value {
       font-size: 10px;
       color: rgba(0, 0, 0, 0.5);
-      margin-top: 2px;
+      margin-top: 12px;
+      position: absolute;
 
       &--active {
         font-weight: 600;

@@ -32,6 +32,10 @@ export class UserStore {
     }
   }
 
+  get isAuthenticated(): boolean {
+    return !!this.user && this.meta === 'success';
+  }
+
   async login(email: string, password: string): Promise<boolean> {
     if (this._loginAbortController) {
       this._loginAbortController.abort();
@@ -118,7 +122,6 @@ export class UserStore {
     this.token = null;
     this.user = null;
     this.meta = Meta.initial;
-
     localStorage.removeItem(AUTH_TOKEN_KEY);
   }
 
@@ -159,6 +162,8 @@ export class UserStore {
         this.error = errorMessage(error);
         this.meta = Meta.error;
       });
+      this.logout();
+      if (isCancelError(error)) return false;
       return false;
     } finally {
       runInAction(() => {

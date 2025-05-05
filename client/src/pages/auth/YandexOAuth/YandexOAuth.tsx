@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { userStore } from "@/entities/user/stores/userStoreInstance";
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { userStore } from '@/entities/user/stores/userStoreInstance';
 
 const YandexOAuth = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const token = params.get("token");
+  const token = params.get('token');
 
   useEffect(() => {
     if (token) {
       userStore.setToken(token);
       userStore.me();
-      navigate("/profile");
+      navigate('/profile');
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   }, [navigate, token]);
 

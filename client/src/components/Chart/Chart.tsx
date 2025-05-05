@@ -34,7 +34,9 @@ const Chart = ({
         {Array.from({ length: maxValue - minValue + 1 }, (_, i) => minValue + i).map((tick) => (
           <div key={tick} className="chart__tick">
             <div className={`chart__tick-mark ${tick === value ? 'chart__tick-mark--active' : ''}`} />
-            <span className={`chart__tick-value ${tick === value ? 'chart__tick-value--active' : ''}`}>{tick}</span>
+            {tick % 5 == 0 && (
+              <span className={`chart__tick-value ${tick === value ? 'chart__tick-value--active' : ''}`}>{tick}</span>
+            )}
           </div>
         ))}
       </div>

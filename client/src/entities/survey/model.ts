@@ -7,6 +7,10 @@ export class SurveyModel {
     return this.data._id;
   }
 
+  get _id() {
+    return this.data._id;
+  }
+
   get title() {
     return this.data.title;
   }

@@ -4,7 +4,7 @@ export class OrganizationModel {
   constructor(private readonly data: Organization) {}
 
   get id() {
-    return this.data.id;
+    return this.data._id;
   }
 
   get title() {

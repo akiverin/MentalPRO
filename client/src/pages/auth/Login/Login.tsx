@@ -14,6 +14,7 @@ import { userStore } from '@/entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
 import Error from '@/components/ui/Error';
+import { API_BASE_URL } from '@/config/api';
 
 const Login = observer(() => {
   const form = useLocalObservable(() => new LoginFormStore());
@@ -104,7 +105,12 @@ const Login = observer(() => {
               <IconVKID />
               <p className="visually-hidden">Использовать VK ID</p>
             </TheLink>
-            <TheLink variant="button" background="secondary" className="login__button" href="/api/auth/yandex">
+            <TheLink
+              variant="button"
+              background="secondary"
+              className="login__button"
+              href={`${API_BASE_URL}/auth/yandex`}
+            >
               <IconYID />
               <p className="visually-hidden">Использовать Яндекс ID</p>
             </TheLink>
