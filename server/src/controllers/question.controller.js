@@ -30,8 +30,22 @@ export const QuestionController = {
     try {
       const { text, section, answers = [], number } = req.body;
 
-      const createdAnswers = await Answer.insertMany(answers);
-      const answerIds = createdAnswers.map((a) => a._id);
+      const answerIds = [];
+      for (const answerData of answers) {
+        const existingAnswer = await Answer.findOne({
+          number: answerData.number,
+          text: answerData.text,
+          points: answerData.points,
+        });
+
+        if (existingAnswer) {
+          answerIds.push(existingAnswer._id);
+        } else {
+          const newAnswer = new Answer(answerData);
+          await newAnswer.save();
+          answerIds.push(newAnswer._id);
+        }
+      }
 
       const question = new Question({
         number,
