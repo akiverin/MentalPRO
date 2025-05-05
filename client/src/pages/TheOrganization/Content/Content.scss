@@ -1,0 +1,7 @@
+@use "@styles/variables" as v;
+.organization-content {
+  flex: 5;
+  &__title {
+    font-size: v.$h4-size;
+  }
+}

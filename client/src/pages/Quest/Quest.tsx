@@ -1,69 +1,80 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import Button from "@/components/ui/Button/Button";
-import "./Quest.scss";
-import { useEffect, useState } from "react";
-import classNames from "classnames";
-import { motion } from "framer-motion";
+import { useParams } from 'react-router-dom';
+import Button from '@/components/ui/Button/Button';
+import './Quest.scss';
+import { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import { motion } from 'framer-motion';
+import { surveyListStore } from '@entities/survey/stores/surveyStoreInstance';
+import { observer } from 'mobx-react-lite';
+import { AnswerModel } from '@entities/answer/model';
+import { QuestionModel } from '@entities/question/model';
+import { resultStore } from '@entities/result/store/resultStoreInstance';
+import { ResultModel } from '@entities/result/model';
 
-const Quest = () => {
+const Quest = observer(() => {
   const { link } = useParams<{ link: string }>();
-  const survey = useSelector((state: RootState) =>
-    state.surveys.surveys.find((s) => s.link === link)
-  );
-  const questions = useSelector((state: RootState) => {
-    return state.questions.questions.filter(
-      (item) => survey !== undefined && item.survey_id === survey.id
-    );
+
+  useEffect(() => {
+    if (link) {
+      surveyListStore.fetchQuestions(link);
+      surveyListStore.fetchSurveyById(link);
+    }
+  }, [link]);
+
+  const questions = surveyListStore.questions;
+  const survey = surveyListStore.survey;
+
+  const [currentIndex, setCurrentIndex] = useState<number>(() => {
+    const saved = localStorage.getItem(`survey-${link}-current`);
+    return saved && !isNaN(+saved) ? +saved : 0;
   });
 
-  const [answers, setAnswers] = useState<Record<number, number>>(() => {
-    const saved = localStorage.getItem(`survey-${survey?.id}-answers`);
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    const saved = localStorage.getItem(`survey-${link}-answers`);
     return saved ? JSON.parse(saved) : {};
   });
 
-  const [numQuestion, setNumQuestion] = useState(() => {
-    const lastQuestion = localStorage.getItem(
-      `survey-${survey?.id}-last-question`
-    );
-    return lastQuestion ? Number(lastQuestion) : 1;
-  });
-
-  const [selectedAnswer, setSelectedAnswer] = useState<number>(
-    answers[numQuestion] ?? -1
-  );
-
   useEffect(() => {
-    setSelectedAnswer(answers[numQuestion] ?? -1);
-    localStorage.setItem(
-      `survey-${survey?.id}-last-question`,
-      String(numQuestion)
-    );
-  }, [numQuestion, answers, survey]);
-
-  const handleSelectAnswer = (answerId: number) => {
-    const newAnswers = { ...answers };
-
-    if (answers[numQuestion] === answerId) {
-      delete newAnswers[numQuestion];
-    } else {
-      newAnswers[numQuestion] = answerId;
+    if (link) {
+      localStorage.setItem(`survey-${link}-current`, String(currentIndex));
     }
+  }, [currentIndex, link]);
 
-    setAnswers(newAnswers);
-    localStorage.setItem(
-      `survey-${survey?.id}-answers`,
-      JSON.stringify(newAnswers)
-    );
-    setSelectedAnswer(newAnswers[numQuestion] ?? -1);
+  const currentQuestion = questions[currentIndex] as QuestionModel;
+
+  const handleSelectAnswer = (answerId: string) => {
+    if (!currentQuestion) return;
+    const updated = { ...answers, [currentQuestion._id]: answerId };
+    setAnswers(updated);
+    if (link) {
+      localStorage.setItem(`survey-${link}-answers`, JSON.stringify(updated));
+    }
   };
 
-  if (!survey || !questions.length) {
-    return (
-      <h2 className="survey__not-found">Опрос для прохождения не найден</h2>
+  const isSelected = (answerId: string) => {
+    return currentQuestion?.answers?.some(
+      (ans: AnswerModel) => ans._id === answerId && answers[currentQuestion._id] === answerId,
     );
+  };
+
+  if (!questions.length || !survey || !currentQuestion) {
+    return <h2 className="survey__not-found">Опрос или вопросы не найдены</h2>;
   }
+
+  const saveResults = () => {
+    const result = {
+      surveyId: link,
+      answers: Object.entries(answers).map(([questionId, answerId]) => ({
+        questionId,
+        answerId,
+      })),
+    };
+    console.log('result', result);
+    resultStore.fetchCreate(result as unknown as ResultModel);
+    localStorage.removeItem(`survey-${link}-answers`);
+    localStorage.removeItem(`survey-${link}-current`);
+    alert('Ваши ответы отправлены!');
+  };
 
   return (
     <section className="quest">
@@ -71,46 +82,42 @@ const Quest = () => {
         <div className="quest__control">
           <div className="quest__survey-info">
             <p className="quest__nums">
-              {numQuestion} из {questions[questions.length - 1].num}
+              {currentIndex + 1} из {questions.length}{' '}
             </p>
-            <h1 className="quest__title">{survey.name}</h1>
+            <h1 className="quest__title">{survey.title}</h1>
             <p className="quest__save">Результаты сохраняются локально</p>
           </div>
           <ul className="quest__question-lines">
-            {questions.map((question) => (
+            {questions.map((q, index) => (
               <li
-                key={question.id}
+                key={index}
                 className={classNames(
-                  "quest__question-line",
-                  answers[question.num] !== undefined &&
-                    "quest__question-line--complete",
-                  question.num === numQuestion && "quest__question-line--active"
+                  'quest__question-line',
+                  answers[q._id] !== undefined && 'quest__question-line--complete',
+                  index === currentIndex && 'quest__question-line--active',
                 )}
-              ></li>
+              />
             ))}
           </ul>
         </div>
         <motion.div
-          key={numQuestion}
+          key={currentQuestion._id}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.3 }}
           className="quest__content"
         >
-          <p className="quest__question-num">Вопрос {numQuestion}</p>
-          <h2 className="quest__question-title">
-            {questions[numQuestion - 1]?.text ?? "Ошибка загрузки вопроса"}
-          </h2>
+          <p className="quest__question-num">Вопрос {currentIndex + 1}</p>
+          <h2 className="quest__question-title">{currentQuestion.text ?? 'Ошибка загрузки вопроса'}</h2>
           <div className="quest__answers">
-            {questions[numQuestion - 1].answers.map((answer) => (
+            {currentQuestion.answers.map((answer: AnswerModel, index) => (
               <button
-                onClick={() => handleSelectAnswer(answer.id)}
-                className={classNames(
-                  "quest__answer",
-                  answer.id === selectedAnswer && "quest__answer--selected"
-                )}
-                key={answer.id}
+                key={index}
+                onClick={() => handleSelectAnswer(answer._id)}
+                className={classNames('quest__answer', {
+                  'quest__answer--selected': isSelected(answer._id),
+                })}
               >
                 {answer.text}
               </button>
@@ -119,20 +126,16 @@ const Quest = () => {
         </motion.div>
         <div className="quest__actions">
           <Button
-            onClick={() => setNumQuestion((prev) => Math.max(1, prev - 1))}
+            onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
             variant="rounded"
             background="light"
-            disabled={numQuestion === 1}
+            disabled={currentIndex === 0}
           >
             Предыдущий вопрос
           </Button>
-          {numQuestion === questions.length ? (
+          {currentIndex === questions.length - 1 ? (
             <Button
-              onClick={() => {
-                localStorage.removeItem(`survey-${survey?.id}-answers`);
-                localStorage.removeItem(`survey-${survey?.id}-last-question`);
-                alert("Ваши ответы отправлены!");
-              }}
+              onClick={saveResults}
               variant="rounded"
               background="primary"
               disabled={Object.keys(answers).length !== questions.length}
@@ -141,15 +144,10 @@ const Quest = () => {
             </Button>
           ) : (
             <Button
-              onClick={() =>
-                setNumQuestion((prev) => Math.min(questions.length, prev + 1))
-              }
+              onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
               variant="rounded"
               background="primary"
-              disabled={
-                numQuestion === questions[questions.length - 1].num ||
-                selectedAnswer === -1
-              }
+              disabled={!answers[currentQuestion._id]}
             >
               Следующий вопрос
             </Button>
@@ -158,6 +156,6 @@ const Quest = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Quest;

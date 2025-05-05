@@ -1,10 +1,20 @@
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(date);
+const formatDate = (dateInput: string | Date): string => {
+  if (!dateInput) return 'Неизвестная дата';
+
+  try {
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return 'Неизвестная дата';
+
+    const formatter = new Intl.DateTimeFormat('ru-RU', {
+      year: 'numeric',
+      day: 'numeric',
+      month: 'long',
+    });
+
+    return formatter.format(date).replace(/\s*г\.\s*/, '');
+  } catch {
+    return 'Неизвестная дата';
+  }
 };
 
 export default formatDate;

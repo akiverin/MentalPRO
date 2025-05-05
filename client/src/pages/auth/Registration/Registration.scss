@@ -1,0 +1,243 @@
+@use "@styles/variables" as v;
+
+.registration {
+  &__wrapper {
+    display: flex;
+    height: calc(100vh - v.$header-height);
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    padding: 0 40px;
+    gap: 20px;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 580px;
+  }
+
+  &__title {
+    margin: 0 0 20px;
+  }
+
+  &__desc {
+    margin: 0 0 40px;
+    font-size: v.$h6-size;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__field {
+    flex: 1;
+  }
+
+  &__name-inputs {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__input {
+    margin-bottom: 12px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-items: end;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  &__button {
+    height: 64px;
+    text-align: center;
+    max-width: none;
+  }
+
+  &__oauth {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &__error {
+    margin: 0;
+    padding: 0;
+    color: v.$error-text;
+    font-weight: 500;
+  }
+}
+
+.registration__extra {
+  margin-top: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.registration__extra:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  width: 100%;
+  height: 1px;
+  background: v.$dark;
+}
+
+.registration__extra h2 {
+  margin: 0;
+  font-size: v.$h6-size;
+  color: v.$dark;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #fff;
+  z-index: 9;
+}
+
+@media screen and (max-width: 1400px) {
+  .registration {
+    &__info {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h2-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .registration {
+    &__wrapper {
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__info {
+      gap: 10px;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h3-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      font-size: v.$body-large;
+      line-height: 1.5;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__name-inputs {
+      gap: 10px;
+    }
+
+    &__actions {
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: 1rem;
+    }
+
+    &__oauth {
+      gap: 16px;
+    }
+  }
+
+  .registration__extra {
+    margin-top: 10px;
+  }
+
+  .registration__extra h2 {
+    font-size: v.$body-large;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .registration {
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      font-size: v.$h4-size;
+    }
+
+    &__desc {
+      margin: 0 0 16px;
+      font-size: v.$body-medium;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__actions {
+      margin-top: 6px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: v.$body-medium;
+    }
+
+    &__oauth {
+      gap: 10px;
+    }
+  }
+
+  .registration__extra {
+    margin-top: 8px;
+  }
+
+  .registration__extra h2 {
+    font-size: v.$body-medium;
+  }
+}

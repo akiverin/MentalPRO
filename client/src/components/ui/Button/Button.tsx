@@ -1,10 +1,10 @@
-import { FC, ButtonHTMLAttributes } from "react";
-import classNames from "classnames";
-import "./Button.scss";
+import { FC, ButtonHTMLAttributes } from 'react';
+import classNames from 'classnames';
+import './Button.scss';
 
-export type ButtonBackground = "primary" | "secondary" | "light";
-export type ButtonVariant = "default" | "rounded";
-export type ButtonSize = "small" | "medium" | "large";
+export type ButtonBackground = 'primary' | 'secondary' | 'light' | 'danger' | 'success';
+export type ButtonVariant = 'default' | 'rounded';
+export type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -16,24 +16,24 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: FC<ButtonProps> = ({
   children,
-  variant = "default",
-  background = "primary",
+  variant = 'default',
+  background = 'primary',
   fullWidth = false,
-  className = "",
+  className = '',
   disabled = false,
-  size = "medium",
+  size = 'medium',
   ...rest
 }) => {
   const buttonClasses = classNames(
-    "button",
+    'button',
     `button--${variant}`,
     `button--${background}`,
     `button--${size}`,
     {
-      "button--full-width": fullWidth,
-      "button--disabled": disabled,
+      'button--full-width': fullWidth,
+      'button--disabled': disabled,
     },
-    className
+    className,
   );
 
   return (

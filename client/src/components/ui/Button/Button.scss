@@ -40,6 +40,32 @@
     }
   }
 
+  &--danger {
+    background-color: v.$danger;
+    color: v.$white;
+
+    &:hover:not(.button--disabled) {
+      background-color: v.$danger-hover;
+    }
+
+    &:active:not(.button--disabled) {
+      background-color: v.$danger-active;
+    }
+  }
+
+  &--success {
+    background-color: v.$success;
+    color: v.$white;
+
+    &:hover:not(.button--disabled) {
+      background-color: v.$success-hover;
+    }
+
+    &:active:not(.button--disabled) {
+      background-color: v.$success-active;
+    }
+  }
+
   &--light {
     background-color: v.$light;
     color: v.$primary;

@@ -1,20 +1,32 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import path from "path";
+import * as path from "path";
+import tsconfig from "./tsconfig.json";
 
-// https://vite.dev/config/
+const parseTsConfigPaths = (
+  paths: Record<string, string[]>,
+  basePath: string,
+): Record<string, string> => {
+  const aliases: Record<string, string> = {};
+
+  for (const key in paths) {
+    const normalizedKey = key.replace("/*", "").replace("*", "");
+    const [target] = paths[key];
+    const normalizedTarget = target.replace("/*", "").replace("*", "");
+
+    aliases[normalizedKey] = path.resolve(basePath, normalizedTarget);
+  }
+
+  return aliases;
+};
+
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react()],
   resolve: {
-    extensions: [".tsx", ".ts"],
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@assets": path.resolve(__dirname, "src/assets"),
-      "@styles": path.resolve(__dirname, "src/styles"),
-
-      "@components": path.resolve(__dirname, "src/components"),
-      "@pages": path.resolve(__dirname, "src/pages"),
-    },
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
+    alias: parseTsConfigPaths(
+      tsconfig.compilerOptions.paths,
+      path.resolve(__dirname, "."),
+    ),
   },
 });

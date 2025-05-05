@@ -1,27 +1,50 @@
-import { FC, InputHTMLAttributes } from "react";
+import React from "react";
 import classNames from "classnames";
 import "./Input.scss";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "value"
+> & {
+  value: string;
   fullWidth?: boolean;
   disabled?: boolean;
   className?: string;
-}
-
-const Input: FC<InputProps> = ({
-  fullWidth = false,
-  className = "",
-  disabled = false,
-  ...rest
-}) => {
-  const inputClasses = classNames(
-    "input",
-    { "input--full-width": fullWidth },
-    { "input--disabled": disabled },
-
-    className
-  );
-  return <input className={inputClasses} {...rest} />;
+  onChange: (value: string) => void;
 };
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      value,
+      onChange,
+      className,
+      fullWidth = false,
+      disabled = false,
+      ...props
+    }: InputProps,
+    ref,
+  ) => {
+    const inputClasses = classNames(
+      "input",
+      { "input--full-width": fullWidth },
+      { "input--disabled": disabled },
+
+      className,
+    );
+    return (
+      <input
+        ref={ref}
+        type="text"
+        value={value}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(event.target.value)
+        }
+        className={inputClasses}
+        {...props}
+      />
+    );
+  },
+);
 
 export default Input;

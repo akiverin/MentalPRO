@@ -77,7 +77,13 @@ router.get(
   AuthController.vkCallback
 );
 
-router.get("/yandex", passport.authenticate("yandex"));
+router.get(
+  "/yandex",
+  (req, res, next) => {
+    next();
+  },
+  passport.authenticate("yandex")
+);
 router.get(
   "/yandex/callback",
   passport.authenticate("yandex", { session: false }),

@@ -1,65 +1,91 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import TheLink from "@/components/ui/Link/Link";
-import "./TheSurvey.scss";
-import CardSurvey from "@/components/CardSurvey/CardSurvey";
+import { useParams } from 'react-router-dom';
+import TheLink from '@/components/ui/Link/Link';
+import './TheSurvey.scss';
+import CardSurvey from '@/components/CardSurvey/CardSurvey';
+import { useEffect } from 'react';
+import { surveyListStore } from '@/entities/survey/stores/surveyStoreInstance';
+import { observer } from 'mobx-react-lite';
+import { SurveyModel } from '@/entities/survey/model';
 
-const TheSurvey = () => {
+const TheSurvey = observer(() => {
   const { link } = useParams<{ link: string }>();
-  const survey = useSelector((state: RootState) =>
-    state.surveys.surveys.find((s) => s.link === link)
-  );
-  const surveys = useSelector((state: RootState) => {
-    return state.surveys.surveys
-      .filter((item) => survey !== undefined && item.id !== survey.id)
-      .slice(0, 4);
-  });
+  if (!link) {
+    return <h2 className="survey__not-found">ID опроса не найден или передан неверно</h2>;
+  }
+
+  useEffect(() => {
+    surveyListStore.fetchSurveys();
+    surveyListStore.fetchSurveyById(link);
+  }, [link]);
+
+  const survey = surveyListStore.surveys.find((srv) => srv.id === link) as SurveyModel;
+
+  if (surveyListStore.meta === 'loading') {
+    return (
+      <div className="survey__wrapper">
+        <h2 className="survey__not-found">Загрузка...</h2>
+      </div>
+    );
+  }
+
+  if (surveyListStore.meta === 'error') {
+    return (
+      <div className="survey__wrapper">
+        <h2 className="survey__not-found">Ошибка: {surveyListStore.error}</h2>
+      </div>
+    );
+  }
 
   if (!survey) {
-    return <h2 className="survey__not-found">Опрос не найден</h2>;
+    return (
+      <div className="survey__wrapper">
+        <h2 className="survey__not-found">Опрос не найден</h2>
+      </div>
+    );
   }
+
+  const otherSurveys = surveyListStore.surveys.filter((srv) => srv.id !== survey.id).slice(0, 4);
 
   return (
     <>
       <section className="survey">
         <div className="survey__wrapper">
           <div className="survey__info">
-            <h1 className="survey__title">{survey.name}</h1>
-            <TheLink
-              variant="rounded"
-              background="primary"
-              to={`/surveys/${survey.link}/quest`}
-            >
+            <h1 className="survey__title">{survey.title}</h1>
+            <TheLink variant="rounded" background="primary" to={`/surveys/${survey.id}/quest`}>
               Пройти опрос сейчас
             </TheLink>
             <p className="survey__desc">{survey.description}</p>
             <p className="survey__details">{survey.details}</p>
             <div className="survey__extra">
               <p className="survey__time">
-                <b>Время прохождения:</b> {survey.time}
+                <b>Время прохождения:</b> {survey.time} мин.
               </p>
-              <p className="survey__result">
-                <b>Результат:</b> {survey.result}
-              </p>
+              {survey.results && (
+                <p className="survey__result">
+                  <b>Результат:</b> {survey.results}
+                </p>
+              )}
             </div>
           </div>
-          {survey.image && (
-            <img
-              src={survey.image}
-              alt={survey.name}
-              className="survey__image"
-            />
-          )}
+          {survey.image && <img src={survey.image} alt={survey.title} className="survey__image" />}
         </div>
       </section>
       <section className="other-surveys">
         <div className="other-surveys__wrapper">
           <h2 className="other-surveys__title">Другие опросы</h2>
           <ul className="surveys-content__list">
-            {surveys.map((srv) => (
+            {otherSurveys.map((srv) => (
               <li key={`survey-${srv.id}`} className="surveys-content__item">
-                <CardSurvey {...srv} />
+                <CardSurvey
+                  size="default"
+                  id={srv.id}
+                  title={srv.title}
+                  description={srv.description}
+                  details={srv.details}
+                  time={srv.time.toString()}
+                  image={srv.image}
+                />
               </li>
             ))}
           </ul>
@@ -67,6 +93,6 @@ const TheSurvey = () => {
       </section>
     </>
   );
-};
+});
 
 export default TheSurvey;
