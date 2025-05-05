@@ -5,11 +5,29 @@ export interface Survey {
   title: string;
   description: string;
   image: string;
-  time: number;
+  time: string;
+  ranges: {
+    section: string;
+    thresholds: { min: number | ''; max: number | ''; title: string; color: string }[];
+  }[];
   details?: string;
   results?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface SurveyCreate {
+  title: string;
+  description: string;
+  image: string;
+  time: string;
+  ranges: {
+    section: string;
+    thresholds: { min: number | ''; max: number | ''; title: string; color: string }[];
+  }[];
+  questions: (string | undefined)[];
+  details?: string;
+  results?: string;
 }
 
 export interface SurveysResponse {

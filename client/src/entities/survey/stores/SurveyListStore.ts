@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { SurveyModel } from '../model';
-import { getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
-import { Survey } from '../types';
+import { createSurvey, getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
+import { Survey, SurveyCreate } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
@@ -17,6 +17,7 @@ export class SurveyListStore {
   searchQuery = '';
 
   private _abortController: AbortController | null = null;
+  private _abortCreateController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
   private _abortQuestionsController: AbortController | null = null;
 
@@ -124,6 +125,38 @@ export class SurveyListStore {
     } finally {
       runInAction(() => {
         this._abortQuestionsController = null;
+      });
+    }
+  }
+
+  async create(data: SurveyCreate): Promise<LoadResponse | null> {
+    if (this._abortCreateController) {
+      this._abortCreateController.abort();
+    }
+
+    this._abortCreateController = new AbortController();
+    const signal = this._abortCreateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await createSurvey(data, signal);
+      runInAction(() => {
+        this.survey = response;
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortCreateController = null;
       });
     }
   }

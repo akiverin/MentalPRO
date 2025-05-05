@@ -83,7 +83,7 @@ const TheSurvey = observer(() => {
                   title={srv.title}
                   description={srv.description}
                   details={srv.details}
-                  time={srv.time}
+                  time={srv.time.toString()}
                   image={srv.image}
                 />
               </li>

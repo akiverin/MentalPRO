@@ -31,6 +31,10 @@ export class SurveyModel {
     return this.data.image || '';
   }
 
+  get ranges() {
+    return this.data.ranges || [];
+  }
+
   get createdAt() {
     return new Date(this.data.createdAt).toLocaleDateString();
   }

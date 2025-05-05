@@ -39,6 +39,10 @@ export const routes = {
     mask: '/surveys/:link',
     create: (link: string) => `/surveys/${link}`,
   },
+  surveyCreate: {
+    mask: '/surveys/create',
+    create: () => `/surveys/create`,
+  },
   quest: {
     mask: '/surveys/:link/quest',
     create: (link: string) => `/surveys/${link}/quest`,

@@ -4,3 +4,9 @@ export interface Answer {
   text: string;
   points: number;
 }
+
+export interface AnswerCreate {
+  number: number;
+  text: string;
+  points: number;
+}

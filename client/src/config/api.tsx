@@ -45,6 +45,12 @@ export const apiRoutes = {
     getByUser: '/result/my',
     create: '/result',
   },
+  answer: {
+    create: '/answer',
+  },
+  question: {
+    create: '/question',
+  },
   application: {
     getAll: '/application',
     getByUser: '/application/my',

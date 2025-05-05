@@ -10,7 +10,7 @@ interface CardSurveyProps {
   id: string;
   title: string;
   description: string;
-  time: number;
+  time: string;
   image: string;
   size: CardSurveySize;
   details?: string;
