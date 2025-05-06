@@ -101,7 +101,7 @@ const Login = observer(() => {
             <h2 className="login__extra-title">Авторизация через</h2>
           </div>
           <div className="login__oauth">
-            <TheLink variant="button" background="secondary" className="login__button">
+            <TheLink variant="button" href={`${API_BASE_URL}/auth/vk`} background="secondary" className="login__button">
               <IconVKID />
               <p className="visually-hidden">Использовать VK ID</p>
             </TheLink>

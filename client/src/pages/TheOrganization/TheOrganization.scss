@@ -36,7 +36,11 @@
     flex-direction: column;
     align-items: end;
     gap: 30px;
-    max-width: 460px;
+
+    & img {
+      max-width: 460px;
+      max-height: 360px;
+    }
   }
 
   &__search {
@@ -68,8 +72,18 @@
   }
 }
 
+.organization {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
 @media screen and (max-width: v.$desktop) {
-  .organizations-info {
+  .organization-info {
     &__wrapper {
       flex-direction: column;
       align-items: flex-start;
@@ -88,14 +102,12 @@
       gap: 24px;
     }
   }
-}
 
-.organization {
-  &__wrapper {
-    padding: 0 40px;
-    max-width: v.$wrapper;
-    margin: 0 auto;
-    display: flex;
+  .organization {
+    &__wrapper {
+      padding: 0 40px;
+      flex-direction: column;
+    }
   }
 }
 

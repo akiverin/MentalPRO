@@ -1,14 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TheLink from '@/components/ui/Link/Link';
 import './TheSurvey.scss';
 import CardSurvey from '@/components/CardSurvey/CardSurvey';
 import { useEffect } from 'react';
 import { surveyListStore } from '@/entities/survey/stores/surveyStoreInstance';
 import { observer } from 'mobx-react-lite';
-import { SurveyModel } from '@/entities/survey/model';
+import AccessControl from '@/components/AccessControl';
+import Button from '@/components/ui/Button';
 
 const TheSurvey = observer(() => {
   const { link } = useParams<{ link: string }>();
+  const navigate = useNavigate();
   if (!link) {
     return <h2 className="survey__not-found">ID опроса не найден или передан неверно</h2>;
   }
@@ -18,7 +20,12 @@ const TheSurvey = observer(() => {
     surveyListStore.fetchSurveyById(link);
   }, [link]);
 
-  const survey = surveyListStore.surveys.find((srv) => srv.id === link) as SurveyModel;
+  const survey = surveyListStore.survey;
+
+  const onDelete = () => {
+    surveyListStore.delete(link);
+    navigate('/surveys');
+  };
 
   if (surveyListStore.meta === 'loading') {
     return (
@@ -52,9 +59,16 @@ const TheSurvey = observer(() => {
         <div className="survey__wrapper">
           <div className="survey__info">
             <h1 className="survey__title">{survey.title}</h1>
-            <TheLink variant="rounded" background="primary" to={`/surveys/${survey.id}/quest`}>
+            <TheLink variant="rounded" background="primary" to={`/surveys/${survey._id}/quest`}>
               Пройти опрос сейчас
             </TheLink>
+            <div className="survey__actions">
+              <AccessControl requiredRoles={['admin']}>
+                <Button onClick={onDelete} background="danger" variant="rounded">
+                  Удалить опрос
+                </Button>
+              </AccessControl>
+            </div>
             <p className="survey__desc">{survey.description}</p>
             <p className="survey__details">{survey.details}</p>
             <div className="survey__extra">

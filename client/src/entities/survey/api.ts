@@ -46,3 +46,12 @@ export const createSurvey = async (data: SurveyCreate, signal?: AbortSignal): Pr
   });
   return response.data;
 };
+
+export const deleteSurvey = async (id: string, signal?: AbortSignal): Promise<string> => {
+  const url = `${apiRoutes.survey.delete(id)}/`;
+  const response = await api.delete<string>(url, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};

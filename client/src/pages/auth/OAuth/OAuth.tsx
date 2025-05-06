@@ -10,7 +10,6 @@ const YandexOAuth = () => {
   useEffect(() => {
     if (token) {
       userStore.setToken(token);
-      userStore.me();
       navigate('/profile');
     } else {
       navigate('/login');

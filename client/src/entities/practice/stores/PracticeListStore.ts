@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { PracticeModel } from '../model';
-import { getPracticeById, getPractices } from '../api';
+import { deletePractice, getPracticeById, getPractices } from '../api';
 import { Practice } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
@@ -16,6 +16,7 @@ export class PracticeListStore {
 
   private _abortController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
+  private _abortDeleteController: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -90,6 +91,37 @@ export class PracticeListStore {
     } finally {
       runInAction(() => {
         this._abortByIdController = null;
+      });
+    }
+  }
+
+  async delete(id: string): Promise<string | null> {
+    if (this._abortDeleteController) {
+      this._abortDeleteController.abort();
+    }
+
+    this._abortDeleteController = new AbortController();
+    const signal = this._abortDeleteController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await deletePractice(id, signal);
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+      return response;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortDeleteController = null;
       });
     }
   }

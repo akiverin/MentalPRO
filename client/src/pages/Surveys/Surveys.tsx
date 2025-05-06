@@ -7,6 +7,8 @@ import { observer } from 'mobx-react-lite';
 import { surveyListStore } from '@entities/survey/stores/surveyStoreInstance';
 import { useSearchParams } from 'react-router-dom';
 import { SurveyModel } from '@entities/survey/model';
+import AccessControl from '@/components/AccessControl';
+import TheLink from '@/components/ui/Link';
 
 const Surveys = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,6 +47,13 @@ const Surveys = observer(() => {
           <div className="surveys-info__titles">
             <h1 className="surveys-info__title">Опросы и анкеты</h1>
             <p className="surveys-info__subtitle">Узнай свой уровень тревожности на данный момент.</p>
+            <div className="surveys-info__actions">
+              <AccessControl requiredRoles={['admin']}>
+                <TheLink to="create" variant="rounded" background="secondary">
+                  Создать опрос
+                </TheLink>
+              </AccessControl>
+            </div>
           </div>
           <div className="surveys-info__search">
             <p className="surveys-info__desc">

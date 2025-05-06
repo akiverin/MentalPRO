@@ -121,6 +121,7 @@ const CreateSurvey = observer(() => {
               <Input
                 type="number"
                 placeholder="Время прохождения опроса"
+                min={0}
                 value={form.time}
                 onChange={(value) => form.setField('time', value)}
                 fullWidth

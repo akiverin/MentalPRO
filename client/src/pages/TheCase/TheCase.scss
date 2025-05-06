@@ -17,6 +17,14 @@
     letter-spacing: -0.01rem;
   }
 
+  &__controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: end;
+  }
+
   &__image {
     margin: 16px 0 16px;
     width: 100%;
