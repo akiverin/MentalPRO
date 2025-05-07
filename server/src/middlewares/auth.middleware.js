@@ -1,22 +1,26 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("Не задана переменная окружения JWT_SECRET");
+}
 
 export const authMiddleware = async (req, res, next) => {
+  const authHeader = req.headers.authorization || req.headers["x-access-token"];
+  if (!authHeader) {
+    return res.status(401).json({ message: "Необходим токен авторизации" });
+  }
+
+  const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+  if (!token) {
+    return res.status(401).json({ message: "Необходим токен авторизации" });
+  }
+
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Необходим токен авторизации" });
-    }
-
-    const token = authHeader.split(" ")[1];
-
     const decoded = jwt.verify(token, JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
-
     if (!user) {
       return res.status(401).json({ message: "Пользователь не найден" });
     }

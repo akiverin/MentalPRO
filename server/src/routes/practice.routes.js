@@ -1,6 +1,7 @@
 import express from "express";
 import { PracticeController } from "../controllers/practice.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -39,7 +40,11 @@ router.get("/", PracticeController.getAll);
  *       200:
  *         description: Practice details
  */
-router.get("/:id", authMiddleware, PracticeController.getById);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  PracticeController.getById
+);
 
 /**
  * @openapi
@@ -57,7 +62,11 @@ router.get("/:id", authMiddleware, PracticeController.getById);
  *       201:
  *         description: Practice created
  */
-router.post("/", authMiddleware, PracticeController.create);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  PracticeController.create
+);
 
 /**
  * @openapi
@@ -81,7 +90,11 @@ router.post("/", authMiddleware, PracticeController.create);
  *       200:
  *         description: Practice updated
  */
-router.put("/:id", authMiddleware, PracticeController.update);
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  PracticeController.update
+);
 
 /**
  * @openapi
@@ -99,6 +112,10 @@ router.put("/:id", authMiddleware, PracticeController.update);
  *       200:
  *         description: Practice deleted
  */
-router.delete("/:id", authMiddleware, PracticeController.remove);
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  PracticeController.remove
+);
 
 export default router;

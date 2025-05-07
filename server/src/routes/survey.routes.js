@@ -1,6 +1,7 @@
 import express from "express";
 import { SurveyController } from "../controllers/survey.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -39,7 +40,11 @@ router.get("/", SurveyController.getAll);
  *       200:
  *         description: Survey details
  */
-router.get("/:id", authMiddleware, SurveyController.getById);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  SurveyController.getById
+);
 
 /**
  * @openapi

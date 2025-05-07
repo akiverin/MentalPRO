@@ -41,12 +41,6 @@ export class AuthController {
     }
   }
 
-  // OAuth-колбэки
-  static vkCallback(req, res) {
-    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
-    res.redirect(`${process.env.FRONTEND_URL}/oauth?token=${token}`);
-  }
-
   static yandexCallback(req, res) {
     const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
     res.redirect(`${process.env.FRONTEND_URL}/yandex-oauth?token=${token}`);
