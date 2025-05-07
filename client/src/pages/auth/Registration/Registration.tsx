@@ -56,7 +56,7 @@ const Registration = observer(() => {
                 <div className="registration__field">
                   <Input
                     value={form.firstName}
-                    onChange={(value) => form.setField('firstName', value)}
+                    onChange={(value) => form.setField('firstName', typeof value === 'string' ? value : '')}
                     fullWidth
                     placeholder="Имя"
                     type="text"
@@ -68,7 +68,7 @@ const Registration = observer(() => {
                 <div className="registration__field">
                   <Input
                     value={form.lastName}
-                    onChange={(value) => form.setField('lastName', value)}
+                    onChange={(value) => form.setField('lastName', typeof value === 'string' ? value : '')}
                     fullWidth
                     placeholder="Фамилия"
                     type="text"
@@ -79,7 +79,7 @@ const Registration = observer(() => {
                 </div>
               </div>
               <Input
-                onChange={(value) => form.setField('email', value)}
+                onChange={(value) => form.setField('email', typeof value === 'string' ? value : '')}
                 value={form.email}
                 fullWidth
                 placeholder="Email"
@@ -89,7 +89,7 @@ const Registration = observer(() => {
               />
               {form.errors.email && <p className="registration__error">{form.errors.email}</p>}
               <Input
-                onChange={(value) => form.setField('password', value)}
+                onChange={(value) => form.setField('password', typeof value === 'string' ? value : '')}
                 value={form.password}
                 placeholder="Пароль"
                 type="password"

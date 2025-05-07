@@ -58,7 +58,7 @@ const QuestionBuilder = observer(({ store }: Props) => {
                 placeholder="Секция"
                 value={q.section}
                 style={{ minWidth: '200px' }}
-                onChange={(val) => store.setField(qi, 'section', val)}
+                onChange={(val) => store.setField(qi, 'section', typeof val === 'string' ? val : '')}
               />
               {store.errors[qi]?.section && <Error>{store.errors[qi].section}</Error>}
             </div>
@@ -66,7 +66,7 @@ const QuestionBuilder = observer(({ store }: Props) => {
               fullWidth
               placeholder="Текст вопроса"
               value={q.text}
-              onChange={(val) => store.setField(qi, 'text', val)}
+              onChange={(val) => store.setField(qi, 'text', typeof val === 'string' ? val : '')}
             />
             {store.errors[qi]?.text && <Error>{store.errors[qi].text}</Error>}
           </div>
@@ -86,7 +86,7 @@ const QuestionBuilder = observer(({ store }: Props) => {
                 <Input
                   placeholder="Текст ответа"
                   value={ans.text}
-                  onChange={(val) => q.answerStore.setField(ai, 'text', val)}
+                  onChange={(val) => q.answerStore.setField(ai, 'text', typeof val === 'string' ? val : '')}
                 />
                 {q.answerStore.errors[ai]?.[0].text && <Error>{q.answerStore.errors[ai][0].text}</Error>}
                 <Input

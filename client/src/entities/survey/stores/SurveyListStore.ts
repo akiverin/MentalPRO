@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { SurveyModel } from '../model';
 import { createSurvey, deleteSurvey, getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
-import { Survey, SurveyCreate } from '../types';
+import { Survey } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
@@ -130,7 +130,7 @@ export class SurveyListStore {
     }
   }
 
-  async create(data: SurveyCreate): Promise<LoadResponse | null> {
+  async create(data: FormData): Promise<LoadResponse | null> {
     if (this._abortCreateController) {
       this._abortCreateController.abort();
     }

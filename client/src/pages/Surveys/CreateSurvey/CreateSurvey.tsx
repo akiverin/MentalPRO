@@ -46,16 +46,21 @@ const CreateSurvey = observer(() => {
       questions.push(savedQuestion?._id);
     }
 
-    surveyListStore.create({
-      title: form.title,
-      description: form.description,
-      image: form.image,
-      time: Number(form.time),
-      ranges: form.ranges,
-      details: form.details,
-      results: form.results,
-      questions: questions,
-    });
+    const formData = new FormData();
+    formData.append('title', form.title);
+    formData.append('description', form.description);
+    formData.append('details', form.details);
+    formData.append('results', form.results);
+    formData.append('time', form.time.toString());
+    formData.append('isActive', String(form.isActive));
+    formData.append('questions', JSON.stringify(questions));
+    formData.append('ranges', JSON.stringify(form.ranges));
+
+    if (form.image instanceof File) {
+      formData.append('surveyCover', form.image);
+    }
+
+    await surveyListStore.create(formData);
   };
 
   return (
@@ -131,7 +136,6 @@ const CreateSurvey = observer(() => {
                 className="survey-create__input-file"
                 type="file"
                 placeholder="Добавь изображение"
-                value={form.image}
                 id="image"
                 onChange={(value) => form.setField('image', value)}
                 fullWidth
@@ -148,7 +152,7 @@ const CreateSurvey = observer(() => {
                       fullWidth
                       placeholder="Название секции"
                       value={sec.section}
-                      onChange={(val) => form.setSection(si, val)}
+                      onChange={(val) => form.setSection(si, typeof val === 'string' ? val : '')}
                     />
                     <Button
                       background="light"
@@ -185,13 +189,13 @@ const CreateSurvey = observer(() => {
                       <Input
                         placeholder="Название порога"
                         value={t.title}
-                        onChange={(val) => form.setThresholdField(si, ti, 'title', val)}
+                        onChange={(val) => form.setThresholdField(si, ti, 'title', typeof val === 'string' ? val : '')}
                       />
                       <Input
                         placeholder="Цвет (#HEX)"
                         value={t.color}
                         style={{ maxWidth: '200px' }}
-                        onChange={(val) => form.setThresholdField(si, ti, 'color', val)}
+                        onChange={(val) => form.setThresholdField(si, ti, 'color', typeof val === 'string' ? val : '')}
                       />
                       <Button
                         background="light"

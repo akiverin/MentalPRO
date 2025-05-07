@@ -1,5 +1,5 @@
 import { api, apiRoutes } from '@config/api';
-import { QuestionsResponse, SurveyCreate, SurveysResponse } from './types';
+import { QuestionsResponse, SurveysResponse } from './types';
 import { SurveyModel } from './model';
 
 export const getSurveys = async (
@@ -38,7 +38,7 @@ export const getQuestionsSurvey = async (id: string, signal?: AbortSignal): Prom
   return response.data;
 };
 
-export const createSurvey = async (data: SurveyCreate, signal?: AbortSignal): Promise<SurveyModel> => {
+export const createSurvey = async (data: FormData, signal?: AbortSignal): Promise<SurveyModel> => {
   const url = `${apiRoutes.survey.create}/`;
   const response = await api.post<SurveyModel>(url, data, {
     headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },

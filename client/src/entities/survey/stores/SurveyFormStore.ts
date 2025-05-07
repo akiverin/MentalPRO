@@ -30,7 +30,7 @@ export class SurveyFormStore {
   // @ts-expect-error
   time: '';
   questions: string[] = [];
-  image = '';
+  image: File | '' = '';
   isActive = true;
   results = '';
 
@@ -53,14 +53,13 @@ export class SurveyFormStore {
     makeAutoObservable(this);
   }
 
-  setField(field: 'title' | 'description' | 'details' | 'results' | 'time' | 'image' | 'ranges', value: string) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    this[field] = value;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setField(field: 'title' | 'description' | 'details' | 'results' | 'time' | 'image' | 'ranges', value: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this as any)[field] = value;
     runInAction(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      this.errors[field] = '';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this.errors as any)[field] = '';
     });
   }
 

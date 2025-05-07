@@ -1,19 +1,17 @@
 import './Login.scss';
-import { Form } from '@components/ui/Form/Form';
-import Input from '@components/ui/Input/Input';
-import TheLink from '@components/ui/Link/Link';
-import Button from '@/components/ui/Button/Button';
-
-import IconVKID from '@/components/ui/icons/IconVKID';
-import IconYID from '@/components/ui/icons/IconYID';
+import { Form } from '@components/ui/Form';
+import Input from '@components/ui/Input';
+import TheLink from '@components/ui/Link';
+import Button from '@components/ui/Button';
+import IconYID from '@components/ui/icons/IconYID';
+import Error from '@/components/ui/Error';
 
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LoginFormStore } from '@/entities/user/stores/LoginFormStore';
-import { userStore } from '@/entities/user/stores/userStoreInstance';
+import { LoginFormStore } from '@entities/user/stores/LoginFormStore';
+import { userStore } from '@entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
-import Error from '@/components/ui/Error';
 import { API_BASE_URL } from '@/config/api';
 
 const Login = observer(() => {
@@ -63,7 +61,7 @@ const Login = observer(() => {
               type="email"
               name="email"
               value={form.email}
-              onChange={(value) => form.setField('email', value)}
+              onChange={(value) => form.setField('email', typeof value === 'string' ? value : '')}
               required
             />
             {form.errors.email && <p className="login__error">{form.errors.email}</p>}
@@ -72,7 +70,7 @@ const Login = observer(() => {
               type="password"
               name="password"
               value={form.password}
-              onChange={(value) => form.setField('password', value)}
+              onChange={(value) => form.setField('password', typeof value === 'string' ? value : '')}
               fullWidth
               required
             />
@@ -101,10 +99,6 @@ const Login = observer(() => {
             <h2 className="login__extra-title">Авторизация через</h2>
           </div>
           <div className="login__oauth">
-            <TheLink variant="button" href={`${API_BASE_URL}/auth/vk`} background="secondary" className="login__button">
-              <IconVKID />
-              <p className="visually-hidden">Использовать VK ID</p>
-            </TheLink>
             <TheLink
               variant="button"
               background="secondary"

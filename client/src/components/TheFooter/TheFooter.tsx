@@ -28,8 +28,8 @@ function TheFooter() {
             <div className="footer__form">
               <Input
                 value={email}
-                onChange={(v) => {
-                  setEmail(v);
+                onChange={(value) => {
+                  setEmail(typeof value === 'string' ? value : '');
                 }}
                 fullWidth
                 placeholder="Email"

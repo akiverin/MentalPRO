@@ -1,9 +1,9 @@
-import { FC } from "react";
-import Input from "@components/ui/Input/Input";
-import Button from "@components/ui/Button/Button";
-import "./Search.scss";
-import IconClose from "../ui/icons/IconClose";
-import IconSearch from "../ui/icons/IconSearch";
+import { FC } from 'react';
+import Input from '@components/ui/Input/Input';
+import Button from '@components/ui/Button/Button';
+import './Search.scss';
+import IconClose from '../ui/icons/IconClose';
+import IconSearch from '../ui/icons/IconSearch';
 
 interface SearchProps {
   placeholder?: string;
@@ -15,10 +15,11 @@ interface SearchProps {
 }
 
 const Search: FC<SearchProps> = ({
-  placeholder = "Поиск...",
+  placeholder = 'Поиск...',
   onSearch,
   handleClear,
-  className = "",
+  value,
+  className = '',
   ...props
 }) => {
   return (
@@ -28,29 +29,24 @@ const Search: FC<SearchProps> = ({
         type="text"
         placeholder={placeholder}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            onSearch(props.value);
+          if (e.key === 'Enter') {
+            onSearch(value);
           }
         }}
-        {...props}
+        onChange={(val) => {
+          if (typeof val === 'string') {
+            props.onChange(val);
+          }
+        }}
         className="search__input"
       />
-      {props.value && (
-        <Button
-          background="secondary"
-          size="large"
-          onClick={handleClear}
-          className="search__clear"
-        >
+      {value && (
+        <Button background="secondary" size="large" onClick={handleClear} className="search__clear">
           <p className="visually-hidden">Сбросить строку поиска</p>
           <IconClose />
         </Button>
       )}
-      <Button
-        size="large"
-        onClick={() => onSearch(props.value)}
-        className="search__clear"
-      >
+      <Button size="large" onClick={() => onSearch(value)} className="search__clear">
         <p className="visually-hidden">Найти</p>
         <IconSearch />
       </Button>
