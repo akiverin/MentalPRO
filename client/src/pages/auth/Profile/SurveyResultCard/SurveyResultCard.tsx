@@ -8,6 +8,11 @@ import { SurveyModel } from '@/entities/survey/model';
 import Chart from '@/components/Chart';
 import Badge from '@/components/ui/Badge/Badge';
 
+interface AnswerProps {
+  questionId: QuestionModel | null;
+  answerId: AnswerModel | null;
+}
+
 interface SurveyResultCardProps {
   survey: SurveyModel | null;
   createdAt: string;
@@ -18,7 +23,7 @@ interface SurveyResultCardProps {
   className?: string;
 }
 
-const isValidAnswer = (answer: { questionId: QuestionModel | null; answerId: AnswerModel | null }): boolean => {
+const isValidAnswer = (answer: AnswerProps): boolean => {
   return !!answer.questionId && !!answer.answerId && typeof answer.answerId.points === 'number';
 };
 
@@ -39,12 +44,13 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
     return null;
   }
 
-  const thresholds = ranges[0].thresholds;
-  const max = Math.max(
-    ...thresholds.map((threshold) => threshold.max).filter((value): value is number => typeof value === 'number'),
-  );
+  const getScore = (arr: AnswerProps[], section: string) =>
+    arr
+      .filter((ans) => ans.questionId?.section === section)
+      .reduce((acc: number, answer) => acc + (answer.answerId?.points || 0), 0);
 
-  const score = validAnswers.reduce((acc, answer) => acc + (answer.answerId?.points || 0), 0);
+  const allScores = ranges.reduce((acc, range) => acc + getScore(answers, range.section), 0);
+  const allMax = ranges.reduce((acc, range) => acc + range.thresholds[range.thresholds.length - 1].max, 0);
 
   return (
     <div className={`survey-result ${className}`}>
@@ -56,17 +62,27 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
           <p className="survey-result__date">{formatDate(createdAt)}</p>
         </div>
         <Badge>
-          Баллы: {score} / {max}
+          Баллы: {allScores} / {allMax}
         </Badge>
       </div>
-      {ranges.map((section, index) => (
-        <div key={index} className="survey-result__section">
-          <p>
-            Секция: <b>{section.section}</b>
-          </p>
-          <Chart ranges={section.thresholds} value={score} />
-        </div>
-      ))}
+      {ranges.map((section, index) => {
+        const thresholds = section.thresholds;
+        const max = thresholds[thresholds.length - 1].max;
+        const score = getScore(answers, section.section);
+        return (
+          <div key={index} className="survey-result__section">
+            <div className="survey-result__content">
+              <p>
+                Секция: <b>{section.section}</b>
+              </p>
+              <p className="survey-result__scores">
+                {score} / {max}
+              </p>
+            </div>
+            <Chart ranges={section.thresholds} value={score} />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import express from "express";
 import { ResultController } from "../controllers/result.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -21,7 +22,11 @@ const router = express.Router();
  *       200:
  *         description: Results details
  */
-router.get("/my", authMiddleware, ResultController.getByUser);
+router.get(
+  "/my",
+  passport.authenticate("jwt", { session: false }),
+  ResultController.getByUser
+);
 
 /**
  * @openapi
@@ -39,6 +44,10 @@ router.get("/my", authMiddleware, ResultController.getByUser);
  *       201:
  *         description: Result created
  */
-router.post("/", authMiddleware, ResultController.create);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  ResultController.create
+);
 
 export default router;

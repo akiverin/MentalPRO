@@ -10,14 +10,13 @@ const YandexOAuth = () => {
   useEffect(() => {
     if (token) {
       userStore.setToken(token);
-      userStore.me();
       navigate('/profile');
     } else {
       navigate('/login');
     }
   }, [navigate, token]);
 
-  return <p>Авторизация через Яндекс...</p>;
+  return <p>Авторизация через сервис...</p>;
 };
 
 export default YandexOAuth;

@@ -14,7 +14,7 @@ import TheSurvey from '../pages/TheSurvey/TheSurvey';
 import Quest from '../pages/Quest/Quest';
 import Privacy from '../pages/Privacy/Privacy';
 import { routes } from './routes';
-import YandexOAuth from '@/pages/auth/YandexOAuth';
+import OAuth from '@/pages/auth/OAuth';
 import CreateSurvey from '@/pages/Surveys/CreateSurvey';
 import PrivateRoute from '@/components/PrivateRoute';
 
@@ -52,7 +52,7 @@ export const routesConfig: RouteObject[] = [
       { path: routes.privacy.mask, element: <Privacy /> },
       {
         path: routes.yandexOauth.mask,
-        element: <YandexOAuth />,
+        element: <OAuth />,
       },
     ],
   },

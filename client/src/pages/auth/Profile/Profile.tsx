@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { userStore } from '@entities/user/stores/userStoreInstance';
 import { resultStore } from '@/entities/result/store/resultStoreInstance';
 import SurveyResultCard from './SurveyResultCard/SurveyResultCard';
+import Error from '@/components/ui/Error';
 
 const Profile = observer(() => {
   useEffect(() => {
@@ -29,9 +30,9 @@ const Profile = observer(() => {
     return (
       <section className="profile-head">
         <div className="profile-head__wrapper">
-          <h1 className="profile-head__name">
-            Пользователь не найден, не авторизован или был подтвердил адрес электронной почты. {userStore.error}
-          </h1>
+          <Error>
+            <p>Пользователь не найден, не авторизован или был подтвердил адрес электронной почты. {userStore.error}</p>
+          </Error>
         </div>
       </section>
     );
@@ -40,9 +41,9 @@ const Profile = observer(() => {
     return (
       <section className="profile-head">
         <div className="profile-head__wrapper">
-          <h1 className="profile-head__name">
-            Пользователь не найден, не авторизован или был подтвердил адрес электронной почты.
-          </h1>
+          <Error>
+            <p>Пользователь не найден, не авторизован или был подтвердил адрес электронной почты.</p>
+          </Error>
         </div>
       </section>
     );

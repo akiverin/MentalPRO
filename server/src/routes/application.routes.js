@@ -1,6 +1,6 @@
 import express from "express";
 import { ApplicationController } from "../controllers/application.controller.js";
-import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -21,7 +21,11 @@ const router = express.Router();
  *       200:
  *         description: Applications details
  */
-router.get("/", authMiddleware, ApplicationController.getAll);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  ApplicationController.getAll
+);
 
 /**
  * @openapi
@@ -33,7 +37,11 @@ router.get("/", authMiddleware, ApplicationController.getAll);
  *       200:
  *         description: Applications details
  */
-router.get("/my", authMiddleware, ApplicationController.getByUser);
+router.get(
+  "/my",
+  passport.authenticate("jwt", { session: false }),
+  ApplicationController.getByUser
+);
 
 /**
  * @openapi
@@ -53,7 +61,7 @@ router.get("/my", authMiddleware, ApplicationController.getByUser);
  */
 router.get(
   "/organization/:id",
-  authMiddleware,
+  passport.authenticate("jwt", { session: false }),
   ApplicationController.getByOrganization
 );
 
@@ -73,7 +81,11 @@ router.get(
  *       201:
  *         description: Application created
  */
-router.post("/", authMiddleware, ApplicationController.create);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  ApplicationController.create
+);
 
 /**
  * @openapi

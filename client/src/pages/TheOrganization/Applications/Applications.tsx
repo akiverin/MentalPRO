@@ -6,6 +6,7 @@ import Badge from '@components/ui/Badge/Badge';
 import IconClose from '@components/ui/icons/IconClose';
 import Button from '@components/ui/Button/Button';
 import IconCheck from '@/components/ui/icons/IconCheck';
+import Loader from '@/components/ui/Loader';
 
 interface ApplicationsProps {
   id: string;
@@ -29,7 +30,7 @@ const Applications: React.FC<ApplicationsProps> = observer(({ id }) => {
   if (applicationStore.meta === 'loading') {
     return (
       <div className="organization__wrapper">
-        <h2 className="organization__not-found">Загрузка...</h2>
+        <Loader />
       </div>
     );
   }

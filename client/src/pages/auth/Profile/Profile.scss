@@ -17,15 +17,20 @@
     height: 280px;
     width: 100%;
     box-sizing: border-box;
+    object-fit: cover;
   }
 
   &__avatar {
+    position: relative;
+    background-color: v.$secondary;
     position: absolute;
     height: 240px;
     width: 240px;
     bottom: -120px;
     left: 70px;
-    border-radius: 1000px;
+    object-fit: cover;
+    border-radius: 130px;
+    overflow: hidden;
     border: 8px solid v.$white;
   }
 

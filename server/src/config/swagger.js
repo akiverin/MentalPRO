@@ -13,13 +13,13 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "MentalPRO API",
-      version: "1.0.0",
+      version: "2.1.0",
       description:
         "Документация API для веб-приложения MentalPRO (мониторинг тревожности)",
     },
     servers: [
       {
-        url: "http://localhost:5000/api",
+        url: "http://localhost:3030/api",
         description: "Локальный сервер",
       },
       {

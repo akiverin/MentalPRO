@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { SurveyModel } from '../model';
-import { createSurvey, getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
-import { Survey, SurveyCreate } from '../types';
+import { createSurvey, deleteSurvey, getQuestionsSurvey, getSurveyById, getSurveys } from '../api';
+import { Survey } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
@@ -19,6 +19,7 @@ export class SurveyListStore {
   private _abortController: AbortController | null = null;
   private _abortCreateController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
+  private _abortDeleteController: AbortController | null = null;
   private _abortQuestionsController: AbortController | null = null;
 
   constructor() {
@@ -129,7 +130,7 @@ export class SurveyListStore {
     }
   }
 
-  async create(data: SurveyCreate): Promise<LoadResponse | null> {
+  async create(data: FormData): Promise<LoadResponse | null> {
     if (this._abortCreateController) {
       this._abortCreateController.abort();
     }
@@ -157,6 +158,37 @@ export class SurveyListStore {
     } finally {
       runInAction(() => {
         this._abortCreateController = null;
+      });
+    }
+  }
+
+  async delete(id: string): Promise<LoadResponse | null> {
+    if (this._abortDeleteController) {
+      this._abortDeleteController.abort();
+    }
+
+    this._abortDeleteController = new AbortController();
+    const signal = this._abortDeleteController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      await deleteSurvey(id, signal);
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortDeleteController = null;
       });
     }
   }

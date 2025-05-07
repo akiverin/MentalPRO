@@ -1,6 +1,7 @@
 import express from "express";
 import { OrganizationController } from "../controllers/organization.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -39,7 +40,11 @@ router.get("/", OrganizationController.getAll);
  *       200:
  *         description: Organization details
  */
-router.get("/:id", authMiddleware, OrganizationController.getById);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  OrganizationController.getById
+);
 
 /**
  * @openapi
@@ -57,7 +62,11 @@ router.get("/:id", authMiddleware, OrganizationController.getById);
  *       201:
  *         description: Organization created
  */
-router.post("/", authMiddleware, OrganizationController.create);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  OrganizationController.create
+);
 
 /**
  * @openapi
@@ -81,7 +90,11 @@ router.post("/", authMiddleware, OrganizationController.create);
  *       200:
  *         description: Organization updated
  */
-router.put("/:id", authMiddleware, OrganizationController.update);
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  OrganizationController.update
+);
 
 /**
  * @openapi
@@ -99,6 +112,10 @@ router.put("/:id", authMiddleware, OrganizationController.update);
  *       200:
  *         description: Organization deleted
  */
-router.delete("/:id", authMiddleware, OrganizationController.remove);
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  OrganizationController.remove
+);
 
 export default router;

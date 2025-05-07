@@ -1,7 +1,8 @@
-import { FC } from "react";
-import "./CardCase.scss";
-import TheLink from "@components/ui/Link/Link";
-import Badge from "@components/ui/Badge/Badge";
+import { FC } from 'react';
+import './CardCase.scss';
+import TheLink from '@components/ui/Link/Link';
+import Badge from '@components/ui/Badge/Badge';
+import AccessControl from '../AccessControl';
 
 interface CardCaseProps {
   id: string;
@@ -11,13 +12,7 @@ interface CardCaseProps {
   image: string;
 }
 
-const CardCase: FC<CardCaseProps> = ({
-  id,
-  title,
-  description,
-  category,
-  image,
-}) => {
+const CardCase: FC<CardCaseProps> = ({ id, title, description, category, image }) => {
   return (
     <div className="case-card">
       <img src={image} alt={title} className="case-card__image" />
@@ -27,15 +22,23 @@ const CardCase: FC<CardCaseProps> = ({
         </Badge>
         <h3 className="case-card__title">{title}</h3>
         <p className="case-card__description">{description}</p>
-        <TheLink
-          variant="rounded"
-          background="primary"
-          small
-          className="exercise-card__link"
-          to={"/cases/" + id + "/"}
+        <AccessControl
+          fallback={
+            <Badge color="danger" variant="small">
+              Доступно авторизованным пользователям
+            </Badge>
+          }
         >
-          Читать далее
-        </TheLink>
+          <TheLink
+            variant="rounded"
+            background="primary"
+            small
+            className="exercise-card__link"
+            to={'/cases/' + id + '/'}
+          >
+            Читать далее
+          </TheLink>
+        </AccessControl>
       </div>
     </div>
   );

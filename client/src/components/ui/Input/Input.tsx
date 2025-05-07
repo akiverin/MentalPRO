@@ -1,46 +1,45 @@
-import React from "react";
-import classNames from "classnames";
-import "./Input.scss";
+import React from 'react';
+import classNames from 'classnames';
+import './Input.scss';
 
-export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "onChange" | "value"
-> & {
-  value: string;
+export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
+  value?: string;
   fullWidth?: boolean;
   disabled?: boolean;
   className?: string;
-  onChange: (value: string) => void;
+  onChange: (value: string | File | null) => void;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      value,
-      onChange,
-      className,
-      fullWidth = false,
-      disabled = false,
-      ...props
-    }: InputProps,
-    ref,
-  ) => {
+  ({ value, onChange, className, fullWidth = false, type = 'text', disabled = false, ...props }: InputProps, ref) => {
     const inputClasses = classNames(
-      "input",
-      { "input--full-width": fullWidth },
-      { "input--disabled": disabled },
-
+      'input',
+      { 'input--full-width': fullWidth },
+      { 'input--disabled': disabled },
       className,
     );
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (type === 'file') {
+        const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
+        console.log(file);
+        onChange(file);
+      } else {
+        onChange(event.target.value);
+      }
+    };
+
     return (
       <input
         ref={ref}
-        type="text"
-        value={value}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(event.target.value)
-        }
+        type={type}
+        value={type !== 'file' ? value : undefined}
+        onChange={handleChange}
         className={inputClasses}
+        disabled={disabled}
+        onFocus={(e) =>
+          type === 'number' && e.target.addEventListener('wheel', (ev) => ev.preventDefault(), { passive: false })
+        }
         {...props}
       />
     );

@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+import { upload } from "../config/upload.js";
 import { Survey } from "../models/survey.model.js";
 
 export const SurveyController = {
@@ -33,15 +36,44 @@ export const SurveyController = {
     const { id } = req.params;
     const survey = await Survey.findById(id);
 
-    if (!survey) return res.status(404).json({ message: "Survey not found" });
+    if (!survey) return res.status(404).json({ message: "Опрос не найден" });
     res.json(survey);
   },
 
-  async create(req, res) {
-    const survey = new Survey(req.body);
-    await survey.save();
-    res.status(201).json(survey);
-  },
+  create: [
+    upload.single("surveyCover"),
+    async (req, res) => {
+      try {
+        const data = { ...req.body };
+
+        if (data.questions) {
+          data.questions = JSON.parse(data.questions);
+        }
+        if (data.ranges) {
+          data.ranges = JSON.parse(data.ranges);
+        }
+
+        if (data.time) {
+          data.time = Number(data.time);
+        }
+        if (typeof data.isActive === "string") {
+          data.isActive = data.isActive === "true";
+        }
+
+        if (req.file) {
+          data.image = `/files/${req.file.filename}`;
+        }
+        console.log(data);
+
+        const survey = new Survey(data);
+        await survey.save();
+        res.status(201).json(survey);
+      } catch (err) {
+        console.error("Ошибка создания опроса:", err);
+        res.status(500).json({ message: "Ошибка создания опроса" });
+      }
+    },
+  ],
 
   async getQuestions(req, res) {
     try {
@@ -65,19 +97,38 @@ export const SurveyController = {
     }
   },
 
-  async update(req, res) {
-    const { id } = req.params;
-    const updated = await Survey.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    if (!updated) return res.status(404).json({ message: "Survey not found" });
-    res.json(updated);
-  },
+  update: [
+    upload.single("surveyCover"),
+    async (req, res) => {
+      const { id } = req.params;
+      const updates = { ...req.body };
+
+      if (req.file) {
+        updates.image = `/files/${req.file.filename}`;
+        const prev = await Survey.findById(id).select("image");
+        if (prev?.image) {
+          const oldPath = path.join(
+            process.cwd(),
+            "uploads",
+            path.basename(prev.image)
+          );
+          fs.unlink(oldPath, () => {});
+        }
+      }
+
+      const updated = await Survey.findByIdAndUpdate(id, updates, {
+        new: true,
+        runValidators: true,
+      });
+      if (!updated) return res.status(404).json({ message: "Опрос не найден" });
+      res.json(updated);
+    },
+  ],
 
   async remove(req, res) {
     const { id } = req.params;
     const removed = await Survey.findByIdAndDelete(id);
-    if (!removed) return res.status(404).json({ message: "Survey not found" });
-    res.json({ message: "Deleted successfully" });
+    if (!removed) return res.status(404).json({ message: "Опрос не найден" });
+    res.json({ message: "Опрос успешно удален" });
   },
 };

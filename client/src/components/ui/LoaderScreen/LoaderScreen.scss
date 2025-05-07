@@ -1,0 +1,9 @@
+@use "@styles/variables" as v;
+
+.loader-screen {
+  height: calc(100vh - v.$header-height);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

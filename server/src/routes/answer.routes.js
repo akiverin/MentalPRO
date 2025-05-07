@@ -1,6 +1,6 @@
 import express from "express";
 import { AnswerController } from "../controllers/answer.controller.js";
-import { authMiddleware } from "../middlewares/auth.middleware.js";
+import passport from "passport";
 
 const router = express.Router();
 
@@ -21,7 +21,11 @@ const router = express.Router();
  *       200:
  *         description: List of all answers
  */
-router.get("/", authMiddleware, AnswerController.getAll);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  AnswerController.getAll
+);
 
 /**
  * @openapi
@@ -39,7 +43,11 @@ router.get("/", authMiddleware, AnswerController.getAll);
  *       200:
  *         description: Answer details
  */
-router.get("/:id", authMiddleware, AnswerController.getById);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  AnswerController.getById
+);
 
 /**
  * @openapi
@@ -57,7 +65,11 @@ router.get("/:id", authMiddleware, AnswerController.getById);
  *       201:
  *         description: Answer created
  */
-router.post("/", authMiddleware, AnswerController.create);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  AnswerController.create
+);
 
 /**
  * @openapi
@@ -81,7 +93,11 @@ router.post("/", authMiddleware, AnswerController.create);
  *       200:
  *         description: Answer updated
  */
-router.put("/:id", authMiddleware, AnswerController.update);
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  AnswerController.update
+);
 
 /**
  * @openapi
@@ -99,6 +115,10 @@ router.put("/:id", authMiddleware, AnswerController.update);
  *       200:
  *         description: Answer deleted
  */
-router.delete("/:id", authMiddleware, AnswerController.remove);
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  AnswerController.remove
+);
 
 export default router;

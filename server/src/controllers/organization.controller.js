@@ -55,7 +55,8 @@ export const OrganizationController = {
     try {
       const organization = new Organization({
         ...req.body,
-        createdBy: req.user._id, // предполагается, что пользователь прошёл авторизацию
+        members: [req.user._id],
+        createdBy: req.user._id,
       });
       await organization.save();
       res.status(201).json(organization);

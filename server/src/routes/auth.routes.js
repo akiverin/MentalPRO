@@ -70,13 +70,6 @@ router.get(
   (req, res) => res.json(req.user)
 );
 
-router.get("/vk", passport.authenticate("vkontakte"));
-router.get(
-  "/vk/callback",
-  passport.authenticate("vkontakte", { session: false }),
-  AuthController.vkCallback
-);
-
 router.get(
   "/yandex",
   (req, res, next) => {

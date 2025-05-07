@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './TheCase.scss';
 import Badge from '@/components/ui/Badge/Badge';
@@ -6,22 +6,45 @@ import CardCase from '@/components/CaseCard/CardCase';
 import { practiceListStore } from '@/entities/practice/stores/practiceStoreInstance';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import Error from '@/components/ui/Error';
+import AccessControl from '@/components/AccessControl';
+import TheLink from '@/components/ui/Link';
+import Button from '@/components/ui/Button';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const TheCase = observer(() => {
   const { link } = useParams<{ link: string }>();
   if (!link) {
     return <h2 className="case__not-found">ID практики не найден или передан не верно</h2>;
   }
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     practiceListStore.fetchPracticeById(link);
     practiceListStore.fetchPractices();
   }, [link]);
 
+  const { practice: article, meta } = practiceListStore;
   const cases = practiceListStore.practices;
-  const article = practiceListStore.practice;
 
-  if (!article) {
-    return <h2 className="case__not-found">Практика не найдена</h2>;
+  const onDelete = () => {
+    practiceListStore.delete(link);
+    navigate('/cases');
+  };
+
+  if (meta === 'loading') {
+    return <LoaderScreen />;
+  }
+
+  if (meta === 'error' || !article) {
+    return (
+      <section className="case">
+        <div className="case__wrapper">
+          <Error>Ошибка! Проверьте авторизованы ли вы и существует ли данная практика!</Error>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -32,6 +55,16 @@ const TheCase = observer(() => {
             {article.category}
           </Badge>
           <h1 className="case__title">{article.title}</h1>
+          <div className="case__controls">
+            <AccessControl requiredRoles={['admin']}>
+              <TheLink to="edit" variant="rounded" background="secondary">
+                Редактировать
+              </TheLink>
+              <Button onClick={onDelete} variant="rounded" background="danger">
+                Удалить
+              </Button>
+            </AccessControl>
+          </div>
           <img src={article.image} alt={article.title} className="case__image" />
           <div className="case__text">
             {article.content.split('\n').map((paragraph) => {

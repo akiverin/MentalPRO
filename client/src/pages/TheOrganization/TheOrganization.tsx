@@ -6,6 +6,7 @@ import { organizationListStore } from '@/entities/organization/stores/organizati
 import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
 import Applications from './Applications';
 import Content from './Content';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +30,7 @@ const TheOrganization: React.FC = observer(() => {
   if (organizationListStore.meta === 'loading') {
     return (
       <div className="organization__wrapper">
-        <h2 className="organization__not-found">Загрузка...</h2>
+        <LoaderScreen />
       </div>
     );
   }
