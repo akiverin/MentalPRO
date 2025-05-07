@@ -1,3 +1,4 @@
+import { upload } from "../config/upload.js";
 import { Survey } from "../models/survey.model.js";
 
 export const SurveyController = {
@@ -37,11 +38,40 @@ export const SurveyController = {
     res.json(survey);
   },
 
-  async create(req, res) {
-    const survey = new Survey(req.body);
-    await survey.save();
-    res.status(201).json(survey);
-  },
+  create: [
+    upload.single("surveyCover"),
+    async (req, res) => {
+      try {
+        const data = { ...req.body };
+
+        if (data.questions) {
+          data.questions = JSON.parse(data.questions);
+        }
+        if (data.ranges) {
+          data.ranges = JSON.parse(data.ranges);
+        }
+
+        if (data.time) {
+          data.time = Number(data.time);
+        }
+        if (typeof data.isActive === "string") {
+          data.isActive = data.isActive === "true";
+        }
+
+        if (req.file) {
+          data.image = `/files/${req.file.filename}`;
+        }
+        console.log(data);
+
+        const survey = new Survey(data);
+        await survey.save();
+        res.status(201).json(survey);
+      } catch (err) {
+        console.error("Ошибка создания опроса:", err);
+        res.status(500).json({ message: "Ошибка создания опроса" });
+      }
+    },
+  ],
 
   async getQuestions(req, res) {
     try {
