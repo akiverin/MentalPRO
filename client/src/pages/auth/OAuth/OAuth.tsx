@@ -16,7 +16,7 @@ const YandexOAuth = () => {
     }
   }, [navigate, token]);
 
-  return <p>Авторизация через Яндекс...</p>;
+  return <p>Авторизация через сервис...</p>;
 };
 
 export default YandexOAuth;

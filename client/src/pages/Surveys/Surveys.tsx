@@ -9,6 +9,8 @@ import { useSearchParams } from 'react-router-dom';
 import { SurveyModel } from '@entities/survey/model';
 import AccessControl from '@/components/AccessControl';
 import TheLink from '@/components/ui/Link';
+import LoaderScreen from '@/components/ui/LoaderScreen';
+import Error from '@/components/ui/Error';
 
 const Surveys = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,6 +41,10 @@ const Surveys = observer(() => {
     },
     [setSearchParams],
   );
+
+  if (surveyListStore.meta === 'loading') return <LoaderScreen />;
+  if (surveyListStore.meta === 'error') return <Error>Ошибка: {surveyListStore.error}</Error>;
+  if (!surveyListStore.surveys) return <Error>Опросы не найдены!</Error>;
 
   return (
     <>

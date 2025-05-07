@@ -10,6 +10,7 @@ import Error from '@/components/ui/Error';
 import AccessControl from '@/components/AccessControl';
 import TheLink from '@/components/ui/Link';
 import Button from '@/components/ui/Button';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const TheCase = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -33,13 +34,7 @@ const TheCase = observer(() => {
   };
 
   if (meta === 'loading') {
-    return (
-      <section className="case">
-        <div className="case__wrapper">
-          <h2 className="case__not-found">Загрузка...</h2>
-        </div>
-      </section>
-    );
+    return <LoaderScreen />;
   }
 
   if (meta === 'error' || !article) {

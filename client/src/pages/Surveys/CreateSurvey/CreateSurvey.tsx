@@ -12,7 +12,6 @@ import Button from '@/components/ui/Button';
 import Error from '@/components/ui/Error';
 import QuestionBuilder from './QuestionBuilder';
 import { QuestionFormStore } from '@/entities/question/stores/QuestionFormStore';
-import { toJS } from 'mobx';
 import { QuestionStore } from '@/entities/question/stores/QuestionStore';
 
 const CreateSurvey = observer(() => {
@@ -29,7 +28,6 @@ const CreateSurvey = observer(() => {
     if (!form.validateAll()) return;
 
     const questions = [];
-    console.log(toJS(form.ranges));
 
     for (const question of questionForm.questions) {
       const answersToSend = question.answerStore.answers.map((answer) => ({
@@ -47,8 +45,6 @@ const CreateSurvey = observer(() => {
 
       questions.push(savedQuestion?._id);
     }
-
-    console.log('Сохраненные вопросы:', questions);
 
     surveyListStore.create({
       title: form.title,
@@ -129,17 +125,19 @@ const CreateSurvey = observer(() => {
 
               {form.errors.time && <Error>{form.errors.time}</Error>}
             </div>
-            {/* Image URL */}
-            <div className="survey-create__field">
-              <p className="survey-create__label">URL изображения</p>
+            <label htmlFor="image" id="dropcontainer" className="survey-create__field survey-create__field--file">
+              <p className="survey-create__label">Изображение опроса</p>
               <Input
-                placeholder="Добавь ссылку на изображение"
+                className="survey-create__input-file"
+                type="file"
+                placeholder="Добавь изображение"
                 value={form.image}
+                id="image"
                 onChange={(value) => form.setField('image', value)}
                 fullWidth
               />
               {form.errors.image && <Error>{form.errors.image}</Error>}
-            </div>
+            </label>
 
             <div className="survey-create__field">
               <p className="survey-create__label">Диапазоны секций</p>

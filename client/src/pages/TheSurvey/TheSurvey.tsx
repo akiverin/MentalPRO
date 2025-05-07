@@ -7,6 +7,7 @@ import { surveyListStore } from '@/entities/survey/stores/surveyStoreInstance';
 import { observer } from 'mobx-react-lite';
 import AccessControl from '@/components/AccessControl';
 import Button from '@/components/ui/Button';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const TheSurvey = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -28,14 +29,10 @@ const TheSurvey = observer(() => {
   };
 
   if (surveyListStore.meta === 'loading') {
-    return (
-      <div className="survey__wrapper">
-        <h2 className="survey__not-found">Загрузка...</h2>
-      </div>
-    );
+    return <LoaderScreen />;
   }
 
-  if (surveyListStore.meta === 'error') {
+  if (surveyListStore.meta === 'error' && !survey) {
     return (
       <div className="survey__wrapper">
         <h2 className="survey__not-found">Ошибка: {surveyListStore.error}</h2>

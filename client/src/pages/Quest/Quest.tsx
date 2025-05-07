@@ -10,6 +10,8 @@ import { AnswerModel } from '@entities/answer/model';
 import { QuestionModel } from '@entities/question/model';
 import { resultStore } from '@entities/result/store/resultStoreInstance';
 import { ResultModel } from '@entities/result/model';
+import Error from '@/components/ui/Error';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const Quest = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -40,7 +42,13 @@ const Quest = observer(() => {
     }
   }, [currentIndex, link]);
 
+  if (surveyListStore.meta === 'loading') return <LoaderScreen />;
+
   const currentQuestion = questions[currentIndex] as QuestionModel;
+
+  if (!questions.length || !survey || !currentQuestion) {
+    return <Error>Опрос или вопросы не найдены</Error>;
+  }
 
   const handleSelectAnswer = (answerId: string) => {
     if (!currentQuestion) return;
@@ -56,10 +64,6 @@ const Quest = observer(() => {
       (ans: AnswerModel) => ans._id === answerId && answers[currentQuestion._id] === answerId,
     );
   };
-
-  if (!questions.length || !survey || !currentQuestion) {
-    return <h2 className="survey__not-found">Опрос или вопросы не найдены</h2>;
-  }
 
   const saveResults = () => {
     const result = {
