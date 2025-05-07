@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { upload } from "../config/upload.js";
 import { Survey } from "../models/survey.model.js";
 
@@ -34,7 +36,7 @@ export const SurveyController = {
     const { id } = req.params;
     const survey = await Survey.findById(id);
 
-    if (!survey) return res.status(404).json({ message: "Survey not found" });
+    if (!survey) return res.status(404).json({ message: "Опрос не найден" });
     res.json(survey);
   },
 
@@ -95,19 +97,38 @@ export const SurveyController = {
     }
   },
 
-  async update(req, res) {
-    const { id } = req.params;
-    const updated = await Survey.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    if (!updated) return res.status(404).json({ message: "Survey not found" });
-    res.json(updated);
-  },
+  update: [
+    upload.single("surveyCover"),
+    async (req, res) => {
+      const { id } = req.params;
+      const updates = { ...req.body };
+
+      if (req.file) {
+        updates.image = `/files/${req.file.filename}`;
+        const prev = await Survey.findById(id).select("image");
+        if (prev?.image) {
+          const oldPath = path.join(
+            process.cwd(),
+            "uploads",
+            path.basename(prev.image)
+          );
+          fs.unlink(oldPath, () => {});
+        }
+      }
+
+      const updated = await Survey.findByIdAndUpdate(id, updates, {
+        new: true,
+        runValidators: true,
+      });
+      if (!updated) return res.status(404).json({ message: "Опрос не найден" });
+      res.json(updated);
+    },
+  ],
 
   async remove(req, res) {
     const { id } = req.params;
     const removed = await Survey.findByIdAndDelete(id);
-    if (!removed) return res.status(404).json({ message: "Survey not found" });
-    res.json({ message: "Deleted successfully" });
+    if (!removed) return res.status(404).json({ message: "Опрос не найден" });
+    res.json({ message: "Опрос успешно удален" });
   },
 };
