@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema(
     emailConfirmToken: { type: String, select: false },
     password: { type: String, select: false },
     image: { type: String, default: "", require: true },
-    vkId: { type: String, index: true, sparse: true },
     yandexId: { type: String, index: true, sparse: true },
     organizationId: {
       type: mongoose.Schema.Types.ObjectId,
