@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+import { upload } from "../config/upload.js";
 import { Practice } from "../models/practice.model.js";
 
 export const PracticeController = {
@@ -35,35 +38,97 @@ export const PracticeController = {
       const practice = await Practice.findById(id);
 
       if (!practice)
-        return res.status(404).json({ message: "Practice not found" });
+        return res.status(404).json({ message: "Практика не найдена" });
       res.json(practice);
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Ошибка получения практики" });
     }
   },
+  create: [
+    upload.single("practiceCover"),
+    async (req, res) => {
+      try {
+        const data = { ...req.body };
 
-  async create(req, res) {
-    const practice = new Practice(req.body);
-    await practice.save();
-    res.status(201).json(practice);
-  },
+        if (req.file) {
+          data.image = `/files/${req.file.filename}`;
+        }
 
-  async update(req, res) {
-    const { id } = req.params;
-    const updated = await Practice.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    if (!updated)
-      return res.status(404).json({ message: "Practice not found" });
-    res.json(updated);
-  },
+        const practice = new Practice(data);
+        await practice.save();
+        res.status(201).json(practice);
+      } catch (err) {
+        console.error("Ошибка создания практики:", err);
+        res.status(500).json({ message: "Ошибка создания практики" });
+      }
+    },
+  ],
+  update: [
+    upload.single("practiceCover"),
+    async (req, res) => {
+      try {
+        const { id } = req.params;
+        const updates = { ...req.body };
+
+        if (req.file) {
+          updates.image = `/files/${req.file.filename}`;
+          const prev = await Practice.findById(id).select("image");
+          if (prev?.image) {
+            const oldPath = path.join(
+              process.cwd(),
+              "uploads",
+              path.basename(prev.image)
+            );
+            fs.unlink(oldPath, () => {});
+          }
+        }
+
+        const updated = await Practice.findByIdAndUpdate(id, updates, {
+          new: true,
+          runValidators: true,
+        });
+        if (!updated)
+          return res.status(404).json({ message: "Практика не найдена" });
+        res.json(updated);
+      } catch (err) {
+        console.error("Ошибка обновления практики:", err);
+        res.status(500).json({ message: "Ошибка сервера" });
+      }
+    },
+  ],
 
   async remove(req, res) {
-    const { id } = req.params;
-    const removed = await Practice.findByIdAndDelete(id);
-    if (!removed)
-      return res.status(404).json({ message: "Practice not found" });
-    res.json({ message: "Deleted successfully" });
+    try {
+      const { id } = req.params;
+      const practice = await Practice.findByIdAndDelete(id);
+
+      if (!practice) {
+        return res.status(404).json({ message: "Практика не найдена" });
+      }
+
+      if (practice.image) {
+        const imagePath = path.join(
+          process.cwd(),
+          "uploads",
+          path.basename(practice.image)
+        );
+
+        fs.access(imagePath, fs.constants.F_OK, (err) => {
+          if (!err) {
+            fs.unlink(imagePath, (unlinkErr) => {
+              if (unlinkErr) {
+                console.error("Ошибка удаления изображения:", unlinkErr);
+              }
+            });
+          }
+        });
+      }
+
+      res.json({ message: "Практика успешно удалена" });
+    } catch (err) {
+      console.error("Ошибка удаления практики:", err);
+      res.status(500).json({ message: "Ошибка сервера при удалении практики" });
+    }
   },
 };
