@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { PracticeModel } from '../model';
-import { deletePractice, getPracticeById, getPractices } from '../api';
+import { createPractice, deletePractice, getPracticeById, getPractices } from '../api';
 import { Practice } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
@@ -16,6 +16,7 @@ export class PracticeListStore {
 
   private _abortController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
+  private _abortCreateController: AbortController | null = null;
   private _abortDeleteController: AbortController | null = null;
 
   constructor() {
@@ -95,6 +96,38 @@ export class PracticeListStore {
     }
   }
 
+  async create(data: FormData): Promise<LoadResponse | null> {
+    if (this._abortCreateController) {
+      this._abortCreateController.abort();
+    }
+
+    this._abortCreateController = new AbortController();
+    const signal = this._abortCreateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await createPractice(data, signal);
+      runInAction(() => {
+        this.practice = response;
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortCreateController = null;
+      });
+    }
+  }
+
   async delete(id: string): Promise<string | null> {
     if (this._abortDeleteController) {
       this._abortDeleteController.abort();
@@ -109,6 +142,7 @@ export class PracticeListStore {
       runInAction(() => {
         this.meta = Meta.success;
       });
+      this.fetchPractices();
       return response;
     } catch (error) {
       if (isCancelError(error)) {

@@ -5,7 +5,6 @@ import TheLink from '@components/ui/Link';
 import Button from '@components/ui/Button';
 
 import Checkbox from '@components/ui/Checkbox';
-import IconVKID from '@components/ui/icons/IconVKID';
 import IconYID from '@components/ui/icons/IconYID';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import { RegisterFormStore } from '@entities/user/stores/RegisterFormStore';
@@ -120,10 +119,6 @@ const Registration = observer(() => {
               <h2 className="registration__extra-title">Регистрация через</h2>
             </div>
             <div className="registration__oauth">
-              <TheLink variant="button" background="secondary" className="registration__button">
-                <IconVKID />
-                <p className="visually-hidden">Использовать VK ID</p>
-              </TheLink>
               <TheLink variant="button" href="/api/auth/yandex" background="secondary" className="registration__button">
                 <IconYID />
                 <p className="visually-hidden">Использовать Яндекс ID</p>

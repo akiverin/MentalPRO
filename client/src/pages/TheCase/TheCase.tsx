@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-
+import DOMPurify from 'dompurify';
 import './TheCase.scss';
 import Badge from '@/components/ui/Badge/Badge';
 import CardCase from '@/components/CaseCard/CardCase';
@@ -26,6 +26,7 @@ const TheCase = observer(() => {
   }, [link]);
 
   const { practice: article, meta } = practiceListStore;
+
   const cases = practiceListStore.practices;
 
   const onDelete = () => {
@@ -47,6 +48,8 @@ const TheCase = observer(() => {
     );
   }
 
+  const cleanHTML = DOMPurify.sanitize(article?.content);
+
   return (
     <>
       <section className="case">
@@ -66,10 +69,8 @@ const TheCase = observer(() => {
             </AccessControl>
           </div>
           <img src={article.image} alt={article.title} className="case__image" />
-          <div className="case__text">
-            {article.content.split('\n').map((paragraph) => {
-              return <p className="case__paragraph">{paragraph}</p>;
-            })}
+          <div className="ql-snow">
+            <div className="case__text ql-editor" dangerouslySetInnerHTML={{ __html: cleanHTML }} />
           </div>
         </div>
       </section>

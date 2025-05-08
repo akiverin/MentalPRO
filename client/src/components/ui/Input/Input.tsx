@@ -22,7 +22,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (type === 'file') {
         const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
-        console.log(file);
         onChange(file);
       } else {
         onChange(event.target.value);

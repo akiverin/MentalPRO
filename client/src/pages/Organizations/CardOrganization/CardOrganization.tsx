@@ -7,6 +7,7 @@ import { userStore } from '@entities/user/stores/userStoreInstance';
 import { UserModel } from '@entities/user/model';
 import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
 import Button from '@/components/ui/Button';
+import AccessControl from '@/components/AccessControl';
 
 interface Organization {
   id: string;
@@ -63,14 +64,16 @@ const CardOrganization: FC<Organization> = observer(({ id, title, description, i
             {isCreatedApplication ? (
               <Badge>Заявка подана</Badge>
             ) : (
-              <Button
-                variant="rounded"
-                background="primary"
-                className="exercise-card__link"
-                onClick={createApplication}
-              >
-                Подать заявку
-              </Button>
+              <AccessControl>
+                <Button
+                  variant="rounded"
+                  background="primary"
+                  className="exercise-card__link"
+                  onClick={createApplication}
+                >
+                  Подать заявку
+                </Button>
+              </AccessControl>
             )}
           </>
         )}

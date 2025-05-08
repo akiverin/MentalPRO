@@ -98,3 +98,133 @@
   background: #fff;
   z-index: 9;
 }
+
+@media screen and (max-width: 1400px) {
+  .registration {
+    &__info {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h2-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .login {
+    &__wrapper {
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__info {
+      gap: 10px;
+    }
+
+    &__title {
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: v.$h3-size;
+    }
+
+    &__desc {
+      margin: 0 0 20px;
+      padding: 0;
+      font-size: v.$body-large;
+      line-height: 1.5;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__name-inputs {
+      gap: 10px;
+    }
+
+    &__actions {
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: 1rem;
+    }
+
+    &__oauth {
+      gap: 16px;
+    }
+
+    &__extra {
+      margin-top: 10px;
+      & h2 {
+        font-size: v.$body-large;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .login {
+    &__content {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    &__title {
+      font-size: v.$h4-size;
+    }
+
+    &__desc {
+      margin: 0 0 16px;
+      font-size: v.$body-medium;
+    }
+
+    &__input {
+      margin-bottom: 8px;
+    }
+
+    &__actions {
+      margin-top: 6px;
+    }
+
+    &__button {
+      height: 3.5rem;
+      font-size: v.$body-medium;
+    }
+
+    &__oauth {
+      gap: 10px;
+    }
+  }
+
+  .registration__extra {
+    margin-top: 8px;
+  }
+
+  .registration__extra h2 {
+    font-size: v.$body-medium;
+  }
+}

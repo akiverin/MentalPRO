@@ -1,20 +1,24 @@
-import { useCallback, useEffect, useState } from "react";
-import Search from "@components/Search/Search";
-import "./Cases.scss";
-import Pagination from "@/components/ui/Pagination/Pagination";
-import CardCase from "@components/CaseCard/CardCase";
-import { practiceListStore } from "@entities/practice/stores/practiceStoreInstance";
-import { useSearchParams } from "react-router-dom";
-import { observer } from "mobx-react-lite";
-import { PracticeModel } from "@/entities/practice/model";
+import { useCallback, useEffect, useState } from 'react';
+import Search from '@components/Search/Search';
+import './Cases.scss';
+import Pagination from '@components/ui/Pagination/Pagination';
+import CardCase from '@components/CaseCard/CardCase';
+import { practiceListStore } from '@entities/practice/stores/practiceStoreInstance';
+import { useSearchParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { PracticeModel } from '@entities/practice/model';
+import AccessControl from '@components/AccessControl';
+import TheLink from '@components/ui/Link';
+import Error from '@components/ui/Error';
+import LoaderScreen from '@components/ui/LoaderScreen';
 
 const Cases = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [localSearch, setLocalSearch] = useState("");
+  const [localSearch, setLocalSearch] = useState('');
 
   useEffect(() => {
-    const search = searchParams.get("search") || "";
-    const page = parseInt(searchParams.get("page") || "1", 10);
+    const search = searchParams.get('search') || '';
+    const page = parseInt(searchParams.get('page') || '1', 10);
 
     setLocalSearch(search);
     practiceListStore.setSearchQuery(search);
@@ -24,19 +28,23 @@ const Cases = observer(() => {
   const onSearch = useCallback(() => {
     setSearchParams({
       search: localSearch,
-      page: "1",
+      page: '1',
     });
   }, [localSearch, setSearchParams]);
 
   const onPageChange = useCallback(
     (page: number) => {
       setSearchParams((prev) => {
-        prev.set("page", String(page));
+        prev.set('page', String(page));
         return new URLSearchParams(prev);
       });
     },
     [setSearchParams],
   );
+
+  if (practiceListStore.meta === 'loading') return <LoaderScreen />;
+  if (practiceListStore.meta === 'error') return <Error>Ошибка: {practiceListStore.error}</Error>;
+  if (!practiceListStore.practices) return <Error>Практики не найдены!</Error>;
 
   return (
     <>
@@ -44,22 +52,26 @@ const Cases = observer(() => {
         <div className="cases-info__wrapper">
           <div className="cases-info__titles">
             <h1 className="cases-info__title">Практики и упражнения</h1>
-            <p className="cases-info__subtitle">
-              Найди способ побороть свою тревожность.
-            </p>
+            <p className="cases-info__subtitle">Найди способ побороть свою тревожность.</p>
+            <div className="surveys-info__actions">
+              <AccessControl requiredRoles={['admin']}>
+                <TheLink to="create" variant="rounded" background="secondary">
+                  Создать практику
+                </TheLink>
+              </AccessControl>
+            </div>
           </div>
           <div className="cases-info__search">
             <p className="cases-info__desc">
-              Для того, чтобы прокачать стрессоустойчивость и быть более
-              спокойнее в кризисные ситуации необходимо найти свой метод из
-              предложенных, чтобы противостоять состоянию тревожности.
+              Для того, чтобы прокачать стрессоустойчивость и быть более спокойнее в кризисные ситуации необходимо найти
+              свой метод из предложенных, чтобы противостоять состоянию тревожности.
             </p>
             <Search
               value={localSearch}
               onSearch={onSearch}
               handleClear={() => {
-                setLocalSearch("");
-                setSearchParams({ search: "", page: "1" });
+                setLocalSearch('');
+                setSearchParams({ search: '', page: '1' });
               }}
               onChange={(value) => {
                 setLocalSearch(value);
