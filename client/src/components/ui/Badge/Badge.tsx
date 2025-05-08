@@ -12,7 +12,7 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const Badge: FC<BadgeProps> = ({ variant = 'default', className = '', color = 'default', children, ...rest }) => {
-  const badgeClasses = classNames('badge', `badge--${variant}`, `badge--${color}`, className);
+  const badgeClasses = classNames('badge', `badge--${variant}`, `badgeColor--${color}`, className);
 
   return (
     <span className={badgeClasses} {...rest}>

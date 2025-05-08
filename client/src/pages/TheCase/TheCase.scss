@@ -34,22 +34,9 @@
   }
 
   &__text {
-    margin: 16px 0;
-    line-height: 1.5;
+    width: 100%;
     font-size: v.$h6-size;
-  }
-
-  &__paragraph {
-    &:first-child {
-      &::first-letter {
-        font-size: 3.125rem;
-        float: left;
-        font-weight: 500;
-        margin-right: 0.6rem;
-        line-height: 1;
-        font-family: Georgia, "Times New Roman", Times, serif;
-      }
-    }
+    line-height: 1.9;
   }
 }
 
@@ -86,22 +73,6 @@
       max-height: 400px;
       object-position: top;
     }
-
-    &__text {
-      margin: 0 0 10px;
-      line-height: 1.5;
-      font-size: v.$body-large;
-    }
-
-    &__paragraph {
-      &:first-child {
-        &::first-letter {
-          font-size: 2.5rem;
-          margin-right: 0.5rem;
-          line-height: 1.2;
-        }
-      }
-    }
   }
 
   .other-cases {
@@ -133,21 +104,6 @@
     &__image {
       margin: 8px 0 4px;
       max-height: 360px;
-    }
-
-    &__text {
-      margin: 0 0 8px;
-      font-size: v.$body-medium;
-    }
-
-    &__paragraph {
-      &:first-child {
-        &::first-letter {
-          font-size: 2.125rem;
-          margin-right: 0.4rem;
-          line-height: 1.2;
-        }
-      }
     }
   }
   .other-cases {

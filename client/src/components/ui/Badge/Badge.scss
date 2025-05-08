@@ -8,9 +8,6 @@
   border-radius: 1000px;
   text-align: center;
   white-space: nowrap;
-  background-color: v.$light;
-  color: v.$primary;
-  border: 1px solid v.$light-active;
 
   &--small {
     font-size: v.$body-medium;
@@ -21,6 +18,13 @@
   &--big {
     padding: 1rem 1.25rem;
     font-size: v.$button-large;
+  }
+}
+.badgeColor {
+  &--default {
+    background-color: v.$light;
+    color: v.$primary;
+    border: 1px solid v.$light-active;
   }
 
   &--danger {
@@ -39,17 +43,28 @@
     border-radius: 1000px;
     text-align: center;
     white-space: nowrap;
-    background-color: v.$light;
-    color: v.$primary;
 
     &--small {
-      font-size: 0.65rem;
-      padding: 0.5rem 0.9rem;
+      font-size: v.$body-small;
+      padding: 0.5rem 0.7rem;
     }
 
     &--middle {
-      font-size: 0.85rem;
+      font-size: v.$body-medium;
       padding: 0.575rem 1rem;
+    }
+  }
+  .badgeColor {
+    &--default {
+      background-color: v.$light;
+      color: v.$primary;
+      border: 1px solid v.$light-active;
+    }
+
+    &--danger {
+      background-color: v.$error-bg;
+      border-color: v.$error-fill;
+      color: v.$error-text;
     }
   }
 }

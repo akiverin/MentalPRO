@@ -29,6 +29,16 @@ export const getPracticeById = async (id: string, signal?: AbortSignal): Promise
   return response.data;
 };
 
+export const createPractice = async (data: FormData, signal?: AbortSignal): Promise<PracticeModel> => {
+  const url = `${apiRoutes.practice.create}/`;
+  console.log(data);
+  const response = await api.post<PracticeModel>(url, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};
+
 export const deletePractice = async (id: string, signal?: AbortSignal): Promise<string> => {
   const url = `${apiRoutes.practice.delete(id)}/`;
   const response = await api.delete<string>(url, {

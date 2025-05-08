@@ -10,14 +10,13 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: FC<PrivateRouteProps> = observer(({ children, requiredRoles = [] }) => {
-  const { user, isAuthenticated, meta } = userStore;
+  const { user, meta } = userStore;
 
   if (meta === 'loading' && !user) {
     return <div>Загрузка...</div>;
   }
 
   if (!user && meta !== 'success') {
-    console.log(user, isAuthenticated);
     return <Navigate to={routes.login.mask} replace />;
   }
 

@@ -2,13 +2,13 @@
 import { RouteObject, Navigate } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home/Home';
-import Login from '../pages/auth/Login/Login';
-import Registration from '../pages/auth/Registration/Registration';
-import Profile from '../pages/auth/Profile/Profile';
-import Cases from '../pages/Cases/Cases';
-import TheCase from '../pages/TheCase/TheCase';
-import Organizations from '../pages/Organizations/Organizations';
-import TheOrganization from '../pages/TheOrganization/TheOrganization';
+import Login from '../pages/auth/Login';
+import Registration from '../pages/auth/Registration';
+import Profile from '../pages/auth/Profile';
+import Cases from '../pages/Cases';
+import TheCase from '../pages/TheCase';
+import Organizations from '../pages/Organizations';
+import TheOrganization from '../pages/TheOrganization';
 import Surveys from '../pages/Surveys/Surveys';
 import TheSurvey from '../pages/TheSurvey/TheSurvey';
 import Quest from '../pages/Quest/Quest';
@@ -17,6 +17,7 @@ import { routes } from './routes';
 import OAuth from '@/pages/auth/OAuth';
 import CreateSurvey from '@/pages/Surveys/CreateSurvey';
 import PrivateRoute from '@/components/PrivateRoute';
+import CreateCase from '@/pages/Cases/CreateCase';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -35,11 +36,41 @@ export const routesConfig: RouteObject[] = [
         ),
       },
       { path: routes.cases.mask, element: <Cases /> },
-      { path: routes.case.mask, element: <TheCase /> },
+
+      {
+        path: routes.case.mask,
+        element: (
+          <PrivateRoute>
+            <TheCase />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: routes.caseCreate.mask,
+        element: (
+          <PrivateRoute>
+            <CreateCase />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.organizations.mask, element: <Organizations /> },
-      { path: routes.organization.mask, element: <TheOrganization /> },
+      {
+        path: routes.organization.mask,
+        element: (
+          <PrivateRoute>
+            <TheOrganization />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.surveys.mask, element: <Surveys /> },
-      { path: routes.survey.mask, element: <TheSurvey /> },
+      {
+        path: routes.survey.mask,
+        element: (
+          <PrivateRoute>
+            <TheSurvey />
+          </PrivateRoute>
+        ),
+      },
       {
         path: routes.surveyCreate.mask,
         element: (
@@ -48,7 +79,14 @@ export const routesConfig: RouteObject[] = [
           </PrivateRoute>
         ),
       },
-      { path: routes.quest.mask, element: <Quest /> },
+      {
+        path: routes.quest.mask,
+        element: (
+          <PrivateRoute>
+            <Quest />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.privacy.mask, element: <Privacy /> },
       {
         path: routes.yandexOauth.mask,

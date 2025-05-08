@@ -1,13 +1,13 @@
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Button from "@/components/ui/Button/Button";
-import TheLink from "@/components/ui/Link/Link";
-import "./Instruments.scss";
-import { INSTRUMENTS } from ".";
+import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Button from '@/components/ui/Button/Button';
+import TheLink from '@/components/ui/Link/Link';
+import './Instruments.scss';
+import { INSTRUMENTS } from '.';
 
-import classNames from "classnames";
-import IconArrowRight from "@/components/ui/icons/IconArrowRight";
-import IconArrowLeft from "@/components/ui/icons/IconArrowLeft";
+import classNames from 'classnames';
+import IconArrowRight from '@/components/ui/icons/IconArrowRight';
+import IconArrowLeft from '@/components/ui/icons/IconArrowLeft';
 
 const Instruments = () => {
   const [selectedInstrument, setSelectedInstrument] = useState<number>(0);
@@ -21,12 +21,7 @@ const Instruments = () => {
   }, []);
 
   return (
-    <section
-      className={classNames(
-        "instruments",
-        `instruments--${INSTRUMENTS[selectedInstrument].path.slice(1)}`
-      )}
-    >
+    <section className={classNames('instruments', `instruments--${INSTRUMENTS[selectedInstrument].path.slice(1)}`)}>
       <motion.div
         className="instruments__cover"
         key={selectedInstrument}
@@ -75,13 +70,11 @@ const Instruments = () => {
               <Button
                 className={
                   selectedInstrument === item.id
-                    ? "instruments__nav-button instruments__nav-button--active"
-                    : "instruments__nav-button"
+                    ? 'instruments__nav-button instruments__nav-button--active'
+                    : 'instruments__nav-button'
                 }
                 variant="rounded"
-                background={
-                  selectedInstrument === item.id ? "light" : "secondary"
-                }
+                background={selectedInstrument === item.id ? 'light' : 'secondary'}
                 onClick={() => setSelectedInstrument(item.id)}
               >
                 {item.name}
@@ -91,17 +84,9 @@ const Instruments = () => {
         </ul>
 
         <div className="instruments__content">
-          <div className="instruments__circle">
-            {INSTRUMENTS[selectedInstrument].icon}
-          </div>
-          <p className="instruments__desc home-desc">
-            {INSTRUMENTS[selectedInstrument].desc}
-          </p>
-          <TheLink
-            background="primary"
-            variant="rounded"
-            to={INSTRUMENTS[selectedInstrument].path}
-          >
+          <div className="instruments__circle">{INSTRUMENTS[selectedInstrument].icon}</div>
+          <p className="instruments__desc home-desc">{INSTRUMENTS[selectedInstrument].desc}</p>
+          <TheLink background="primary" variant="rounded" to={INSTRUMENTS[selectedInstrument].path}>
             {INSTRUMENTS[selectedInstrument].link}
           </TheLink>
         </div>

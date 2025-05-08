@@ -23,6 +23,10 @@ export const routes = {
     mask: '/cases/:link',
     create: (link: string) => `/cases/${link}`,
   },
+  caseCreate: {
+    mask: '/cases/create',
+    create: () => `/cases/create`,
+  },
   organizations: {
     mask: '/organizations',
     create: () => '/organizations',

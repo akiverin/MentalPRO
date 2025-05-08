@@ -73,7 +73,6 @@ const Quest = observer(() => {
         answerId,
       })),
     };
-    console.log('result', result);
     resultStore.fetchCreate(result as unknown as ResultModel);
     localStorage.removeItem(`survey-${link}-answers`);
     localStorage.removeItem(`survey-${link}-current`);

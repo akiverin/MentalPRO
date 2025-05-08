@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import './SurveyResultCard.scss';
-import formatDate from '@/utils/formatDate';
 import { QuestionModel } from '@/entities/question/model';
 import { AnswerModel } from '@/entities/answer/model';
 import TheLink from '@/components/ui/Link/Link'; // Исправлен путь импорта
@@ -59,7 +58,7 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
           <TheLink to={`/surveys/${survey._id}`} className="survey-result__title">
             {survey.title}
           </TheLink>
-          <p className="survey-result__date">{formatDate(createdAt)}</p>
+          <p className="survey-result__date">{createdAt}</p>
         </div>
         <Badge>
           Баллы: {allScores} / {allMax}
