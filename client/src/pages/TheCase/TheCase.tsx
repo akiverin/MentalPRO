@@ -60,7 +60,7 @@ const TheCase = observer(() => {
           <h1 className="case__title">{article.title}</h1>
           <div className="case__controls">
             <AccessControl requiredRoles={['admin']}>
-              <TheLink to="edit" variant="rounded" background="secondary">
+              <TheLink to="update" variant="rounded" background="secondary">
                 Редактировать
               </TheLink>
               <Button onClick={onDelete} variant="rounded" background="danger">

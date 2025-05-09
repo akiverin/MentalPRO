@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { PracticeModel } from '../model';
-import { createPractice, deletePractice, getPracticeById, getPractices } from '../api';
+import { createPractice, deletePractice, getPracticeById, getPractices, updatePractice } from '../api';
 import { Practice } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
@@ -17,6 +17,7 @@ export class PracticeListStore {
   private _abortController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
   private _abortCreateController: AbortController | null = null;
+  private _abortUpdateController: AbortController | null = null;
   private _abortDeleteController: AbortController | null = null;
 
   constructor() {
@@ -124,6 +125,38 @@ export class PracticeListStore {
     } finally {
       runInAction(() => {
         this._abortCreateController = null;
+      });
+    }
+  }
+
+  async update(id: string, data: FormData): Promise<LoadResponse | null> {
+    if (this._abortUpdateController) {
+      this._abortUpdateController.abort();
+    }
+
+    this._abortUpdateController = new AbortController();
+    const signal = this._abortUpdateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await updatePractice(id, data, signal);
+      runInAction(() => {
+        this.practice = response;
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortUpdateController = null;
       });
     }
   }

@@ -18,6 +18,7 @@ import OAuth from '@/pages/auth/OAuth';
 import CreateSurvey from '@/pages/Surveys/CreateSurvey';
 import PrivateRoute from '@/components/PrivateRoute';
 import CreateCase from '@/pages/Cases/CreateCase';
+import UpdateCase from '@/pages/Cases/UpdateCase/UpdateCase';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -50,6 +51,14 @@ export const routesConfig: RouteObject[] = [
         element: (
           <PrivateRoute>
             <CreateCase />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: routes.caseUpdate.mask,
+        element: (
+          <PrivateRoute>
+            <UpdateCase />
           </PrivateRoute>
         ),
       },
