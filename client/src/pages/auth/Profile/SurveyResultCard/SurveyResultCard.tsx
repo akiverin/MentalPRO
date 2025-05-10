@@ -60,8 +60,8 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
           </TheLink>
           <p className="survey-result__date">{createdAt}</p>
         </div>
-        <Badge>
-          Баллы: {allScores} / {allMax}
+        <Badge variant="small">
+          {allScores} / {allMax}
         </Badge>
       </div>
       {ranges.map((section, index) => {
@@ -71,7 +71,7 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
         return (
           <div key={index} className="survey-result__section">
             <div className="survey-result__content">
-              <p>
+              <p className="survey-result__section-name">
                 Секция: <b>{section.section}</b>
               </p>
               <p className="survey-result__scores">

@@ -1,3 +1,5 @@
+@use "@styles/variables" as v;
+
 .chart {
   position: relative;
   width: 100%;
@@ -68,5 +70,28 @@
         color: rgba(0, 0, 0, 0.8);
       }
     }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .chart {
+    &__tick {
+      &-value {
+        opacity: 0;
+      }
+
+      &-value--active {
+        opacity: 1;
+        padding: 4px;
+        background-color: white;
+      }
+    }
+  }
+
+  .chart__tick:last-child .chart__tick-value {
+    opacity: 1;
+  }
+  .chart__tick:first-child .chart__tick-value {
+    opacity: 1;
   }
 }

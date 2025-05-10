@@ -86,7 +86,7 @@ const Profile = observer(() => {
                 </div>
                 {results && (
                   <div className="profile-head__details-item">
-                    <p className="profile-head__detail-name">Пройдено опросов</p>
+                    <p className="profile-head__detail-name">Пройдено</p>
                     <p className="profile-head__detail-content">{results.length}</p>
                   </div>
                 )}
