@@ -18,6 +18,7 @@ export const apiRoutes = {
     auth: '/auth/login',
     register: '/auth/register',
     me: '/auth/me',
+    update: (id: string) => `/user/${id}`,
   },
   practice: {
     getAll: '/practice',

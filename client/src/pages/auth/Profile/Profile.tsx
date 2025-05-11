@@ -58,7 +58,7 @@ const Profile = observer(() => {
           </div>
           <div className="profile-head__content">
             <div className="profile-head__actions">
-              <TheLink variant="rounded" background="primary">
+              <TheLink to="update" variant="rounded" background="primary">
                 Редактировать
               </TheLink>
               <TheLink variant="rounded" background="light" onClick={() => userStore.logout()}>

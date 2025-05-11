@@ -15,6 +15,10 @@ export const routes = {
     mask: '/profile',
     create: () => '/profile',
   },
+  profileUpdate: {
+    mask: '/profile/update',
+    create: () => '/profile/update',
+  },
   cases: {
     mask: '/cases',
     create: () => '/cases',

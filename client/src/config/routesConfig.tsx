@@ -19,6 +19,7 @@ import CreateSurvey from '@/pages/Surveys/CreateSurvey';
 import PrivateRoute from '@/components/PrivateRoute';
 import CreateCase from '@/pages/Cases/CreateCase';
 import UpdateCase from '@/pages/Cases/UpdateCase/UpdateCase';
+import UpdateUser from '@/pages/auth/Profile/UpdateUser/UpdateUser';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -33,6 +34,14 @@ export const routesConfig: RouteObject[] = [
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: routes.profileUpdate.mask,
+        element: (
+          <PrivateRoute>
+            <UpdateUser />
           </PrivateRoute>
         ),
       },
