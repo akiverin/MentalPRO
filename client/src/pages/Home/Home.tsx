@@ -1,9 +1,9 @@
-import About from "./About/About";
-import Exercises from "./Exercises/Exercises";
-import FAQ from "./FAQ/FAQ";
-import Hero from "./Hero/Hero";
-import "./Home.scss";
-import Instruments from "./Instruments/Instruments";
+import About from './About';
+import Exercises from './Exercises';
+import FAQ from './FAQ';
+import Hero from './Hero';
+import './Home.scss';
+import Instruments from './Instruments';
 const Home = () => {
   return (
     <>

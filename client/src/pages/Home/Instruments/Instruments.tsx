@@ -30,9 +30,9 @@ const Instruments = () => {
         exit={{ opacity: 0 }}
         style={{ background: INSTRUMENTS[selectedInstrument].bg }}
       >
-        <p className="instruments__category">
+        <h3 className="instruments__category">
           инструменты <sup>[03]</sup>
-        </p>
+        </h3>
         <div className="instruments__frame">
           <AnimatePresence mode="wait">
             <motion.picture key={selectedInstrument}>

@@ -26,6 +26,9 @@ function TheFooter() {
               можно скорее!
             </p>
             <div className="footer__form">
+              <label htmlFor="emailMental" className="">
+                Email
+              </label>
               <Input
                 value={email}
                 onChange={(value) => {
@@ -33,6 +36,7 @@ function TheFooter() {
                 }}
                 fullWidth
                 placeholder="Email"
+                id="emailMental"
               />
               <Button fullWidth size="large" onClick={() => {}}>
                 Отправить
@@ -96,15 +100,15 @@ function TheFooter() {
         </div>
         <div className="footer__extra">
           <div className="footer__social">
-            <TheLink href="/" aria-label="Вконтакте">
+            <TheLink href="https://vk.com/andkiv" target="_blank" aria-label="Вконтакте">
               <p className="visually-hidden">Вконтакте</p>
               <IconVK className="footer__soc-icon" />
             </TheLink>
-            <TheLink href="/" aria-label="Телеграм">
+            <TheLink href="https://t.me/andkiv" target="_blank" aria-label="Телеграм">
               <p className="visually-hidden">Телеграм</p>
               <IconTg className="footer__soc-icon" />
             </TheLink>
-            <TheLink href="/" aria-label="GitHub">
+            <TheLink href="https://github.com/akiverin/MentalPRO" target="_blank" aria-label="GitHub">
               <p className="visually-hidden">GitHub</p>
               <IconGH className="footer__soc-icon" />
             </TheLink>
