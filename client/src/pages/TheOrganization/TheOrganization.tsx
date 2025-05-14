@@ -7,6 +7,7 @@ import { applicationStore } from '@/entities/application/stores/applicationStore
 import Applications from './Applications';
 import Content from './Content';
 import LoaderScreen from '@/components/ui/LoaderScreen';
+import { resultStore } from '@/entities/result/store/resultStoreInstance';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +24,7 @@ const TheOrganization: React.FC = observer(() => {
     applicationStore.clear();
     organizationListStore.fetchOrganizationById(id);
     applicationStore.fetchApplicationByOrganization(id);
+    resultStore.fetchResultsByOrganization(id);
   }, [id]);
 
   const organization = organizationListStore.organization;
@@ -69,7 +71,7 @@ const TheOrganization: React.FC = observer(() => {
       </section>
       <section className="organization">
         <div className="organization__wrapper">
-          <Content />
+          <Content results={resultStore.results} meta={resultStore.meta} />
           <Applications id={id} />
         </div>
       </section>

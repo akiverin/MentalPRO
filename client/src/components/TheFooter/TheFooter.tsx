@@ -26,7 +26,7 @@ function TheFooter() {
               можно скорее!
             </p>
             <div className="footer__form">
-              <label htmlFor="emailMental" className="">
+              <label htmlFor="emailMental" className="visually-hidden">
                 Email
               </label>
               <Input

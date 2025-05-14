@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import './SurveyResultCard.scss';
+import './ComplexResultCard.scss';
 import { QuestionModel } from '@/entities/question/model';
 import { AnswerModel } from '@/entities/answer/model';
 import TheLink from '@/components/ui/Link/Link'; // Исправлен путь импорта
 import { SurveyModel } from '@/entities/survey/model';
 import Chart from '@/components/Chart';
 import Badge from '@/components/ui/Badge/Badge';
-import { ResultModel } from '@/entities/result/model';
 
 interface AnswerProps {
   questionId: QuestionModel | null;
@@ -15,12 +14,11 @@ interface AnswerProps {
 
 interface SurveyResultCardProps {
   survey: SurveyModel | null;
-  createdAt: string;
-  author?: ResultModel['userId'];
-  answers: {
+  allAnswers: {
     questionId: QuestionModel | null;
     answerId: AnswerModel | null;
   }[];
+  count: number;
   className?: string;
 }
 
@@ -28,12 +26,12 @@ const isValidAnswer = (answer: AnswerProps): boolean => {
   return !!answer.questionId && !!answer.answerId && typeof answer.answerId.points === 'number';
 };
 
-const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answers, author, className = '' }) => {
+const ComplexResultCard: FC<SurveyResultCardProps> = ({ survey, allAnswers, count, className = '' }) => {
   if (!survey || !survey.title) {
     return null;
   }
 
-  const validAnswers = answers.filter(isValidAnswer);
+  const validAnswers = allAnswers.filter(isValidAnswer);
 
   if (validAnswers.length === 0) {
     return null;
@@ -50,7 +48,7 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
       .filter((ans) => ans.questionId?.section === section)
       .reduce((acc: number, answer) => acc + (answer.answerId?.points || 0), 0);
 
-  const allScores = ranges.reduce((acc, range) => acc + getScore(answers, range.section), 0);
+  const allScores = ranges.reduce((acc, range) => acc + getScore(allAnswers, range.section), 0);
   const allMax = ranges.reduce((acc, range) => acc + range.thresholds[range.thresholds.length - 1].max, 0);
 
   return (
@@ -60,18 +58,15 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
           <TheLink to={`/surveys/${survey._id}`} className="survey-result__title">
             {survey.title}
           </TheLink>
-          <p className="survey-result__date">
-            {createdAt} • {author && `${author.firstName}  ${author.lastName}`}
-          </p>
         </div>
         <Badge variant="small">
-          {allScores} / {allMax}
+          {allScores / count} / {allMax}
         </Badge>
       </div>
       {ranges.map((section, index) => {
         const thresholds = section.thresholds;
         const max = thresholds[thresholds.length - 1].max;
-        const score = getScore(answers, section.section);
+        const score = getScore(allAnswers, section.section);
         return (
           <div key={index} className="survey-result__section">
             <div className="survey-result__content">
@@ -82,7 +77,7 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
                 {score} / {max}
               </p>
             </div>
-            <Chart ranges={section.thresholds} value={score} />
+            <Chart ranges={section.thresholds} value={Math.round(score / count)} />
           </div>
         );
       })}
@@ -90,4 +85,4 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
   );
 };
 
-export default SurveyResultCard;
+export default ComplexResultCard;

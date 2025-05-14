@@ -19,3 +19,12 @@ export const createResult = async (data: ResultModel, signal?: AbortSignal): Pro
   });
   return response.data;
 };
+
+export const getResultByOrganization = async (id: string, signal?: AbortSignal): Promise<Result[]> => {
+  const url = `${apiRoutes.result.getByOrganization(id)}/`;
+  const response = await api.get<Result[]>(url, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};

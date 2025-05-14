@@ -44,6 +44,7 @@ export const apiRoutes = {
   },
   result: {
     getByUser: '/result/my',
+    getByOrganization: (id: string) => `/result/organization/${id}`,
     create: '/result',
   },
   answer: {

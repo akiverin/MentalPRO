@@ -2,7 +2,6 @@ import './Profile.scss';
 import imageCover from '@assets/images/imageProfile.webp';
 import TheLink from '@components/ui/Link/Link';
 import Badge from '@components/ui/Badge/Badge';
-import formatDate from '@utils/formatDate';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { userStore } from '@entities/user/stores/userStoreInstance';
@@ -78,11 +77,11 @@ const Profile = observer(() => {
               <div className="profile-head__details">
                 <div className="profile-head__details-item">
                   <p className="profile-head__detail-name">Регистрация</p>
-                  <p className="profile-head__detail-content">{formatDate(user.createdAt)}</p>
+                  <p className="profile-head__detail-content">{user.createdAt}</p>
                 </div>
                 <div className="profile-head__details-item">
                   <p className="profile-head__detail-name">Обновление</p>
-                  <p className="profile-head__detail-content">{formatDate(user.updatedAt)}</p>
+                  <p className="profile-head__detail-content">{user.updatedAt}</p>
                 </div>
                 {results && (
                   <div className="profile-head__details-item">

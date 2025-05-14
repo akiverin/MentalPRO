@@ -3,6 +3,7 @@ import { User } from './types';
 import { makeAutoObservable } from 'mobx';
 
 export class UserModel {
+  _id!: string;
   constructor(private readonly data: User) {
     makeAutoObservable(this);
   }
@@ -52,11 +53,11 @@ export class UserModel {
   }
 
   get createdAt(): string {
-    return this.data.createdAt;
+    return new Date(this.data.createdAt).toLocaleDateString();
   }
 
   get updatedAt(): string {
-    return this.data.updatedAt;
+    return new Date(this.data.updatedAt).toLocaleDateString();
   }
 
   toJSON(): User {

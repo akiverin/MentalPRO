@@ -26,8 +26,10 @@ const CardOrganization: FC<Organization> = observer(({ id, title, description, i
   const user = userStore.user;
   const applications = applicationStore.applications;
   const isMember =
-    (members && user && members.some((usr) => usr.id === user.id)) || (createdBy && user && createdBy === user.id);
-  const isCreatedApplication = applications.some((app) => app.organizationId.id === id);
+    (members && user && members.some((usr) => usr.id === user._id)) || (createdBy && user && createdBy === user.id);
+  const isCreatedApplication = applications.some(
+    (app) => user && app.organizationId['_id'] === id && app.userId.toString() === user.id,
+  );
   const createApplication = () => {
     if (!user) return;
     applicationStore.createApplication({ userId: user.id, organizationId: id });
@@ -37,7 +39,6 @@ const CardOrganization: FC<Organization> = observer(({ id, title, description, i
     <div className="organization-card">
       <div className="organization-card__head">
         <img src={image} alt={title} className="organization-card__image" />
-
         <h3 className="organization-card__title">{title}</h3>
       </div>
       <p className="organization-card__description">{description}</p>

@@ -68,6 +68,12 @@
       &--active {
         font-weight: 600;
         color: rgba(0, 0, 0, 0.8);
+        padding: 4px;
+        margin-top: 8px;
+        z-index: 9;
+        background-color: white;
+        border-radius: 16px;
+        border: 0.2px solid black;
       }
     }
   }
