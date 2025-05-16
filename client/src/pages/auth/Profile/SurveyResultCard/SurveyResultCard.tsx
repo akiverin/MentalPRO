@@ -61,7 +61,8 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
             {survey.title}
           </TheLink>
           <p className="survey-result__date">
-            {createdAt} • {author && `${author.firstName}  ${author.lastName}`}
+            {createdAt}
+            {author && ` • ${author.firstName}  ${author.lastName}`}
           </p>
         </div>
         <Badge variant="small">

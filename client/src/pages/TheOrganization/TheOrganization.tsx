@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './TheOrganization.scss';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
@@ -8,9 +8,14 @@ import Applications from './Applications';
 import Content from './Content';
 import LoaderScreen from '@/components/ui/LoaderScreen';
 import { resultStore } from '@/entities/result/store/resultStoreInstance';
+import Button from '@/components/ui/Button';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   if (!id) {
     return (
       <div className="organization__wrapper">
@@ -26,6 +31,35 @@ const TheOrganization: React.FC = observer(() => {
     applicationStore.fetchApplicationByOrganization(id);
     resultStore.fetchResultsByOrganization(id);
   }, [id]);
+
+  // Функция для генерации PDF
+  const generatePDF = async () => {
+    if (!contentRef.current) return;
+    try {
+      // Ожидание загрузки изображения
+      if (imageRef.current && !imageRef.current.complete) {
+        await new Promise((resolve) => {
+          imageRef.current!.onload = resolve;
+        });
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const canvas = await html2canvas(contentRef.current, {
+        scale: 2,
+        useCORS: true,
+        logging: true,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('organization_report.pdf');
+    } catch (error) {
+      console.error('Ошибка при генерации PDF:', error);
+    }
+  };
 
   const organization = organizationListStore.organization;
 
@@ -54,17 +88,27 @@ const TheOrganization: React.FC = observer(() => {
   }
 
   return (
-    <>
+    <div ref={contentRef}>
       <section className="organization-info">
         <div className="organization-info__wrapper">
           <div className="organization-info__titles">
             <h1 className="organization-info__title">{organization.title}</h1>
             <p className="organization-info__subtitle">{organization.description}</p>
             <p className="organization-info__subtitle">Количество участников: {organization.members.length}</p>
+            <div className="organization-info__export">
+              <Button variant="rounded" background="light" onClick={generatePDF}>
+                Скачать PDF
+              </Button>
+            </div>
           </div>
           <div className="organization-info__extra">
             {organization.image && (
-              <img src={organization.image} alt={organization.title} className="organization-info__image" />
+              <img
+                ref={imageRef}
+                src={organization.image}
+                alt={organization.title}
+                className="organization-info__image"
+              />
             )}
           </div>
         </div>
@@ -75,7 +119,7 @@ const TheOrganization: React.FC = observer(() => {
           <Applications id={id} />
         </div>
       </section>
-    </>
+    </div>
   );
 });
 

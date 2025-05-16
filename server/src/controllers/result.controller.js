@@ -61,11 +61,11 @@ export const ResultController = {
           (adminId) => adminId.toString() === currentUserId.toString()
         );
 
-      // if (!isCreator && !isAdmin) {
-      //   return res
-      //     .status(403)
-      //     .json({ message: "У вас нет прав для просмотра данных организации" });
-      // }
+      if (!isCreator && !isAdmin) {
+        return res
+          .status(403)
+          .json({ message: "У вас нет прав для просмотра данных организации" });
+      }
 
       const results = await Result.find({
         userId: { $in: organization.members },

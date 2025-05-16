@@ -11,8 +11,10 @@ import Error from '@/components/ui/Error';
 
 const Profile = observer(() => {
   useEffect(() => {
+    userStore.me();
     resultStore.fetchResultsByUser();
   }, []);
+
   const user = userStore.user;
   const results = resultStore.results;
 

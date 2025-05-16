@@ -68,7 +68,12 @@
       &--active {
         font-weight: 600;
         color: rgba(0, 0, 0, 0.8);
-        padding: 4px;
+        height: 10px;
+        width: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
         margin-top: 8px;
         z-index: 9;
         background-color: white;

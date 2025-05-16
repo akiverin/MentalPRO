@@ -1,10 +1,13 @@
 import { Organization } from './types';
 
 export class OrganizationModel {
-  private _id: string | undefined;
   constructor(private readonly data: Organization) {}
 
   get id() {
+    return this.data._id;
+  }
+
+  get _id() {
     return this.data._id;
   }
 

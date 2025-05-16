@@ -3,11 +3,13 @@ import { makeAutoObservable, runInAction } from 'mobx';
 export class UserFormStore {
   firstName = '';
   lastName = '';
+  patronymic = '';
   email = '';
   image: '' | File | null = null;
-  errors: Record<'email' | 'image' | 'firstName' | 'lastName', string> = {
+  errors: Record<'email' | 'image' | 'firstName' | 'lastName' | 'patronymic', string> = {
     firstName: '',
     lastName: '',
+    patronymic: '',
     email: '',
     image: '',
   };
@@ -16,7 +18,7 @@ export class UserFormStore {
     makeAutoObservable(this);
   }
 
-  setField(field: 'email' | 'firstName' | 'lastName' | 'image', value: string | File) {
+  setField(field: 'email' | 'firstName' | 'lastName' | 'image' | 'patronymic', value: string | File) {
     (this[field] as string | File) = value;
     this.errors[field] = '';
   }
@@ -37,6 +39,9 @@ export class UserFormStore {
     return '';
   }
 
+  private validatePatronymic() {
+    return '';
+  }
   private validateImage() {
     return '';
   }
@@ -44,10 +49,11 @@ export class UserFormStore {
   validateAll(): boolean {
     const e1 = this.validateFirstName();
     const e2 = this.validateLastName();
-    const e3 = this.validateEmail();
-    const e4 = this.validateImage();
+    const e3 = this.validatePatronymic();
+    const e4 = this.validateEmail();
+    const e5 = this.validateImage();
     runInAction(() => {
-      this.errors = { firstName: e1, lastName: e2, email: e3, image: e4 };
+      this.errors = { firstName: e1, lastName: e2, patronymic: e3, email: e4, image: e5 };
     });
     return !e1 && !e2 && !e3 && !e4;
   }

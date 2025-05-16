@@ -24,6 +24,7 @@ const UpdateUser: React.FC = observer(() => {
       if (data) {
         form.setField('firstName', data.firstName);
         form.setField('lastName', data.lastName ?? '');
+        form.setField('patronymic', data.patronymic ?? '');
         form.setField('image', '');
         form.setField('email', data.email);
       }
@@ -37,6 +38,7 @@ const UpdateUser: React.FC = observer(() => {
     const formData = new FormData();
     formData.append('firstName', form.firstName);
     formData.append('lastName', form.lastName);
+    formData.append('patronymic', form.patronymic);
     formData.append('email', form.email);
 
     if (form.image instanceof File) {
@@ -83,6 +85,17 @@ const UpdateUser: React.FC = observer(() => {
               fullWidth
             />
             {form.errors.lastName && <Error>{form.errors.lastName}</Error>}
+          </div>
+
+          <div className="case-update__field">
+            <label>Отчество</label>
+            <Input
+              placeholder="Ваше отчество"
+              value={form.patronymic}
+              onChange={(v) => form.setField('patronymic', typeof v === 'string' ? v : '')}
+              fullWidth
+            />
+            {form.errors.patronymic && <Error>{form.errors.patronymic}</Error>}
           </div>
 
           <div className="case-update__field">
