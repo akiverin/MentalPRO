@@ -6,7 +6,7 @@ export interface Organization {
   description: string;
   image?: string;
   members?: UserModel[];
-  administrators?: UserModel[];
+  administrators?: UserModel[] & string[];
   isActive?: boolean;
   createdBy?: string;
   createdAt: string;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { practiceListStore } from '@/entities/practice/stores/practiceStoreInstance';
 import { Form } from '@/components/ui/Form';
 import Input from '@/components/ui/Input';
 import TextArea from '@/components/ui/TextArea';
@@ -9,6 +8,7 @@ import Error from '@/components/ui/Error';
 import './CreateOrganization.scss';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationFormStore } from '@/entities/organization/stores/OrganizationFormStore';
+import { organizationListStore } from '@/entities/organization/stores/organizationStoreInstance';
 
 const CreateOrganization: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -24,7 +24,8 @@ const CreateOrganization: React.FC = observer(() => {
     if (form.image instanceof File) {
       fd.append('organizationCover', form.image);
     }
-    const ok = await practiceListStore.create(fd);
+    console.log(form.title, form.description);
+    const ok = await organizationListStore.create(fd);
     if (ok?.success) {
       navigate(`/organizations/`);
     }

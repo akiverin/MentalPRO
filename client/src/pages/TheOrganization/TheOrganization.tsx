@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './TheOrganization.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { organizationListStore } from '@/entities/organization/stores/organizationStoreInstance';
 import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
@@ -11,9 +11,11 @@ import { resultStore } from '@/entities/result/store/resultStoreInstance';
 import Button from '@/components/ui/Button';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { userStore } from '@/entities/user/stores/userStoreInstance';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   if (!id) {
@@ -61,7 +63,14 @@ const TheOrganization: React.FC = observer(() => {
     }
   };
 
+  const onDelete = () => {
+    organizationListStore.delete(id);
+    navigate('/organizations');
+  };
+
+  const userId = userStore.user?.id;
   const organization = organizationListStore.organization;
+  const access = (userId && organization?.administrators.includes(userId)) || userId === organization?.createdBy;
 
   if (organizationListStore.meta === 'loading') {
     return (
@@ -95,11 +104,16 @@ const TheOrganization: React.FC = observer(() => {
             <h1 className="organization-info__title">{organization.title}</h1>
             <p className="organization-info__subtitle">{organization.description}</p>
             <p className="organization-info__subtitle">Количество участников: {organization.members.length}</p>
-            <div className="organization-info__export">
-              <Button variant="rounded" background="light" onClick={generatePDF}>
-                Скачать PDF
-              </Button>
-            </div>
+            {access && (
+              <div className="organization-info__export">
+                <Button variant="rounded" background="light" onClick={generatePDF}>
+                  Скачать PDF
+                </Button>
+                <Button variant="rounded" background="light" onClick={onDelete}>
+                  Удалить организацию
+                </Button>
+              </div>
+            )}
           </div>
           <div className="organization-info__extra">
             {organization.image && (

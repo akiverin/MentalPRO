@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { OrganizationModel } from '../model';
-import { getOrganizationById, getOrganizations } from '../api';
+import { createOrganization, deleteOrganization, getOrganizationById, getOrganizations } from '../api';
 import { Organization } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
@@ -16,6 +16,8 @@ export class OrganizationListStore {
 
   private _abortController: AbortController | null = null;
   private _abortByIdController: AbortController | null = null;
+  private _abortCreateController: AbortController | null = null;
+  private _abortDeleteController: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -93,10 +95,74 @@ export class OrganizationListStore {
     }
   }
 
+  async create(data: FormData): Promise<LoadResponse | null> {
+    if (this._abortCreateController) {
+      this._abortCreateController.abort();
+    }
+
+    this._abortCreateController = new AbortController();
+    const signal = this._abortCreateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await createOrganization(data, signal);
+      runInAction(() => {
+        this.organization = response;
+        this.meta = Meta.success;
+      });
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortCreateController = null;
+      });
+    }
+  }
+
   async clear() {
     this.organizations = [];
     this.organization = null;
     this.meta = Meta.initial;
     this.error = '';
+  }
+
+  async delete(id: string): Promise<string | null> {
+    if (this._abortDeleteController) {
+      this._abortDeleteController.abort();
+    }
+
+    this._abortDeleteController = new AbortController();
+    const signal = this._abortDeleteController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await deleteOrganization(id, signal);
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+      this.fetchOrganizations();
+      return response;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortDeleteController = null;
+      });
+    }
   }
 }
