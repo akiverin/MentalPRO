@@ -8,6 +8,8 @@ import { useSearchParams } from 'react-router-dom';
 import { organizationListStore } from '@entities/organization/stores/organizationStoreInstance';
 import { OrganizationModel } from '@/entities/organization/model';
 import { observer } from 'mobx-react-lite';
+import TheLink from '@/components/ui/Link';
+import AccessControl from '@/components/AccessControl';
 
 const Organizations = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,6 +50,11 @@ const Organizations = observer(() => {
             <p className="organizations-info__subtitle">
               Список компаний, которые мониторит ментальное здоровье сотрудников с помощью MentalPRO.
             </p>
+            <AccessControl requiredRoles={['admin', 'hr']}>
+              <div className="organizations-info__actions">
+                <TheLink to="create">Зарегистрировать организацию</TheLink>
+              </div>
+            </AccessControl>
           </div>
           <div className="organizations-info__extra">
             <Badge variant="small">Вы не подключены к организации</Badge>

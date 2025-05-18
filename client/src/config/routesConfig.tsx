@@ -20,6 +20,7 @@ import PrivateRoute from '@/components/PrivateRoute';
 import CreateCase from '@/pages/Cases/CreateCase';
 import UpdateCase from '@/pages/Cases/UpdateCase/UpdateCase';
 import UpdateUser from '@/pages/auth/Profile/UpdateUser/UpdateUser';
+import CreateOrganization from '@/pages/Organizations/CreateOrganization';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -72,6 +73,14 @@ export const routesConfig: RouteObject[] = [
         ),
       },
       { path: routes.organizations.mask, element: <Organizations /> },
+      {
+        path: routes.organizationCreate.mask,
+        element: (
+          <PrivateRoute requiredRoles={['admin', 'hr']}>
+            <CreateOrganization />
+          </PrivateRoute>
+        ),
+      },
       {
         path: routes.organization.mask,
         element: (

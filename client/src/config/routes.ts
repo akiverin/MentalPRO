@@ -39,6 +39,10 @@ export const routes = {
     mask: '/organizations',
     create: () => '/organizations',
   },
+  organizationCreate: {
+    mask: '/organizations/create',
+    create: '/organizations/create',
+  },
   organization: {
     mask: '/organizations/:id',
     create: (id: string) => `/organizations/${id}`,
