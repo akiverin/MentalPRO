@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-// export const API_BASE_URL = 'http://localhost:3030/api';
-export const API_BASE_URL = 'https://mentalpro.kiver.net/api';
+export const API_BASE_URL = 'http://localhost:3030/api';
+// export const API_BASE_URL = 'https://mentalpro.kiver.net/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -18,6 +18,8 @@ export const apiRoutes = {
     auth: '/auth/login',
     register: '/auth/register',
     me: '/auth/me',
+    update: (id: string) => `/user/${id}`,
+    yandex: 'https://login.yandex.ru/info',
   },
   practice: {
     getAll: '/practice',
@@ -43,6 +45,7 @@ export const apiRoutes = {
   },
   result: {
     getByUser: '/result/my',
+    getByOrganization: (id: string) => `/result/organization/${id}`,
     create: '/result',
   },
   answer: {

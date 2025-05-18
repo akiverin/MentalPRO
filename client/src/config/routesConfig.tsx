@@ -18,6 +18,9 @@ import OAuth from '@/pages/auth/OAuth';
 import CreateSurvey from '@/pages/Surveys/CreateSurvey';
 import PrivateRoute from '@/components/PrivateRoute';
 import CreateCase from '@/pages/Cases/CreateCase';
+import UpdateCase from '@/pages/Cases/UpdateCase/UpdateCase';
+import UpdateUser from '@/pages/auth/Profile/UpdateUser/UpdateUser';
+import CreateOrganization from '@/pages/Organizations/CreateOrganization';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -32,6 +35,14 @@ export const routesConfig: RouteObject[] = [
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: routes.profileUpdate.mask,
+        element: (
+          <PrivateRoute>
+            <UpdateUser />
           </PrivateRoute>
         ),
       },
@@ -53,7 +64,23 @@ export const routesConfig: RouteObject[] = [
           </PrivateRoute>
         ),
       },
+      {
+        path: routes.caseUpdate.mask,
+        element: (
+          <PrivateRoute>
+            <UpdateCase />
+          </PrivateRoute>
+        ),
+      },
       { path: routes.organizations.mask, element: <Organizations /> },
+      {
+        path: routes.organizationCreate.mask,
+        element: (
+          <PrivateRoute requiredRoles={['admin', 'hr']}>
+            <CreateOrganization />
+          </PrivateRoute>
+        ),
+      },
       {
         path: routes.organization.mask,
         element: (

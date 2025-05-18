@@ -1,0 +1,201 @@
+@use "@styles/variables" as v;
+
+.organization-create {
+  &__wrapper {
+    padding: 0 40px;
+    max-width: v.$wrapper;
+    margin: 60px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 8vw, 360px);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    align-items: center;
+    margin: 0 auto;
+    gap: 20px;
+  }
+
+  &__field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &--file {
+      margin-top: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      background-color: v.$surface;
+      padding: 8px 20px 20px;
+      cursor: pointer;
+      transition:
+        background 0.2s ease-in-out,
+        border 0.2s ease-in-out;
+    }
+  }
+
+  &__error {
+    margin-top: 10px;
+  }
+
+  &__section {
+    margin-bottom: 20px;
+    background-color: v.$surface;
+    border-radius: v.$border-radius;
+    padding: 20px;
+  }
+
+  &__section-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+
+  &__threshold {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-left: 2px solid v.$primary;
+    padding-left: 10px;
+    margin: 20px 0;
+    align-items: center;
+  }
+
+  &__threshold-errors {
+    column-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: v.$desktop) {
+  .surveys-info {
+    &__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+    }
+
+    &__title {
+      font-size: v.$h2-size;
+      margin-bottom: 24px;
+    }
+
+    &__extra {
+      align-items: flex-start;
+      max-width: 100%;
+      width: 100%;
+      gap: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .surveys-content {
+    &__list {
+      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+
+      &:has(.survey-card--big) {
+        grid-template-columns: 0.7fr 0.7fr 1fr 1fr;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: v.$large-desktop) {
+  .surveys-content {
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+
+      &:has(.survey-card--big) {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+      }
+    }
+    &__item {
+      &:has(.survey-card--big) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      &:has(.survey-card--middle) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: v.$mobile) {
+  .surveys-info {
+    &__wrapper {
+      margin: 30px auto;
+      padding: 0 15px;
+      gap: 20px;
+    }
+
+    &__title {
+      margin-bottom: 20px;
+      font-size: v.$h3-size;
+    }
+
+    &__subtitle {
+      font-size: v.$body-large;
+    }
+
+    &__desc {
+      font-size: v.$body-medium;
+    }
+
+    &__extra {
+      max-width: 100%;
+      gap: 20px;
+    }
+  }
+
+  .surveys-content {
+    &__wrapper {
+      padding: 0 15px;
+    }
+
+    &__list {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      gap: 10px;
+    }
+
+    &__list:has(.survey-card--big) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      gap: 10px;
+    }
+
+    &__item {
+      &:has(.survey-card--big) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      &:has(.survey-card--middle) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+  }
+}

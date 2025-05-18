@@ -1,9 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { login, register, me } from '../api';
+import { login, register, me, updateUser, yandex } from '../api';
 import { AuthResponse } from '../types';
 import { Meta } from '@utils/meta';
 import { UserModel } from '../model';
 import { errorMessage, isCancelError } from '@utils/errors';
+import { LoadResponse } from '@/types/loadResponse';
 
 const AUTH_TOKEN_KEY = 'authToken';
 
@@ -15,6 +16,8 @@ export class UserStore {
 
   private _loginAbortController: AbortController | null = null;
   private _meAbortController: AbortController | null = null;
+  private _getYandexAbortController: AbortController | null = null;
+  private _updateAbortController: AbortController | null = null;
   private _registerAbortController: AbortController | null = null;
 
   constructor() {
@@ -54,7 +57,6 @@ export class UserStore {
         this.user = new UserModel(response.user);
         this.meta = Meta.success;
       });
-
       this.setToken(response.token);
 
       return true;
@@ -153,7 +155,6 @@ export class UserStore {
         this.user = new UserModel(response);
         this.meta = Meta.success;
       });
-
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;
@@ -168,6 +169,75 @@ export class UserStore {
     } finally {
       runInAction(() => {
         this._meAbortController = null;
+      });
+    }
+  }
+
+  async update(id: string, data: FormData): Promise<LoadResponse> {
+    if (this._updateAbortController) {
+      this._updateAbortController.abort();
+    }
+
+    this._updateAbortController = new AbortController();
+    const signal = this._updateAbortController.signal;
+
+    this.meta = Meta.loading;
+
+    try {
+      await updateUser(id, data, signal);
+
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+
+      return { success: true };
+    } catch (error) {
+      if (isCancelError(error)) return { success: false };
+
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      this.logout();
+      if (isCancelError(error)) return { success: false };
+      return { success: false };
+    } finally {
+      runInAction(() => {
+        this._updateAbortController = null;
+      });
+    }
+  }
+
+  async getYandex(): Promise<boolean> {
+    if (this._getYandexAbortController) {
+      this._getYandexAbortController.abort();
+    }
+    this._getYandexAbortController = new AbortController();
+    const signal = this._getYandexAbortController.signal;
+
+    this.meta = Meta.loading;
+    this.error = '';
+
+    try {
+      const updatedUser = await yandex(this.token!, signal);
+      runInAction(() => {
+        this.user = new UserModel(updatedUser);
+        this.meta = Meta.success;
+      });
+
+      return true;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return false;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return false;
+    } finally {
+      runInAction(() => {
+        this._getYandexAbortController = null;
       });
     }
   }

@@ -17,7 +17,7 @@ const organizationSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    isActive: { type: Boolean, default: true },
+    isActive: { type: Boolean, default: false },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

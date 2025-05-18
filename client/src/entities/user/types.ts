@@ -8,7 +8,6 @@ export interface User {
   email: string;
   image?: string;
   emailConfirmed: boolean;
-  vkId?: string;
   yandexId?: string;
   organizationId?: string;
   role: Role;

@@ -15,6 +15,10 @@ export const routes = {
     mask: '/profile',
     create: () => '/profile',
   },
+  profileUpdate: {
+    mask: '/profile/update',
+    create: () => '/profile/update',
+  },
   cases: {
     mask: '/cases',
     create: () => '/cases',
@@ -27,9 +31,17 @@ export const routes = {
     mask: '/cases/create',
     create: () => `/cases/create`,
   },
+  caseUpdate: {
+    mask: '/cases/:id/update',
+    create: (id: string) => `/cases/${id}/update`,
+  },
   organizations: {
     mask: '/organizations',
     create: () => '/organizations',
+  },
+  organizationCreate: {
+    mask: '/organizations/create',
+    create: '/organizations/create',
   },
   organization: {
     mask: '/organizations/:id',

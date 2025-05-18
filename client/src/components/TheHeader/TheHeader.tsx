@@ -28,7 +28,7 @@ function TheHeader() {
           <nav className="header__navigation desktop-navigation">
             <ul className="header__nav-list">
               <li className="header__nav-item">
-                <TheLink small variant="rounded" background={getLinkBackground('/')} to="/">
+                <TheLink small variant="rounded" background={getLinkBackground('/')} to="/home">
                   Главная
                 </TheLink>
               </li>

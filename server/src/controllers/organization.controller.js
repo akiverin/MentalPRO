@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+import { upload } from "../config/upload.js";
 import { Organization } from "../models/organization.model.js";
 
 export const OrganizationController = {
@@ -51,45 +54,90 @@ export const OrganizationController = {
     }
   },
 
-  async create(req, res) {
-    try {
-      const organization = new Organization({
-        ...req.body,
-        members: [req.user._id],
-        createdBy: req.user._id,
-      });
-      await organization.save();
-      res.status(201).json(organization);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Ошибка при создании организации" });
-    }
-  },
+  create: [
+    upload.single("organizationCover"),
+    async (req, res) => {
+      try {
+        const data = {
+          ...req.body,
+          members: [req.user._id],
+          createdBy: req.user._id,
+        };
 
-  async update(req, res) {
-    const { id } = req.params;
-    try {
-      const updated = await Organization.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
-      if (!updated)
-        return res.status(404).json({ message: "Организация не найдена" });
+        if (req.file) {
+          data.image = `/files/${req.file.filename}`;
+        }
 
-      res.json(updated);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Ошибка при обновлении организации" });
-    }
-  },
+        const organization = new Organization(data);
+        await organization.save();
+        res.status(201).json(organization);
+      } catch (err) {
+        console.error("Ошибка создания организации:", err);
+        res.status(500).json({ message: "Ошибка создания организации" });
+      }
+    },
+  ],
+
+  update: [
+    upload.single("organizationCover"),
+    async (req, res) => {
+      try {
+        const { id } = req.params;
+        const updates = { ...req.body };
+
+        if (req.file) {
+          updates.image = `/files/${req.file.filename}`;
+          const prev = await Organization.findById(id).select("image");
+          if (prev?.image) {
+            const oldPath = path.join(
+              process.cwd(),
+              "uploads",
+              path.basename(prev.image)
+            );
+            fs.unlink(oldPath, () => {});
+          }
+        }
+
+        const updated = await Organization.findByIdAndUpdate(id, updates, {
+          new: true,
+          runValidators: true,
+        });
+        if (!updated)
+          return res.status(404).json({ message: "Практика не найдена" });
+        res.json(updated);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Ошибка при обновлении организации" });
+      }
+    },
+  ],
 
   async remove(req, res) {
-    const { id } = req.params;
     try {
-      const deleted = await Organization.findByIdAndDelete(id);
-      if (!deleted)
-        return res.status(404).json({ message: "Организация не найдена" });
+      const { id } = req.params;
+      const organization = await Organization.findByIdAndDelete(id);
 
-      res.json({ message: "Организация успешно удалена" });
+      if (!organization) {
+        return res.status(404).json({ message: "Организация не найдена" });
+      }
+
+      if (organization.image) {
+        const imagePath = path.join(
+          process.cwd(),
+          "uploads",
+          path.basename(organization.image)
+        );
+
+        fs.access(imagePath, fs.constants.F_OK, (err) => {
+          if (!err) {
+            fs.unlink(imagePath, (unlinkErr) => {
+              if (unlinkErr) {
+                console.error("Ошибка удаления изображения:", unlinkErr);
+              }
+            });
+          }
+        });
+      }
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Ошибка при удалении организации" });

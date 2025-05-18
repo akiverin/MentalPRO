@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { userStore } from '@/entities/user/stores/userStoreInstance';
 import { routes } from '@/config/routes';
+import LoaderScreen from '../ui/LoaderScreen';
 
 interface PrivateRouteProps {
   children: ReactNode;
@@ -13,10 +14,10 @@ const PrivateRoute: FC<PrivateRouteProps> = observer(({ children, requiredRoles 
   const { user, meta } = userStore;
 
   if (meta === 'loading' && !user) {
-    return <div>Загрузка...</div>;
+    return <LoaderScreen />;
   }
 
-  if (!user && meta !== 'success') {
+  if (!localStorage.getItem('authToken') && meta !== 'success') {
     return <Navigate to={routes.login.mask} replace />;
   }
 

@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { ResultModel } from '../model';
-import { getResultByUser, createResult } from '../api';
+import { getResultByUser, createResult, getResultByOrganization } from '../api';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
 import { errorMessage, isCancelError } from '@utils/errors';
@@ -15,7 +15,7 @@ export class ResultStore {
 
   private _abortController: AbortController | null = null;
   private _abortCreateController: AbortController | null = null;
-
+  private _abortOrgController: AbortController | null = null;
   constructor() {
     makeAutoObservable(this);
   }
@@ -82,6 +82,38 @@ export class ResultStore {
     } finally {
       runInAction(() => {
         this._abortController = null;
+      });
+    }
+  }
+
+  async fetchResultsByOrganization(id: string): Promise<ResultModel[] | null> {
+    if (this._abortOrgController) {
+      this._abortOrgController.abort();
+    }
+
+    this._abortOrgController = new AbortController();
+    const signal = this._abortOrgController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await getResultByOrganization(id, signal);
+      runInAction(() => {
+        this.results = response.map((res: Result) => new ResultModel(res));
+        this.meta = Meta.success;
+      });
+      return this.results || null;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortOrgController = null;
       });
     }
   }

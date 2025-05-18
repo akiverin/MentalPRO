@@ -31,6 +31,10 @@
     line-height: 1.5;
   }
 
+  &__export {
+    margin-top: 20px;
+  }
+
   &__extra {
     display: flex;
     flex-direction: column;
@@ -78,6 +82,7 @@
     max-width: v.$wrapper;
     margin: 0 auto;
     display: flex;
+    gap: 20px;
     flex-direction: row;
   }
 }

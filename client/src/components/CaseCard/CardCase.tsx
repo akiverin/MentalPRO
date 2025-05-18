@@ -15,7 +15,7 @@ interface CardCaseProps {
 const CardCase: FC<CardCaseProps> = ({ id, title, description, category, image }) => {
   return (
     <div className="case-card">
-      <img src={image} alt={title} className="case-card__image" />
+      <img src={image} alt={`Image for card case ${id}`} className="case-card__image" />
       <div className="case-card__info">
         <Badge variant="small" className="case-card__time">
           {category}

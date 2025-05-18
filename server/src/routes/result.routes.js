@@ -50,4 +50,26 @@ router.post(
   ResultController.create
 );
 
+/**
+ * @openapi
+ * /result/organization/{id}:
+ *   get:
+ *     tags: [Results]
+ *     summary: Get a results by organization
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Applications details
+ */
+router.get(
+  "/organization/:id",
+  passport.authenticate("jwt", { session: false }),
+  ResultController.getByOrganization
+);
+
 export default router;

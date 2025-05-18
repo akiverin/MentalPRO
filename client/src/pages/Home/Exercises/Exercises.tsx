@@ -23,9 +23,9 @@ const Exercises = observer(() => {
   return (
     <section className="exercises">
       <div className="exercises__wrapper">
-        <p className="exercises__category">
+        <h3 className="exercises__category">
           практики <sup>[01]</sup>
-        </p>
+        </h3>
         <h2 className="exercises__title home-title">Популярные практики</h2>
         <ul ref={containerRef} className="exercises__list">
           {[...cases].slice(0, 5).map((item, index) => (

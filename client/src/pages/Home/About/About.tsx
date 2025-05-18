@@ -81,9 +81,9 @@ const About = () => {
   return (
     <section className="about">
       <div className="about__wrapper">
-        <p className="about__category">
+        <h3 className="about__category">
           о нас <sup className="about__number">[02]</sup>
-        </p>
+        </h3>
         <h2 className="about__title home-title">Осознанность и контроль — ключи к внутреннему равновесию</h2>
         <p className="about__desc home-desc">
           Используйте наш сервис для ежедневного отслеживания настроения, обучения навыкам эмоциональной регуляции и
@@ -98,7 +98,12 @@ const About = () => {
               <picture className={`about__image ${className}`}>
                 <source srcSet={avif} type="image/avif" />
                 <source srcSet={webp} type="image/webp" />
-                <img src={png} className={`about__image ${className}`} alt="Decorative image" loading="lazy" />
+                <img
+                  src={png}
+                  className={`about__image ${className}`}
+                  alt={`Decorative image ${index}`}
+                  loading="lazy"
+                />
               </picture>
             </motion.div>
           ))}

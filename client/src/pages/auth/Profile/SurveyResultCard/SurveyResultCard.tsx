@@ -6,6 +6,7 @@ import TheLink from '@/components/ui/Link/Link'; // Исправлен путь 
 import { SurveyModel } from '@/entities/survey/model';
 import Chart from '@/components/Chart';
 import Badge from '@/components/ui/Badge/Badge';
+import { ResultModel } from '@/entities/result/model';
 
 interface AnswerProps {
   questionId: QuestionModel | null;
@@ -15,6 +16,7 @@ interface AnswerProps {
 interface SurveyResultCardProps {
   survey: SurveyModel | null;
   createdAt: string;
+  author?: ResultModel['userId'];
   answers: {
     questionId: QuestionModel | null;
     answerId: AnswerModel | null;
@@ -26,7 +28,7 @@ const isValidAnswer = (answer: AnswerProps): boolean => {
   return !!answer.questionId && !!answer.answerId && typeof answer.answerId.points === 'number';
 };
 
-const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answers, className = '' }) => {
+const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answers, author, className = '' }) => {
   if (!survey || !survey.title) {
     return null;
   }
@@ -58,10 +60,13 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
           <TheLink to={`/surveys/${survey._id}`} className="survey-result__title">
             {survey.title}
           </TheLink>
-          <p className="survey-result__date">{createdAt}</p>
+          <p className="survey-result__date">
+            {createdAt}
+            {author && ` • ${author.firstName}  ${author.lastName}`}
+          </p>
         </div>
-        <Badge>
-          Баллы: {allScores} / {allMax}
+        <Badge variant="small">
+          {allScores} / {allMax}
         </Badge>
       </div>
       {ranges.map((section, index) => {
@@ -71,7 +76,7 @@ const SurveyResultCard: FC<SurveyResultCardProps> = ({ survey, createdAt, answer
         return (
           <div key={index} className="survey-result__section">
             <div className="survey-result__content">
-              <p>
+              <p className="survey-result__section-name">
                 Секция: <b>{section.section}</b>
               </p>
               <p className="survey-result__scores">

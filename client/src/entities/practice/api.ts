@@ -39,6 +39,16 @@ export const createPractice = async (data: FormData, signal?: AbortSignal): Prom
   return response.data;
 };
 
+export const updatePractice = async (id: string, data: FormData, signal?: AbortSignal): Promise<PracticeModel> => {
+  const url = `${apiRoutes.practice.update(id)}/`;
+  console.log(data);
+  const response = await api.put<PracticeModel>(url, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};
+
 export const deletePractice = async (id: string, signal?: AbortSignal): Promise<string> => {
   const url = `${apiRoutes.practice.delete(id)}/`;
   const response = await api.delete<string>(url, {
