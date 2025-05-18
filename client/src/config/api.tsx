@@ -19,6 +19,7 @@ export const apiRoutes = {
     register: '/auth/register',
     me: '/auth/me',
     update: (id: string) => `/user/${id}`,
+    yandex: 'https://login.yandex.ru/info',
   },
   practice: {
     getAll: '/practice',

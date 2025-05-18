@@ -36,10 +36,6 @@ export class UserModel {
     return this.data.emailConfirmed;
   }
 
-  get vkId(): string | undefined {
-    return this.data.vkId;
-  }
-
   get yandexId(): string | undefined {
     return this.data.yandexId;
   }

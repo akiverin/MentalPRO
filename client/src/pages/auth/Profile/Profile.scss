@@ -29,9 +29,9 @@
     bottom: -120px;
     left: 70px;
     object-fit: cover;
-    border-radius: 130px;
+    border-radius: 64px;
     overflow: hidden;
-    border: 8px solid v.$white;
+    box-shadow: v.$box-shadow;
   }
 
   &__content {
@@ -51,6 +51,10 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 78px;
+  }
+
+  &__personal {
+    width: 100%;
   }
 
   &__titles {
@@ -84,7 +88,7 @@
     flex-direction: column;
     border-right: 1px solid v.$secondary-hover;
     align-items: center;
-    max-width: 218px;
+    max-width: 160px;
     width: 100%;
     font-size: v.$h6-size;
     gap: 20px;
@@ -140,21 +144,37 @@
       width: 100%;
       align-items: flex-end;
     }
+
     &__avatar {
       height: 180px;
       width: 180px;
       bottom: -120px;
       left: 70px;
-      object-fit: cover;
-      border-radius: 130px;
       overflow: hidden;
-      border: 8px solid v.$white;
     }
+
     &__content {
       padding: 0;
     }
+
+    &__personal {
+      margin: 20px 0 0 20px;
+    }
+
+    &__details {
+      margin: 20px 20px 0 0;
+    }
+
     &__details-item {
-      max-width: 200px;
+      max-width: 140px;
+    }
+
+    &__detail-content {
+      font-size: 0.9rem;
+    }
+
+    &__detail-name {
+      font-size: 1.1rem;
     }
 
     &__info {
@@ -168,6 +188,7 @@
     &__name {
       font-size: 1.4rem;
     }
+
     &__email {
       font-size: 1rem;
     }
@@ -183,25 +204,32 @@
     &__cover {
       height: 200px;
     }
+
     &__avatar {
       height: 140px;
       width: 140px;
+      border-radius: 40px;
       object-fit: cover;
       left: 0;
     }
+
     &__actions {
       gap: 10px;
     }
+
     &__info {
       align-items: flex-start;
     }
+
     &__details-item {
       max-width: 120px;
       gap: 10px;
     }
+
     &__detail-content {
       font-size: 0.8rem;
     }
+
     &__detail-name {
       font-size: 1rem;
     }
@@ -210,19 +238,27 @@
 
 @media screen and (max-width: v.$mobile) {
   .profile-head {
+    &__wrapper {
+      padding: 10px;
+    }
+
     &__actions {
       flex-direction: column;
     }
+
     &__info {
       flex-direction: column;
     }
+
     &__details {
       justify-content: start;
       margin-top: 16px;
     }
+
     &__avatar {
       height: 100px;
       width: 100px;
+      border-radius: 20px;
     }
   }
 

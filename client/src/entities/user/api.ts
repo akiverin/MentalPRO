@@ -80,3 +80,23 @@ export const updateUser = async (id: string, data: FormData, signal?: AbortSigna
     throw new Error(formatApiError('update', error));
   }
 };
+
+export const yandex = async (oauth_token: string, signal?: AbortSignal): Promise<User> => {
+  try {
+    const response = await api.get(apiRoutes.users.yandex, {
+      headers: {
+        Authorization: `OAuth ${oauth_token}`,
+      },
+      signal,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const apiMessage = error.response?.data?.error?.message;
+      if (apiMessage) {
+        throw new Error(apiMessage);
+      }
+    }
+    throw new Error(formatApiError('yandex', error));
+  }
+};

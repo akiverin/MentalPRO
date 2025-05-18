@@ -17,7 +17,7 @@ const PrivateRoute: FC<PrivateRouteProps> = observer(({ children, requiredRoles 
     return <LoaderScreen />;
   }
 
-  if (!user && meta !== 'success') {
+  if (!localStorage.getItem('authToken') && meta !== 'success') {
     return <Navigate to={routes.login.mask} replace />;
   }
 

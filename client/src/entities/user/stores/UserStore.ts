@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { login, register, me, updateUser } from '../api';
+import { login, register, me, updateUser, yandex } from '../api';
 import { AuthResponse } from '../types';
 import { Meta } from '@utils/meta';
 import { UserModel } from '../model';
@@ -16,7 +16,7 @@ export class UserStore {
 
   private _loginAbortController: AbortController | null = null;
   private _meAbortController: AbortController | null = null;
-
+  private _getYandexAbortController: AbortController | null = null;
   private _updateAbortController: AbortController | null = null;
   private _registerAbortController: AbortController | null = null;
 
@@ -57,7 +57,6 @@ export class UserStore {
         this.user = new UserModel(response.user);
         this.meta = Meta.success;
       });
-
       this.setToken(response.token);
 
       return true;
@@ -156,7 +155,6 @@ export class UserStore {
         this.user = new UserModel(response);
         this.meta = Meta.success;
       });
-
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;
@@ -206,6 +204,40 @@ export class UserStore {
     } finally {
       runInAction(() => {
         this._updateAbortController = null;
+      });
+    }
+  }
+
+  async getYandex(): Promise<boolean> {
+    if (this._getYandexAbortController) {
+      this._getYandexAbortController.abort();
+    }
+    this._getYandexAbortController = new AbortController();
+    const signal = this._getYandexAbortController.signal;
+
+    this.meta = Meta.loading;
+    this.error = '';
+
+    try {
+      const updatedUser = await yandex(this.token!, signal);
+      runInAction(() => {
+        this.user = new UserModel(updatedUser);
+        this.meta = Meta.success;
+      });
+
+      return true;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return false;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return false;
+    } finally {
+      runInAction(() => {
+        this._getYandexAbortController = null;
       });
     }
   }

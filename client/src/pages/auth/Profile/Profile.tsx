@@ -8,10 +8,10 @@ import { userStore } from '@entities/user/stores/userStoreInstance';
 import { resultStore } from '@/entities/result/store/resultStoreInstance';
 import SurveyResultCard from './SurveyResultCard/SurveyResultCard';
 import Error from '@/components/ui/Error';
+import defaultAvatar from '@assets/images/defaultAvatar.png';
 
 const Profile = observer(() => {
   useEffect(() => {
-    userStore.me();
     resultStore.fetchResultsByUser();
   }, []);
 
@@ -55,7 +55,11 @@ const Profile = observer(() => {
         <div className="profile-head__wrapper">
           <div className="profile-head__images">
             <img src={imageCover} alt="Cover profile page" className="profile-head__cover" />
-            {user.image && <img src={user.image} alt="" className="profile-head__avatar" />}
+            {user.image ? (
+              <img src={user.image} alt="avatar user" className="profile-head__avatar" />
+            ) : (
+              <img src={defaultAvatar} alt="default avatar for user" className="profile-head__avatar" />
+            )}
           </div>
           <div className="profile-head__content">
             <div className="profile-head__actions">
@@ -70,7 +74,7 @@ const Profile = observer(() => {
               <div className="profile-head__personal">
                 <div className="profile-head__titles">
                   <h1 className="profile-head__name">
-                    {user.firstName} {user.lastName && user.lastName}
+                    {user.firstName} {user.lastName && user.lastName} {user.patronymic && user.patronymic}
                   </h1>
                   {user.organizationId && <Badge variant="small">{user.organizationId}</Badge>}
                 </div>
