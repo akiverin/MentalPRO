@@ -34,15 +34,10 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         let user = await User.findOne({ yandexId: profile.id });
-        const avatarId = profile._json.default_avatar_id;
-        const image = avatarId
-          ? `https://avatars.yandex.net/get-yapic/${avatarId}/islands-200`
-          : "https://avatars.yandex.net/get-yapic/0/islands-200";
         if (!user) {
           user = await User.create({
             firstName: profile.displayName,
             yandexId: profile.id,
-            image,
             email: profile.emails[0].value,
             emailConfirmed: true,
           });
