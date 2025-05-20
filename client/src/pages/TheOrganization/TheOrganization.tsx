@@ -12,6 +12,7 @@ import Button from '@/components/ui/Button';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { userStore } from '@/entities/user/stores/userStoreInstance';
+import AccessControl from '@/components/AccessControl';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -68,9 +69,17 @@ const TheOrganization: React.FC = observer(() => {
     navigate('/organizations');
   };
 
+  const onActive = () => {
+    organizationListStore.activate(id);
+    navigate('/organizations');
+  };
+
   const userId = userStore.user?.id;
   const organization = organizationListStore.organization;
-  const access = (userId && organization?.administrators.includes(userId)) || userId === organization?.createdBy;
+  const access =
+    (userId && organization?.administrators.includes(userId)) ||
+    userId === organization?.createdBy ||
+    userStore.user?.role === 'admin';
 
   if (organizationListStore.meta === 'loading') {
     return (
@@ -109,6 +118,9 @@ const TheOrganization: React.FC = observer(() => {
                 <Button variant="rounded" background="light" onClick={generatePDF}>
                   Скачать PDF
                 </Button>
+                <Button variant="rounded" background="light" onClick={onActive}>
+                  Одобрить организацию
+                </Button>
                 <Button variant="rounded" background="light" onClick={onDelete}>
                   Удалить организацию
                 </Button>
@@ -130,7 +142,9 @@ const TheOrganization: React.FC = observer(() => {
       <section className="organization">
         <div className="organization__wrapper">
           <Content results={resultStore.results} meta={resultStore.meta} />
-          <Applications id={id} />
+          <AccessControl requiredRoles={['admin', 'hr']}>
+            <Applications id={id} />
+          </AccessControl>
         </div>
       </section>
     </div>

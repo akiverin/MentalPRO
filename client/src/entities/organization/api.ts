@@ -48,3 +48,16 @@ export const deleteOrganization = async (id: string, signal?: AbortSignal): Prom
   });
   return response.data;
 };
+
+export const activateOrganization = async (id: string, signal?: AbortSignal): Promise<OrganizationModel> => {
+  const url = `${apiRoutes.organization.update(id)}/`;
+  const response = await api.put<OrganizationModel>(
+    url,
+    { isActive: true },
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+      signal,
+    },
+  );
+  return response.data;
+};

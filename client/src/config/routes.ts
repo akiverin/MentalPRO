@@ -67,6 +67,10 @@ export const routes = {
     mask: '/privacy',
     create: () => '/privacy',
   },
+  agreement: {
+    mask: '/agreement',
+    create: () => '/agreement',
+  },
   yandexOauth: {
     mask: '/yandex-oauth',
     create: (token: string) => `/yandex-oauth?token=${token}`,

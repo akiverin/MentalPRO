@@ -80,11 +80,13 @@ export class UserStore {
     lastName,
     email,
     password,
+    role,
   }: {
     firstName: string;
     email: string;
     password: string;
     lastName?: string;
+    role?: string;
   }): Promise<boolean> {
     if (this._registerAbortController) {
       this._registerAbortController.abort();
@@ -96,7 +98,7 @@ export class UserStore {
     this.meta = Meta.loading;
 
     try {
-      const response: AuthResponse = await register({ firstName, lastName, email, password }, signal);
+      const response: AuthResponse = await register({ firstName, lastName, email, password, role }, signal);
 
       runInAction(() => {
         this.user = new UserModel(response.user);
@@ -139,6 +141,8 @@ export class UserStore {
   }
 
   async me(): Promise<boolean> {
+    if (!localStorage.getItem('authToken')) return false;
+
     if (this._meAbortController) {
       this._meAbortController.abort();
     }

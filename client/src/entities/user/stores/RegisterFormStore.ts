@@ -6,19 +6,21 @@ export class RegisterFormStore {
   email = '';
   password = '';
   privacy = false;
-  errors: Record<'email' | 'password' | 'firstName' | 'lastName' | 'privacy', string> = {
+  hr = false;
+  errors: Record<'email' | 'password' | 'firstName' | 'lastName' | 'privacy' | 'hr', string> = {
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     privacy: '',
+    hr: '',
   };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setField(field: 'email' | 'password' | 'firstName' | 'lastName' | 'privacy', value: string | boolean) {
+  setField(field: 'email' | 'password' | 'firstName' | 'lastName' | 'privacy' | 'hr', value: string | boolean) {
     (this[field] as string | boolean) = value;
     this.errors[field] = '';
   }
@@ -50,14 +52,19 @@ export class RegisterFormStore {
     return '';
   }
 
+  private validateHR() {
+    return '';
+  }
+
   validateAll(): boolean {
     const e1 = this.validateFirstName();
     const e2 = this.validateLastName();
     const e3 = this.validateIdentifier();
     const e4 = this.validatePassword();
     const e5 = this.validatePrivacy();
+    const e6 = this.validateHR();
     runInAction(() => {
-      this.errors = { firstName: e1, lastName: e2, email: e3, password: e4, privacy: e5 };
+      this.errors = { firstName: e1, lastName: e2, email: e3, password: e4, privacy: e5, hr: e6 };
     });
     return !e1 && !e2 && !e3 && !e4 && !e5;
   }

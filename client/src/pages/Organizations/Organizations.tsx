@@ -10,6 +10,7 @@ import { OrganizationModel } from '@/entities/organization/model';
 import { observer } from 'mobx-react-lite';
 import TheLink from '@/components/ui/Link';
 import AccessControl from '@/components/AccessControl';
+import { userStore } from '@/entities/user/stores/userStoreInstance';
 
 const Organizations = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,18 +77,21 @@ const Organizations = observer(() => {
       <section className="organizations-content">
         <div className="organizations-content__wrapper">
           <ul className="organizations-content__list">
-            {organizationListStore.organizations.map((item: OrganizationModel) => (
-              <li key={`org-${item.id}-${item.title}`} className="organizations-content__item">
-                <CardOrganization
-                  id={item.id}
-                  title={item.title}
-                  description={item.description}
-                  image={item.image}
-                  members={item.members}
-                  createdBy={item.createdBy}
-                />
-              </li>
-            ))}
+            {organizationListStore.organizations
+              .filter((item) => item.isActive || userStore.user?.role === 'admin')
+              .map((item: OrganizationModel) => (
+                <li key={`org-${item.id}-${item.title}`} className="organizations-content__item">
+                  <CardOrganization
+                    id={item.id}
+                    title={item.title}
+                    description={item.description}
+                    image={item.image}
+                    members={item.members}
+                    createdBy={item.createdBy}
+                    isActive={item.isActive}
+                  />
+                </li>
+              ))}
           </ul>
           <Pagination
             currentPage={organizationListStore.pagination.page}
