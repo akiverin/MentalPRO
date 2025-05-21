@@ -58,7 +58,7 @@ export class UserStore {
         this.meta = Meta.success;
       });
       this.setToken(response.token);
-
+      this.me();
       return true;
     } catch (error) {
       if (isCancelError(error)) return false;

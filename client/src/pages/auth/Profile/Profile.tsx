@@ -9,6 +9,8 @@ import { resultStore } from '@/entities/result/store/resultStoreInstance';
 import SurveyResultCard from './SurveyResultCard/SurveyResultCard';
 import Error from '@/components/ui/Error';
 import defaultAvatar from '@assets/images/defaultAvatar.png';
+import LoaderScreen from '@/components/ui/LoaderScreen';
+import IconYID from '@/components/ui/icons/IconYID';
 
 const Profile = observer(() => {
   useEffect(() => {
@@ -19,13 +21,7 @@ const Profile = observer(() => {
   const results = resultStore.results;
 
   if (userStore.meta == 'loading') {
-    return (
-      <section className="profile-head">
-        <div className="profile-head__wrapper">
-          <h1 className="profile-head__name">Загрузка... </h1>
-        </div>
-      </section>
-    );
+    return <LoaderScreen />;
   }
   if (userStore.meta == 'error') {
     return (
@@ -78,7 +74,10 @@ const Profile = observer(() => {
                   </h1>
                   {user.organizationId && <Badge variant="small">{user.organizationId}</Badge>}
                 </div>
-                <p className="profile-head__email">{user.email}</p>
+                <div className="profile-head__subtitles">
+                  <p className="profile-head__email">{user.email}</p>
+                  {user.yandexId && <IconYID width={37} height={18} />}
+                </div>
               </div>
               <div className="profile-head__details">
                 <div className="profile-head__details-item">

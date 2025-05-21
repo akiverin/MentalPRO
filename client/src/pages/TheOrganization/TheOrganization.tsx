@@ -114,7 +114,7 @@ const TheOrganization: React.FC = observer(() => {
             <p className="organization-info__subtitle">{organization.description}</p>
             <p className="organization-info__subtitle">Количество участников: {organization.members.length}</p>
             {access && (
-              <div className="organization-info__export">
+              <div className="organization-info__actions">
                 <Button variant="rounded" background="light" onClick={generatePDF}>
                   Скачать PDF
                 </Button>
