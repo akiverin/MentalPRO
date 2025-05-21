@@ -26,10 +26,12 @@ export const register = async (
     lastName?: string;
     email: string;
     password: string;
+    role?: string;
   },
   signal?: AbortSignal,
 ): Promise<AuthResponse> => {
   try {
+    console.log(data);
     const response = await api.post<AuthResponse>(apiRoutes.users.register, data, { signal });
     return response.data;
   } catch (error) {

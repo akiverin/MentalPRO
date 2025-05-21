@@ -31,8 +31,11 @@
     line-height: 1.5;
   }
 
-  &__export {
+  &__actions {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   &__extra {
@@ -126,7 +129,7 @@
 }
 
 @media screen and (max-width: v.$mobile) {
-  .organizations-info {
+  .organization-info {
     &__wrapper {
       margin: 30px auto;
       padding: 0 15px;
@@ -145,6 +148,10 @@
     &__extra {
       max-width: 100%;
       gap: 20px;
+    }
+
+    &__image {
+      height: 164px;
     }
   }
 

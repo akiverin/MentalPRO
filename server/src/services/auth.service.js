@@ -4,15 +4,21 @@ import User from "../models/user.model.js";
 import { sendConfirmationEmail } from "../utils/mailer.js";
 
 export class AuthService {
-  static async register({ firstName, lastName, email, password }) {
+  static async register({ firstName, lastName, email, password, role }) {
     const exists = await User.findOne({ email });
     if (exists) throw { status: 409, message: "Email уже занят" };
+    if (role === "admin")
+      throw {
+        status: 403,
+        message: "Нет доступа для регистрации администратора",
+      };
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({
       firstName,
       lastName,
       email,
       password: hash,
+      role,
     });
     await sendConfirmationEmail(user);
     return user;

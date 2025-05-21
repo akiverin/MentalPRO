@@ -125,7 +125,7 @@ function TheFooter() {
               </TheLink>
             </li>
             <li className="footer__docs-item">
-              <TheLink variant="navigation" className="footer__docs-link">
+              <TheLink to="/agreement" variant="navigation" className="footer__docs-link">
                 Пользовательское соглашение
               </TheLink>
             </li>

@@ -1,7 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Meta } from '@utils/meta';
 import { OrganizationModel } from '../model';
-import { createOrganization, deleteOrganization, getOrganizationById, getOrganizations } from '../api';
+import {
+  activateOrganization,
+  createOrganization,
+  deleteOrganization,
+  getOrganizationById,
+  getOrganizations,
+} from '../api';
 import { Organization } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
 import { LoadResponse } from '@/types/loadResponse';
@@ -18,6 +24,7 @@ export class OrganizationListStore {
   private _abortByIdController: AbortController | null = null;
   private _abortCreateController: AbortController | null = null;
   private _abortDeleteController: AbortController | null = null;
+  private _abortActivateController: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -162,6 +169,38 @@ export class OrganizationListStore {
     } finally {
       runInAction(() => {
         this._abortDeleteController = null;
+      });
+    }
+  }
+
+  async activate(id: string): Promise<OrganizationModel | null> {
+    if (this._abortActivateController) {
+      this._abortActivateController.abort();
+    }
+
+    this._abortActivateController = new AbortController();
+    const signal = this._abortActivateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await activateOrganization(id, signal);
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+      this.fetchOrganizations();
+      return response;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortActivateController = null;
       });
     }
   }

@@ -3,7 +3,6 @@ import { Form } from '@components/ui/Form';
 import Input from '@components/ui/Input/';
 import TheLink from '@components/ui/Link';
 import Button from '@components/ui/Button';
-
 import Checkbox from '@components/ui/Checkbox';
 import IconYID from '@components/ui/icons/IconYID';
 import { observer, useLocalObservable } from 'mobx-react-lite';
@@ -13,6 +12,7 @@ import { userStore } from '@entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
 import Error from '@/components/ui/Error';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const Registration = observer(() => {
   const form = useLocalObservable(() => new RegisterFormStore());
@@ -32,11 +32,16 @@ const Registration = observer(() => {
       lastName: form.lastName,
       email: form.email,
       password: form.password,
+      role: form.hr ? 'hr' : 'client',
     });
     if (success) {
       navigate(`/login?confirm=${form.email}`);
     }
   };
+
+  if (userStore.meta === 'loading') {
+    return <LoaderScreen />;
+  }
   return (
     <div className="registration">
       <div className="registration__wrapper">
@@ -97,6 +102,9 @@ const Registration = observer(() => {
                 required
               />
               {form.errors.password && <p className="registration__error">{form.errors.password}</p>}
+              <Checkbox checked={form.hr} onChange={(value) => form.setField('hr', value)}>
+                Я являюсь руководителем или HR в компании
+              </Checkbox>
               <Checkbox checked={form.privacy} onChange={(value) => form.setField('privacy', value)}>
                 Даю{' '}
                 <TheLink variant="text" to="/privacy">
@@ -108,7 +116,7 @@ const Registration = observer(() => {
                 <Error>
                   <p>{userStore.error}</p>
                 </Error>
-              )}{' '}
+              )}
               <div className="registration__actions">
                 <Button disabled={!form.privacy} size="large" className="registration__button" fullWidth type="submit">
                   Создать аккаунт

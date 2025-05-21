@@ -118,7 +118,10 @@
     }
 
     &:last-child {
-      margin-top: 100px;
+      margin-top: 40px;
+      border-top: 0.4px solid v.$primary;
+      padding-top: 20px;
+      width: fit-content;
     }
   }
 

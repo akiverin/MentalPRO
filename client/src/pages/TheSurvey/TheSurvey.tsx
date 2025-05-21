@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import AccessControl from '@/components/AccessControl';
 import Button from '@/components/ui/Button';
 import LoaderScreen from '@/components/ui/LoaderScreen';
+import Error from '@/components/ui/Error';
 
 const TheSurvey = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -56,9 +57,17 @@ const TheSurvey = observer(() => {
         <div className="survey__wrapper">
           <div className="survey__info">
             <h1 className="survey__title">{survey.title}</h1>
-            <TheLink variant="rounded" background="primary" to={`/surveys/${survey._id}/quest`}>
-              Пройти опрос сейчас
-            </TheLink>
+            <AccessControl
+              fallback={
+                <Error>
+                  <p>Для прохождения опроса необходимо авторизоваться!</p>
+                </Error>
+              }
+            >
+              <TheLink variant="rounded" background="primary" to={`/surveys/${survey._id}/quest`}>
+                Пройти опрос сейчас
+              </TheLink>
+            </AccessControl>
             <div className="survey__actions">
               <AccessControl requiredRoles={['admin']}>
                 <Button onClick={onDelete} background="danger" variant="rounded">

@@ -40,11 +40,7 @@ router.get("/", SurveyController.getAll);
  *       200:
  *         description: Survey details
  */
-router.get(
-  "/:id",
-  passport.authenticate("jwt", { session: false }),
-  SurveyController.getById
-);
+router.get("/:id", SurveyController.getById);
 
 /**
  * @openapi

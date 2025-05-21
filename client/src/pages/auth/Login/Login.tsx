@@ -13,6 +13,7 @@ import { userStore } from '@entities/user/stores/userStoreInstance';
 import SlidesAuth from '../SlidesAuth';
 import { useEffect } from 'react';
 import { API_BASE_URL } from '@/config/api';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const Login = observer(() => {
   const form = useLocalObservable(() => new LoginFormStore());
@@ -34,6 +35,10 @@ const Login = observer(() => {
       navigate('/');
     }
   };
+
+  if (userStore.meta === 'loading') {
+    return <LoaderScreen />;
+  }
 
   return (
     <div className="login">

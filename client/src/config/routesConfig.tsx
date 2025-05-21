@@ -21,6 +21,7 @@ import CreateCase from '@/pages/Cases/CreateCase';
 import UpdateCase from '@/pages/Cases/UpdateCase/UpdateCase';
 import UpdateUser from '@/pages/auth/Profile/UpdateUser/UpdateUser';
 import CreateOrganization from '@/pages/Organizations/CreateOrganization';
+import Agreement from '@/pages/Agreement';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -92,11 +93,7 @@ export const routesConfig: RouteObject[] = [
       { path: routes.surveys.mask, element: <Surveys /> },
       {
         path: routes.survey.mask,
-        element: (
-          <PrivateRoute>
-            <TheSurvey />
-          </PrivateRoute>
-        ),
+        element: <TheSurvey />,
       },
       {
         path: routes.surveyCreate.mask,
@@ -115,6 +112,7 @@ export const routesConfig: RouteObject[] = [
         ),
       },
       { path: routes.privacy.mask, element: <Privacy /> },
+      { path: routes.agreement.mask, element: <Agreement /> },
       {
         path: routes.yandexOauth.mask,
         element: <OAuth />,
