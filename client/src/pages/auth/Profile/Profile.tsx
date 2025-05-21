@@ -11,6 +11,8 @@ import Error from '@/components/ui/Error';
 import defaultAvatar from '@assets/images/defaultAvatar.png';
 import LoaderScreen from '@/components/ui/LoaderScreen';
 import IconYID from '@/components/ui/icons/IconYID';
+import IconCrown from '@/components/ui/icons/IconCrown';
+import IconHR from '@/components/ui/icons/IconHR';
 
 const Profile = observer(() => {
   useEffect(() => {
@@ -77,6 +79,8 @@ const Profile = observer(() => {
                 <div className="profile-head__subtitles">
                   <p className="profile-head__email">{user.email}</p>
                   {user.yandexId && <IconYID width={37} height={18} />}
+                  {user.role === 'admin' && <IconCrown />}
+                  {user.role === 'hr' && <IconHR />}
                 </div>
               </div>
               <div className="profile-head__details">
