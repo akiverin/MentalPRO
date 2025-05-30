@@ -1,0 +1,23 @@
+User-agent: *
+Disallow: /login
+Disallow: /registration
+Disallow: /profile
+Disallow: /profile/update
+Disallow: /cases/create
+Disallow: /cases/*/update
+Disallow: /organizations/create
+Disallow: /surveys/create
+Disallow: /surveys/*/quest
+Disallow: /yandex-oauth
+
+Allow: /
+Allow: /cases$
+Allow: /cases/*
+Allow: /organizations$
+Allow: /organizations/*
+Allow: /surveys$
+Allow: /surveys/*
+Allow: /privacy
+Allow: /agreement
+
+Sitemap: https://mentalpro.kiver.net/sitemap.xml

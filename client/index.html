@@ -2,6 +2,22 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <link rel="manifest" href="manifest.json" />
+    <script scr="/pwabuilder-sw.js"></script>
+    <script>
+      if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('pwabuilder-sw.js');
+      }
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/pwabuilder-sw.js')
+            .then((reg) => console.log('Service worker registered:', reg))
+            .catch((err) => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MentalPRO</title>
@@ -28,6 +44,8 @@
       content="Практики, опросники и научные методики для мониторинга ментального состояния сотрудников."
     />
     <meta name="twitter:image" content="https://mentalpro.kiver.net/preview.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link name="apple-touch-icon" href="/icons/ios/512.png" />
   </head>
 
   <body>

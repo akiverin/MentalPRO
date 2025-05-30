@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 
-export const API_BASE_URL = 'http://localhost:3030/api';
-// export const API_BASE_URL = 'https://mentalpro.kiver.net/api';
+// export const API_BASE_URL = 'http://localhost:3030/api';
+export const API_BASE_URL = 'https://mentalpro.kiver.net/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
