@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Content.scss';
 import { observer } from 'mobx-react-lite';
 import SurveyResultCard from '@/pages/auth/Profile/SurveyResultCard/SurveyResultCard';
@@ -7,6 +7,7 @@ import { ResultModel } from '@/entities/result/model';
 import ComplexResultCard from './SurveyResultCard';
 import { QuestionModel } from '@/entities/question/model';
 import { AnswerModel } from '@/entities/answer/model';
+import Search from '@/components/Search/Search';
 
 interface ContentProps {
   results: ResultModel[] | null;
@@ -14,6 +15,8 @@ interface ContentProps {
 }
 
 const Content: React.FC<ContentProps> = observer(({ results, meta }) => {
+  const [search, setSearch] = useState('');
+
   function groupAnswersBySurveyId(results: ResultModel[] | null) {
     if (!results || results.length === 0) {
       return [];
@@ -51,7 +54,11 @@ const Content: React.FC<ContentProps> = observer(({ results, meta }) => {
   }
 
   const complexResults = groupAnswersBySurveyId(results);
-  console.log('res', results);
+
+  const filteredResults = results?.filter((res) => {
+    const fullName = `${res.userId.firstName} ${res.userId.lastName || ''} ${res.userId.patronymic || ''}`.trim();
+    return fullName.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="organization-content">
@@ -69,9 +76,16 @@ const Content: React.FC<ContentProps> = observer(({ results, meta }) => {
       )}
       {meta === 'error' && <p className="profile__error">Данные не были загружены</p>}
       <h2 className="organization-content__title">Результаты участников организации</h2>
-      {results && (
+      <Search
+        value={search}
+        placeholder="Поиск по сотрудникам"
+        onChange={(v) => setSearch(v)}
+        onSearch={() => {}}
+        handleClear={() => setSearch('')}
+      />
+      {filteredResults && (
         <ul className="profile__history-list">
-          {results.map((res) => (
+          {filteredResults.map((res) => (
             <li key={res._id} className="profile__history-item">
               <SurveyResultCard
                 survey={res.surveyId}

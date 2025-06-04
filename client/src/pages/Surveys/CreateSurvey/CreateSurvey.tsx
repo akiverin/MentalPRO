@@ -13,11 +13,14 @@ import Error from '@/components/ui/Error';
 import QuestionBuilder from './QuestionBuilder';
 import { QuestionFormStore } from '@/entities/question/stores/QuestionFormStore';
 import { QuestionStore } from '@/entities/question/stores/QuestionStore';
+import { useNavigate } from 'react-router-dom';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const CreateSurvey = observer(() => {
   const form = useLocalObservable(() => new SurveyFormStore());
   const questionForm = useLocalObservable(() => new QuestionFormStore());
   const questionStore = useLocalObservable(() => new QuestionStore());
+  const navigate = useNavigate();
 
   useEffect(() => {
     surveyListStore.fetchSurveys();
@@ -60,8 +63,15 @@ const CreateSurvey = observer(() => {
       formData.append('surveyCover', form.image);
     }
 
-    await surveyListStore.create(formData);
+    const res = await surveyListStore.create(formData);
+    if (res?.success) {
+      navigate(`/surveys/`);
+    }
   };
+
+  if (surveyListStore.meta === 'loading') {
+    return <LoaderScreen />;
+  }
 
   return (
     <>

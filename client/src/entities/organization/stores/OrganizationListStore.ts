@@ -7,6 +7,7 @@ import {
   deleteOrganization,
   getOrganizationById,
   getOrganizations,
+  updateOrganization,
 } from '../api';
 import { Organization } from '../types';
 import { PaginationStore } from '@entities/pagination/stores/PaginationStore';
@@ -109,12 +110,12 @@ export class OrganizationListStore {
 
     this._abortCreateController = new AbortController();
     const signal = this._abortCreateController.signal;
-
     this.meta = Meta.loading;
     try {
       const response = await createOrganization(data, signal);
       runInAction(() => {
         this.organization = response;
+        this.organizations.push(response);
         this.meta = Meta.success;
       });
       return { success: true };
@@ -141,7 +142,7 @@ export class OrganizationListStore {
     this.error = '';
   }
 
-  async delete(id: string): Promise<string | null> {
+  async delete(id: string): Promise<LoadResponse | null> {
     if (this._abortDeleteController) {
       this._abortDeleteController.abort();
     }
@@ -151,12 +152,13 @@ export class OrganizationListStore {
 
     this.meta = Meta.loading;
     try {
-      const response = await deleteOrganization(id, signal);
+      await deleteOrganization(id, signal);
+      console.log(1111);
       runInAction(() => {
+        this.organizations = this.organizations.filter((org) => org.id !== id);
         this.meta = Meta.success;
       });
-      this.fetchOrganizations();
-      return response;
+      return { success: true };
     } catch (error) {
       if (isCancelError(error)) {
         return null;
@@ -188,6 +190,39 @@ export class OrganizationListStore {
         this.meta = Meta.success;
       });
       this.fetchOrganizations();
+      return response;
+    } catch (error) {
+      if (isCancelError(error)) {
+        return null;
+      }
+      runInAction(() => {
+        this.error = errorMessage(error);
+        this.meta = Meta.error;
+      });
+      return null;
+    } finally {
+      runInAction(() => {
+        this._abortActivateController = null;
+      });
+    }
+  }
+
+  async update(id: string, obj: FormData): Promise<OrganizationModel | null> {
+    if (this._abortActivateController) {
+      this._abortActivateController.abort();
+    }
+
+    this._abortActivateController = new AbortController();
+    const signal = this._abortActivateController.signal;
+
+    this.meta = Meta.loading;
+    try {
+      const response = await updateOrganization(id, obj, signal);
+      runInAction(() => {
+        this.meta = Meta.success;
+      });
+      this.fetchOrganizations();
+      this.fetchOrganizationById(id);
       return response;
     } catch (error) {
       if (isCancelError(error)) {

@@ -1,6 +1,5 @@
 import Search from '@components/Search/Search';
 import './Organizations.scss';
-import Badge from '@components/ui/Badge/Badge';
 import CardOrganization from './CardOrganization/CardOrganization';
 import Pagination from '@/components/ui/Pagination/Pagination';
 import { useCallback, useEffect, useState } from 'react';
@@ -12,7 +11,7 @@ import TheLink from '@/components/ui/Link';
 import AccessControl from '@/components/AccessControl';
 import { userStore } from '@/entities/user/stores/userStoreInstance';
 
-const Organizations = observer(() => {
+const Organizations: React.FC = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [localSearch, setLocalSearch] = useState('');
 
@@ -58,7 +57,6 @@ const Organizations = observer(() => {
             </AccessControl>
           </div>
           <div className="organizations-info__extra">
-            <Badge variant="small">Вы не подключены к организации</Badge>
             <Search
               value={localSearch}
               onSearch={onSearch}

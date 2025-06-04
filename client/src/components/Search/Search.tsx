@@ -14,17 +14,11 @@ interface SearchProps {
   onChange: (value: string) => void;
 }
 
-const Search: FC<SearchProps> = ({
-  placeholder = 'Поиск...',
-  onSearch,
-  handleClear,
-  value,
-  className = '',
-  ...props
-}) => {
+const Search: FC<SearchProps> = ({ placeholder = 'Поиск...', onSearch, value, className = '', ...props }) => {
   return (
     <div className={`search ${className}`}>
       <Input
+        value={value}
         fullWidth
         type="text"
         placeholder={placeholder}
@@ -41,7 +35,7 @@ const Search: FC<SearchProps> = ({
         className="search__input"
       />
       {value && (
-        <Button background="secondary" size="large" onClick={handleClear} className="search__clear">
+        <Button background="secondary" size="large" onClick={() => props.onChange('')} className="search__clear">
           <p className="visually-hidden">Сбросить строку поиска</p>
           <IconClose />
         </Button>

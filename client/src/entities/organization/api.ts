@@ -61,3 +61,16 @@ export const activateOrganization = async (id: string, signal?: AbortSignal): Pr
   );
   return response.data;
 };
+
+export const updateOrganization = async (
+  id: string,
+  obj: FormData,
+  signal?: AbortSignal,
+): Promise<OrganizationModel> => {
+  const url = `${apiRoutes.organization.update(id)}/`;
+  const response = await api.put<OrganizationModel>(url, obj, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },
+    signal,
+  });
+  return response.data;
+};

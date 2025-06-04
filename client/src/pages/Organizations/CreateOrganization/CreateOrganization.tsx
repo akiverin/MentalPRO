@@ -9,6 +9,7 @@ import './CreateOrganization.scss';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationFormStore } from '@/entities/organization/stores/OrganizationFormStore';
 import { organizationListStore } from '@/entities/organization/stores/organizationStoreInstance';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const CreateOrganization: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -24,12 +25,15 @@ const CreateOrganization: React.FC = observer(() => {
     if (form.image instanceof File) {
       fd.append('organizationCover', form.image);
     }
-    console.log(form.title, form.description);
     const ok = await organizationListStore.create(fd);
     if (ok?.success) {
       navigate(`/organizations/`);
     }
   };
+
+  if (organizationListStore.meta === 'loading') {
+    return <LoaderScreen />;
+  }
 
   return (
     <section className="organization-create">
