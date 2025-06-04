@@ -61,7 +61,7 @@ const UpdateCase: React.FC = observer(() => {
 
     const success = await practiceListStore.update(id!, formData);
     if (success) {
-      navigate(`/practices/${id}`);
+      navigate(`/cases/${id}`);
     }
   };
 

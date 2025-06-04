@@ -76,8 +76,14 @@ const Members: React.FC<MembersProps> = observer(({ id, members, administrators,
                 <ContextMenu
                   triggerContent={<IconDotsVertical />}
                   items={[
-                    { title: 'Назначить администратором', action: () => {} },
-                    { title: 'Экспортировать результаты', action: () => exportObj(memb._id) },
+                    { title: 'Назначить администратором', action: () => {}, active: false },
+                    {
+                      title: 'Экспортировать результаты',
+                      action: () => exportObj(memb._id),
+                      active:
+                        administrators?.some((adm: UserModel) => adm._id === userStore.user?.id) ||
+                        creator === userStore.user?.id,
+                    },
                     { title: 'Удалить из организации', action: () => deleteMember(memb.id), active: false },
                   ]}
                 />

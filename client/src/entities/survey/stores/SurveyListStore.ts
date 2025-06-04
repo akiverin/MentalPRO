@@ -176,6 +176,7 @@ export class SurveyListStore {
       runInAction(() => {
         this.meta = Meta.success;
       });
+      this.fetchSurveys();
       return { success: true };
     } catch (error) {
       if (isCancelError(error)) {

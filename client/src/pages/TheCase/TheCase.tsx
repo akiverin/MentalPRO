@@ -8,9 +8,9 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import Error from '@/components/ui/Error';
 import AccessControl from '@/components/AccessControl';
-import TheLink from '@/components/ui/Link';
-import Button from '@/components/ui/Button';
 import LoaderScreen from '@/components/ui/LoaderScreen';
+import ContextMenu from '@/components/ui/ContextMenu';
+import IconDotsVertical from '@/components/ui/icons/IconDotsVertical';
 
 const TheCase = observer(() => {
   const { link } = useParams<{ link: string }>();
@@ -29,9 +29,11 @@ const TheCase = observer(() => {
 
   const cases = practiceListStore.practices;
 
-  const onDelete = () => {
-    practiceListStore.delete(link);
-    navigate('/cases');
+  const onDelete = async () => {
+    const res = await practiceListStore.delete(link);
+    if (res?.success) {
+      navigate('/cases');
+    }
   };
 
   if (meta === 'loading') {
@@ -60,12 +62,19 @@ const TheCase = observer(() => {
           <h1 className="case__title">{article.title}</h1>
           <div className="case__controls">
             <AccessControl requiredRoles={['admin']}>
-              <TheLink to="update" variant="rounded" background="secondary">
-                Редактировать
-              </TheLink>
-              <Button onClick={onDelete} variant="rounded" background="danger">
-                Удалить
-              </Button>
+              <ContextMenu
+                triggerContent={<IconDotsVertical />}
+                items={[
+                  {
+                    title: 'Редактировать практику',
+                    action: () => navigate('update'),
+                  },
+                  {
+                    title: 'Удалить практику',
+                    action: () => onDelete(),
+                  },
+                ]}
+              />
             </AccessControl>
           </div>
           <img src={article.image} alt={article.title} className="case__image" />
