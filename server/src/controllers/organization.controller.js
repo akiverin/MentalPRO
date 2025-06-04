@@ -41,8 +41,8 @@ export const OrganizationController = {
     const { id } = req.params;
     try {
       const organization = await Organization.findById(id)
-        .populate("members", "firstName lastName email")
-        .populate("administrators", "firstName lastName email");
+        .populate("members", "firstName lastName email image")
+        .populate("administrators", "firstName lastName email image");
 
       if (!organization)
         return res.status(404).json({ message: "Организация не найдена" });
@@ -116,7 +116,6 @@ export const OrganizationController = {
     try {
       const { id } = req.params;
       const organization = await Organization.findByIdAndDelete(id);
-
       if (!organization) {
         return res.status(404).json({ message: "Организация не найдена" });
       }
@@ -138,6 +137,7 @@ export const OrganizationController = {
           }
         });
       }
+      res.json({ message: "Организация успешно удалена" });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Ошибка при удалении организации" });

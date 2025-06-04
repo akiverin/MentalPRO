@@ -161,7 +161,7 @@ export class PracticeListStore {
     }
   }
 
-  async delete(id: string): Promise<string | null> {
+  async delete(id: string): Promise<LoadResponse | null> {
     if (this._abortDeleteController) {
       this._abortDeleteController.abort();
     }
@@ -171,12 +171,12 @@ export class PracticeListStore {
 
     this.meta = Meta.loading;
     try {
-      const response = await deletePractice(id, signal);
+      await deletePractice(id, signal);
       runInAction(() => {
         this.meta = Meta.success;
       });
       this.fetchPractices();
-      return response;
+      return { success: true };
     } catch (error) {
       if (isCancelError(error)) {
         return null;

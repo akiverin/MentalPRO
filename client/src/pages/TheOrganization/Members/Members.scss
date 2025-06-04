@@ -1,0 +1,43 @@
+@use "@styles/variables" as v;
+
+.organization-members {
+  padding: 0px 20px 20px;
+  border: 1px solid v.$secondary;
+  border-radius: v.$border-radius;
+  margin-bottom: 20px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    object-fit: cover;
+  }
+
+  &__member-info {
+    flex: 1;
+  }
+
+  &__member-name {
+    margin: 0 0 2px;
+    font-size: v.$h6-size;
+    color: v.$dark;
+  }
+
+  &__member-email {
+    color: v.$primary;
+    font-size: v.$body-medium;
+    margin: 0;
+  }
+}

@@ -11,6 +11,7 @@ import Error from '@/components/ui/Error';
 import './CreateCase.scss';
 import { useNavigate } from 'react-router-dom';
 import Editor from '@/components/ui/Editor';
+import LoaderScreen from '@/components/ui/LoaderScreen';
 
 const CreateCase: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -34,6 +35,10 @@ const CreateCase: React.FC = observer(() => {
       navigate(`/cases/`);
     }
   };
+
+  if (practiceListStore.meta === 'loading') {
+    return <LoaderScreen />;
+  }
 
   return (
     <section className="case-create">

@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendConfirmationEmail(user) {
-  const url = `${process.env.FRONTEND_URL}/confirm-email?token=${user.emailConfirmToken}`;
+  const url = `${process.env.FRONTEND_URL}/api/auth/confirm-email?token=${user.emailConfirmToken}`;
   await transporter.sendMail({
     from: `"MentalPRO" <${process.env.SMTP_USER}>`,
     to: user.email,

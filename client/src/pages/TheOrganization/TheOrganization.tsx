@@ -8,11 +8,14 @@ import Applications from './Applications';
 import Content from './Content';
 import LoaderScreen from '@/components/ui/LoaderScreen';
 import { resultStore } from '@/entities/result/store/resultStoreInstance';
-import Button from '@/components/ui/Button';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { userStore } from '@/entities/user/stores/userStoreInstance';
 import AccessControl from '@/components/AccessControl';
+import ContextMenu from '@/components/ui/ContextMenu';
+import IconDotsVertical from '@/components/ui/icons/IconDotsVertical';
+import Members from './Members/Members';
+import { exportToJson } from '@/utils/exportJSON';
 
 const TheOrganization: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -64,14 +67,21 @@ const TheOrganization: React.FC = observer(() => {
     }
   };
 
-  const onDelete = () => {
-    organizationListStore.delete(id);
-    navigate('/organizations');
+  const onDelete = async () => {
+    const res = await organizationListStore.delete(id);
+    if (res?.success) {
+      navigate('/organizations');
+    }
   };
 
   const onActive = () => {
     organizationListStore.activate(id);
     navigate('/organizations');
+  };
+
+  const exportObj = async () => {
+    await resultStore.fetchResultsByOrganization(id);
+    exportToJson(resultStore.results, `results_org_${id}.json`);
   };
 
   const userId = userStore.user?.id;
@@ -110,22 +120,37 @@ const TheOrganization: React.FC = observer(() => {
       <section className="organization-info">
         <div className="organization-info__wrapper">
           <div className="organization-info__titles">
-            <h1 className="organization-info__title">{organization.title}</h1>
+            <div className="organization-info__first">
+              <h1 className="organization-info__title">{organization.title}</h1>
+              {access && (
+                <ContextMenu
+                  triggerContent={<IconDotsVertical />}
+                  items={[
+                    {
+                      title: 'Скачать отчет PDF',
+                      action: () => generatePDF(),
+                    },
+                    {
+                      title: 'Экспортировать результаты JSON',
+                      action: () => exportObj(),
+                    },
+                    {
+                      title: 'Одобрить организацию',
+                      action: () => onActive(),
+                      active: !organization.isActive,
+                    },
+
+                    {
+                      title: 'Удалить организацию',
+                      action: () => onDelete(),
+                    },
+                  ]}
+                />
+              )}
+            </div>
+
             <p className="organization-info__subtitle">{organization.description}</p>
             <p className="organization-info__subtitle">Количество участников: {organization.members.length}</p>
-            {access && (
-              <div className="organization-info__actions">
-                <Button variant="rounded" background="light" onClick={generatePDF}>
-                  Скачать PDF
-                </Button>
-                <Button variant="rounded" background="light" onClick={onActive}>
-                  Одобрить организацию
-                </Button>
-                <Button variant="rounded" background="light" onClick={onDelete}>
-                  Удалить организацию
-                </Button>
-              </div>
-            )}
           </div>
           <div className="organization-info__extra">
             {organization.image && (
@@ -142,9 +167,18 @@ const TheOrganization: React.FC = observer(() => {
       <section className="organization">
         <div className="organization__wrapper">
           <Content results={resultStore.results} meta={resultStore.meta} />
-          <AccessControl requiredRoles={['admin', 'hr']}>
-            <Applications id={id} />
-          </AccessControl>
+          <div className="organization__sideblock">
+            <Members
+              id={id}
+              members={organization.members}
+              administrators={organization.administrators}
+              meta={organizationListStore.meta}
+              creator={organization.createdBy}
+            ></Members>
+            <AccessControl requiredRoles={['admin', 'hr']}>
+              <Applications id={id} />
+            </AccessControl>
+          </div>
         </div>
       </section>
     </div>

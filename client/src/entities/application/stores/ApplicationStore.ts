@@ -143,6 +143,7 @@ export class ApplicationStore {
         this.application = response;
         this.meta = Meta.success;
       });
+      this.fetchApplicationsByUser();
       return { success: true };
     } catch (error) {
       if (isCancelError(error)) {
@@ -214,6 +215,7 @@ export class ApplicationStore {
       runInAction(() => {
         this.meta = Meta.success;
       });
+      this.fetchApplicationsByUser();
       return { success: true };
     } catch (error) {
       if (isCancelError(error)) {
