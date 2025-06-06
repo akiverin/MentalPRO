@@ -208,6 +208,7 @@ export class OrganizationListStore {
   }
 
   async update(id: string, obj: FormData): Promise<OrganizationModel | null> {
+    console.log(id, obj);
     if (this._abortActivateController) {
       this._abortActivateController.abort();
     }

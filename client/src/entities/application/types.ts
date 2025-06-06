@@ -12,7 +12,7 @@ export interface ApplicationRequest {
 export interface ApplicationPopulated {
   _id: string;
   userId: UserModel;
-  organizationId: OrganizationModel;
+  organizationId: OrganizationModel | string;
   status: ApplicationStatus;
   createdAt: string;
   updatedAt: string;

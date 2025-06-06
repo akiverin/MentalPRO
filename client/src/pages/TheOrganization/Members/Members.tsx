@@ -30,13 +30,21 @@ const Members: React.FC<MembersProps> = observer(({ id, members, administrators,
 
   const deleteMember = (memberId: string) => {
     const obj = new FormData();
-    const newMembers = members?.filter((m) => m._id !== memberId) || [];
-    obj.append('members', JSON.stringify(newMembers));
+    const newMembers = members?.filter((m) => m._id !== memberId).map((us) => us._id) || [];
+    if (newMembers) obj.append('members', JSON.stringify(newMembers));
+    console.log(newMembers);
+    organizationListStore.update(id, obj);
+  };
+
+  const addAdmin = (memberId: string) => {
+    const obj = new FormData();
+    const newAdmins = administrators?.push(memberId) ? administrators : [memberId];
+    if (newAdmins) obj.append('administrators', JSON.stringify(newAdmins));
+    console.log(newAdmins);
     organizationListStore.update(id, obj);
   };
 
   const exportObj = async (userId: string) => {
-    console.log(userId);
     await resultStore.fetchResultsByOrganization(id);
     const userResults = resultStore.results?.filter((res) => res.userId._id === userId);
     exportToJson(userResults, `results_${userId}.json`);
@@ -67,8 +75,9 @@ const Members: React.FC<MembersProps> = observer(({ id, members, administrators,
               <div className="organization-members__member-info">
                 <p className="organization-members__member-name">
                   {memb.firstName} {memb.lastName || ''} {memb.patronymic || ''}
-                  {administrators?.some((adm: UserModel) => adm._id === memb._id) ||
-                    (creator === memb._id && <IconCrown height={12} />)}
+                  {(administrators?.some((adm: UserModel) => adm._id === memb._id) || creator === memb._id) && (
+                    <IconCrown height={12} />
+                  )}
                 </p>
                 <span className="organization-members__member-email">{memb.email}</span>
               </div>
@@ -76,7 +85,15 @@ const Members: React.FC<MembersProps> = observer(({ id, members, administrators,
                 <ContextMenu
                   triggerContent={<IconDotsVertical />}
                   items={[
-                    { title: 'Назначить администратором', action: () => {}, active: false },
+                    {
+                      title: 'Назначить администратором',
+                      action: () => addAdmin(memb._id),
+                      active:
+                        (administrators && administrators.some((adm: UserModel) => adm._id === memb._id)) ||
+                        creator === memb._id
+                          ? false
+                          : true,
+                    },
                     {
                       title: 'Экспортировать результаты',
                       action: () => exportObj(memb._id),
@@ -84,7 +101,11 @@ const Members: React.FC<MembersProps> = observer(({ id, members, administrators,
                         administrators?.some((adm: UserModel) => adm._id === userStore.user?.id) ||
                         creator === userStore.user?.id,
                     },
-                    { title: 'Удалить из организации', action: () => deleteMember(memb.id), active: false },
+                    {
+                      title: 'Удалить из организации',
+                      action: () => deleteMember(memb._id),
+                      active: creator !== memb._id ? true : false,
+                    },
                   ]}
                 />
               )}
