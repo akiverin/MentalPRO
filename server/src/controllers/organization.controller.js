@@ -83,7 +83,27 @@ export const OrganizationController = {
     async (req, res) => {
       try {
         const { id } = req.params;
+        const author = req.user._id;
+        const organization = await Organization.findById(id);
+        if (!organization) {
+          return res.status(404).json({ message: "Организация не найдена" });
+        }
+        if (
+          !organization.administrators.includes(author) &&
+          organization.createdBy.toString() !== author.toString()
+        ) {
+          return res.status(403).json({
+            message: "У вас нет прав для редактирования этой организации",
+          });
+        }
+
         const updates = { ...req.body };
+        if (updates.members) {
+          updates.members = JSON.parse(updates.members);
+        }
+        if (updates.administrators) {
+          updates.administrators = JSON.parse(updates.administrators);
+        }
 
         if (req.file) {
           updates.image = `/files/${req.file.filename}`;

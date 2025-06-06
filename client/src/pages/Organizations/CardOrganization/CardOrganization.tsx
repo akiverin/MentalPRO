@@ -8,6 +8,7 @@ import { UserModel } from '@entities/user/model';
 import { applicationStore } from '@/entities/application/stores/applicationStoreInstance';
 import Button from '@/components/ui/Button';
 import AccessControl from '@/components/AccessControl';
+import { OrganizationModel } from '@/entities/organization/model';
 
 interface Organization {
   id: string;
@@ -28,9 +29,14 @@ const CardOrganization: FC<Organization> = observer(
     const user = userStore.user;
     const applications = applicationStore.applications;
     const isMember =
-      (members && user && members.some((usr) => usr.id === user._id)) || (createdBy && user && createdBy === user.id);
+      (members && user && members.some((usr) => usr.id === user.id)) || (createdBy && user && createdBy === user.id);
     const isCreatedApplication = applications.some(
-      (app) => user && app.organizationId['_id'] === id && app.userId.toString() === user.id,
+      (app) =>
+        user &&
+        (app.organizationId as OrganizationModel) &&
+        typeof app.organizationId !== 'string' &&
+        app.organizationId._id === id &&
+        app.userId.toString() === user.id,
     );
     const createApplication = () => {
       if (!user) return;
